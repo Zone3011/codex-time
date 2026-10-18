@@ -220,3 +220,65 @@ test("personal content and contact remain usable without JavaScript", async ({
   await expect(page.getByRole("tabpanel")).toContainText("WordPress");
   await context.close();
 });
+
+test("small wheel gestures advance chapters without skipping tall content", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator(".journey-world canvas")).toHaveAttribute(
+    "data-rendered",
+    "true",
+  );
+  await page.mouse.move(700, 400);
+  await page.mouse.wheel(0, 45);
+  await expect
+    .poll(() => page.evaluate(() => Math.round(scrollY)))
+    .toBeGreaterThan(300);
+  await expect(page.locator(".experience")).toHaveAttribute(
+    "data-chapter",
+    "about",
+  );
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        Math.abs(scrollY - (document.getElementById("about")!.offsetTop - 110)),
+      ),
+    )
+    .toBeLessThan(3);
+  // A fresh reverse gesture returns to the previous chapter.
+  await page.waitForTimeout(1100);
+  await page.mouse.wheel(0, -45);
+  await expect
+    .poll(() => page.evaluate(() => Math.round(scrollY)))
+    .toBeLessThan(3);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator(".experience")).toHaveClass(/motion-paused/);
+  await page.mouse.wheel(0, 45);
+  await page.waitForTimeout(400);
+  expect(await page.evaluate(() => scrollY)).toBeLessThan(150);
+});
+
+test("wheel scrolling can read the middle of a tall chapter", async ({
+  page,
+}) => {
+  await page.goto("/#skills");
+  await expect(page.locator(".journey-world canvas")).toHaveAttribute(
+    "data-rendered",
+    "true",
+  );
+  await page.setViewportSize({ width: 390, height: 640 });
+  await page
+    .locator("#skills")
+    .evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+  const start = await page.evaluate(() => scrollY);
+  await page.mouse.move(180, 350);
+  await page.mouse.wheel(0, 50);
+  await page.waitForTimeout(450);
+  const end = await page.evaluate(() => scrollY);
+  expect(end - start).toBeGreaterThan(0);
+  expect(end - start).toBeLessThan(150);
+  await expect(page.locator(".experience")).toHaveAttribute(
+    "data-chapter",
+    "skills",
+  );
+});

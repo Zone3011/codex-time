@@ -53,3 +53,5 @@
 - Ask before authentication, remote creation, pushing, remote PR creation, or deployment.
 - Never force-push or merge to production without explicit approval.
 - CI must pass before production approval. Once connected, Vercel deploys approved merges to protected main.
+
+- Wheel gestures may gently advance at chapter edges using passive listeners and native smooth scrolling, as requested by Nirav. Keep tall chapters readable, preserve touch/keyboard scrolling, and disable assistance when motion is paused or reduced.

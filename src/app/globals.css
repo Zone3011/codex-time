@@ -190,7 +190,7 @@ p {
 }
 .navigation a {
   position: relative;
-  font-size: 11px;
+  font-size: 16px;
   padding: 13px 15px;
   color: var(--subtle);
   transition: color 0.2s;
@@ -214,7 +214,7 @@ p {
   color: var(--ground);
   border-radius: 24px;
   padding: 12px 17px;
-  font-size: 10px;
+  font-size: 14px;
   display: flex;
   gap: 20px;
   align-items: center;
@@ -227,7 +227,7 @@ p {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: 12px;
   background: none;
   white-space: nowrap;
   color: var(--subtle);
@@ -246,7 +246,7 @@ p {
   padding: 135px 7% 70px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0.11em;
   text-transform: uppercase;
   display: flex;
@@ -295,12 +295,13 @@ h2 > span {
 }
 .intro-description {
   color: var(--subtle);
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.9;
   margin-top: 31px;
 }
 .intro-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   align-items: center;
   margin-top: 32px;
@@ -313,7 +314,7 @@ h2 > span {
   color: var(--ground);
   border-radius: 30px;
   padding: 16px 21px;
-  font-size: 11px;
+  font-size: 16px;
   box-shadow: 0 5px 16px #1727390a;
   transition:
     transform 0.25s,
@@ -328,7 +329,7 @@ h2 > span {
   line-height: 1;
 }
 .quiet-link {
-  font-size: 10px;
+  font-size: 14px;
   color: var(--subtle);
   display: flex;
   gap: 17px;
@@ -353,7 +354,7 @@ h2 > span {
 }
 .chapter-stamp,
 .small-coordinate {
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--subtle);
   font-family: monospace;
@@ -362,7 +363,7 @@ h2 > span {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 9px;
+  font-size: 13px;
   color: var(--subtle);
 }
 .scroll-note i {
@@ -386,7 +387,7 @@ h2 > span {
   position: absolute;
   right: 17%;
   bottom: 18%;
-  font-size: 6px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--subtle);
   display: flex;
@@ -430,7 +431,7 @@ h2 > span {
   position: absolute;
   bottom: 12%;
   left: 0;
-  font: 8px/1.8 monospace;
+  font: 12px/1.8 monospace;
   letter-spacing: 0.06em;
   color: var(--subtle);
 }
@@ -447,12 +448,12 @@ h2 > span {
   display: flex;
   gap: 10px;
   align-items: center;
-  font-size: 9px;
+  font-size: 13px;
   margin-bottom: 20px;
   color: var(--accent);
 }
 .about-note p {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--subtle);
   line-height: 1.95;
 }
@@ -467,7 +468,7 @@ h2 > span {
   margin-top: 22px;
   padding-top: 18px;
   font-family: "Space Grotesk Variable", sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   letter-spacing: -0.5px;
 }
 .note-signature > span:last-child {
@@ -486,7 +487,7 @@ h2 > span {
   margin-bottom: 62px;
 }
 .section-heading > p {
-  font-size: 11px;
+  font-size: 16px;
   color: var(--subtle);
   line-height: 1.9;
   padding-bottom: 5px;
@@ -521,7 +522,7 @@ h2 > span {
 }
 .technology-count {
   font-family: monospace;
-  font-size: 8px;
+  font-size: 12px;
   align-self: start;
   margin-top: 6px;
 }
@@ -533,7 +534,7 @@ h2 > span {
   line-height: 1;
 }
 .technology-type {
-  font-size: 8px;
+  font-size: 12px;
   max-width: 70px;
   line-height: 1.6;
   text-align: right;
@@ -569,7 +570,7 @@ h2 > span {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
 }
 .technology-glyph {
@@ -590,7 +591,7 @@ h2 > span {
   letter-spacing: -0.9px;
 }
 .technology-detail p {
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.9;
   color: var(--subtle);
   margin: 9px 0 2px;
@@ -600,7 +601,7 @@ h2 > span {
   display: flex;
   justify-content: space-between;
   gap: 25px;
-  font: 7px monospace;
+  font: 12px monospace;
   color: var(--subtle);
   letter-spacing: 0.03em;
   border-top: 1px solid var(--stroke);
@@ -609,7 +610,7 @@ h2 > span {
 }
 .section-foot span:last-child {
   font-family: "Manrope Variable", sans-serif;
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0;
 }
 .lab-section {
@@ -629,7 +630,7 @@ h2 > span {
   font-size: clamp(44px, 4.8vw, 78px);
 }
 .lab-heading > p:last-child {
-  font-size: 11px;
+  font-size: 16px;
   color: var(--subtle);
   margin-top: 25px;
 }
@@ -659,7 +660,7 @@ h2 > span {
   bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
-  font: 6px monospace;
+  font: 12px monospace;
   letter-spacing: 0.12em;
   white-space: nowrap;
   color: var(--subtle);
@@ -671,7 +672,7 @@ h2 > span {
   gap: 55px;
 }
 .experiment-index {
-  font: 8px monospace;
+  font: 12px monospace;
   letter-spacing: 0.05em;
   color: var(--subtle);
 }
@@ -681,7 +682,7 @@ h2 > span {
   margin: 14px 0;
 }
 .lab-note p {
-  font-size: 11px;
+  font-size: 16px;
   color: var(--subtle);
   line-height: 1.9;
 }
@@ -693,7 +694,7 @@ h2 > span {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
   border-bottom: 1px solid var(--stroke);
   padding-bottom: 18px;
@@ -701,7 +702,7 @@ h2 > span {
 .console-mark {
   margin-left: auto;
   font-family: monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 .scene-modes {
   display: grid;
@@ -721,7 +722,7 @@ h2 > span {
   padding: 13px 3px;
   background: none;
   border-radius: 8px;
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
   transition:
     background 0.3s,
@@ -756,7 +757,7 @@ h2 > span {
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
 }
 .rotation-control input {
@@ -766,7 +767,7 @@ h2 > span {
   cursor: ew-resize;
 }
 .lab-console > p {
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.9;
   color: var(--subtle);
   margin-top: 17px;
@@ -788,7 +789,7 @@ h2 > span {
   flex-shrink: 0;
 }
 .project-note p {
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.7;
 }
 .contact-section {
@@ -806,7 +807,7 @@ h2 > span {
   font-size: clamp(57px, 6.6vw, 107px);
 }
 .contact-copy > div > p:last-child {
-  font-size: 13px;
+  font-size: 17px;
   color: var(--subtle);
   margin-top: 30px;
   line-height: 1.9;
@@ -843,7 +844,7 @@ h2 > span {
   margin-top: 18px;
 }
 .contact-options button {
-  font-size: 9px;
+  font-size: 13px;
   padding: 10px 0;
   background: none;
   display: flex;
@@ -852,13 +853,13 @@ h2 > span {
   border-bottom: 1px solid var(--stroke);
 }
 .contact-options > span {
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
 }
 .contact-status {
   min-height: 22px;
   color: var(--subtle);
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.7;
   margin-top: 12px;
 }
@@ -880,7 +881,7 @@ footer .wordmark {
 footer p,
 footer > span,
 footer > a:last-child {
-  font-size: 8px;
+  font-size: 12px;
   color: var(--subtle);
 }
 footer > a:last-child > span {
@@ -964,7 +965,7 @@ html:has(.motion-paused) {
     gap: 20px;
   }
   .section-heading > p {
-    font-size: 10px;
+    font-size: 14px;
     max-width: 225px;
   }
   .toolkit-layout {
@@ -977,7 +978,7 @@ html:has(.motion-paused) {
     font-size: 28px;
   }
   .technology-type {
-    font-size: 7px;
+    font-size: 12px;
     max-width: 60px;
   }
   .technology-detail {
@@ -1002,7 +1003,22 @@ html:has(.motion-paused) {
     font-size: 7vw;
   }
   .contact-options > span {
-    font-size: 7px;
+    font-size: 12px;
+  }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .navigation {
+    gap: 0;
+  }
+  .navigation a {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+  .motion-toggle > span:last-child {
+    display: none;
+  }
+  .site-header {
+    gap: 14px;
   }
 }
 @media (max-width: 760px) {
@@ -1040,12 +1056,12 @@ html:has(.motion-paused) {
     display: flex;
   }
   .navigation a {
-    font-size: 11px;
+    font-size: 16px;
     padding: 12px 14px;
   }
   .menu-toggle {
     display: block;
-    font-size: 10px;
+    font-size: 14px;
     padding: 10px 0;
     background: none;
     color: var(--subtle);
@@ -1061,7 +1077,7 @@ html:has(.motion-paused) {
     display: none;
   }
   .header-contact {
-    font-size: 9px;
+    font-size: 13px;
     padding: 10px 13px;
     gap: 13px;
   }
@@ -1080,7 +1096,7 @@ html:has(.motion-paused) {
     max-width: 370px;
   }
   .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
     margin-bottom: 22px;
   }
   .intro-copy h1 {
@@ -1088,7 +1104,7 @@ html:has(.motion-paused) {
     margin-left: -4px;
   }
   .intro-description {
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 23px;
   }
   .intro-actions {
@@ -1096,12 +1112,12 @@ html:has(.motion-paused) {
     gap: 25px;
   }
   .button-primary {
-    font-size: 10px;
+    font-size: 14px;
     padding: 14px 17px;
     gap: 22px;
   }
   .quiet-link {
-    font-size: 9px;
+    font-size: 13px;
     gap: 12px;
   }
   .intro-bottom {
@@ -1113,7 +1129,7 @@ html:has(.motion-paused) {
     align-items: start;
   }
   .chapter-stamp {
-    font-size: 6px;
+    font-size: 12px;
     max-width: 105px;
     line-height: 1.9;
   }
@@ -1121,7 +1137,7 @@ html:has(.motion-paused) {
     display: none;
   }
   .scroll-note {
-    font-size: 7px;
+    font-size: 12px;
     max-width: 160px;
     gap: 9px;
     line-height: 1.7;
@@ -1132,7 +1148,7 @@ html:has(.motion-paused) {
   .scene-label {
     bottom: 16%;
     right: 14%;
-    font-size: 5px;
+    font-size: 12px;
     letter-spacing: 0.1em;
   }
   .scene-fallback {
@@ -1171,16 +1187,16 @@ html:has(.motion-paused) {
     background: var(--glass);
   }
   .note-heading {
-    font-size: 8px;
+    font-size: 12px;
     gap: 8px;
     margin-bottom: 17px;
   }
   .about-note p {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.9;
   }
   .note-signature {
-    font-size: 14px;
+    font-size: 18px;
     padding-top: 16px;
     margin-top: 19px;
   }
@@ -1193,7 +1209,7 @@ html:has(.motion-paused) {
     margin-bottom: 35px;
   }
   .section-heading > p {
-    font-size: 11px;
+    font-size: 16px;
     max-width: 310px;
     margin-top: 25px;
   }
@@ -1206,13 +1222,13 @@ html:has(.motion-paused) {
     gap: 15px;
   }
   .technology-count {
-    font-size: 8px;
+    font-size: 12px;
   }
   .technology-list button > span:nth-child(2) {
     font-size: 29px;
   }
   .technology-type {
-    font-size: 8px;
+    font-size: 12px;
     max-width: 83px;
   }
   .technology-detail {
@@ -1226,21 +1242,21 @@ html:has(.motion-paused) {
     font-size: 100px;
   }
   .technology-detail p {
-    font-size: 11px;
+    font-size: 16px;
   }
   .detail-top {
-    font-size: 8px;
+    font-size: 12px;
   }
   .technology-detail h3 {
     font-size: 22px;
   }
   .section-foot {
     margin-top: 35px;
-    font-size: 6px;
+    font-size: 12px;
     padding-top: 20px;
   }
   .section-foot span:last-child {
-    font-size: 8px;
+    font-size: 12px;
   }
   .lab-section {
     padding-top: 120px;
@@ -1257,7 +1273,7 @@ html:has(.motion-paused) {
     font-size: clamp(40px, 9.4vw, 65px);
   }
   .lab-heading > p:last-child {
-    font-size: 11px;
+    font-size: 16px;
     line-height: 1.8;
     max-width: 270px;
     margin-top: 23px;
@@ -1276,7 +1292,7 @@ html:has(.motion-paused) {
     bottom: 20%;
   }
   .lab-caption {
-    font-size: 5px;
+    font-size: 12px;
     bottom: 5%;
   }
   .lab-bottom {
@@ -1288,33 +1304,35 @@ html:has(.motion-paused) {
     margin: 12px 0;
   }
   .lab-note p {
-    font-size: 11px;
+    font-size: 16px;
   }
   .experiment-index {
-    font-size: 7px;
+    font-size: 12px;
   }
   .lab-console {
     padding: 23px;
     border-radius: 20px;
   }
   .console-top {
-    font-size: 8px;
+    font-size: 12px;
   }
   .scene-modes {
     margin: 20px 0;
   }
   .scene-modes button {
     padding: 14px 3px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .rotation-control {
-    font-size: 9px;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 13px;
   }
   .rotation-control input {
-    width: 42%;
+    width: 100%;
   }
   .lab-console > p {
-    font-size: 9px;
+    font-size: 13px;
   }
   .project-note {
     margin-top: 30px;
@@ -1325,7 +1343,7 @@ html:has(.motion-paused) {
     margin-top: 6px;
   }
   .project-note p {
-    font-size: 9px;
+    font-size: 13px;
   }
   .contact-section {
     display: block;
@@ -1341,7 +1359,7 @@ html:has(.motion-paused) {
     font-size: clamp(47px, 11vw, 75px);
   }
   .contact-copy > div > p:last-child {
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 25px;
   }
   .contact-actions {
@@ -1360,17 +1378,17 @@ html:has(.motion-paused) {
     margin-top: 15px;
   }
   .contact-options button {
-    font-size: 9px;
+    font-size: 13px;
     gap: 18px;
   }
   .contact-options > span {
-    font-size: 7px;
+    font-size: 12px;
     max-width: 110px;
     text-align: right;
     line-height: 1.8;
   }
   .contact-status {
-    font-size: 9px;
+    font-size: 13px;
     min-height: 38px;
     margin-top: 12px;
   }
@@ -1391,12 +1409,12 @@ html:has(.motion-paused) {
   footer > span {
     order: 4;
     flex-basis: 100%;
-    font-size: 7px;
+    font-size: 12px;
   }
   footer > a:last-child {
     order: 3;
     flex-basis: 100%;
-    font-size: 9px;
+    font-size: 13px;
   }
   footer > a:last-child > span {
     margin-left: 14px;
@@ -1421,14 +1439,13 @@ html:has(.motion-paused) {
     font-size: 25vw;
   }
   .quiet-link {
-    font-size: 8px;
+    font-size: 12px;
   }
   .technology-list button {
     gap: 12px;
   }
   .technology-type {
-    max-width: 65px;
-    font-size: 7px;
+    display: none;
   }
   .technology-list button > span:nth-child(2) {
     font-size: 26px;
@@ -1437,13 +1454,13 @@ html:has(.motion-paused) {
     padding: 20px;
   }
   .note-heading {
-    font-size: 7px;
+    font-size: 12px;
   }
   .technology-detail {
     margin-left: 5%;
   }
   .rotation-control {
-    font-size: 8px;
+    font-size: 12px;
   }
   .contact-copy h2 {
     font-size: 12vw;

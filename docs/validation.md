@@ -57,3 +57,16 @@ Lint trusted source paths. Recheck npm audit during dependency updates and updat
 - Production-only npm audit reports zero vulnerabilities. The five existing development-only lint-chain advisories documented above remain.
 - No physical mobile device or broad GPU/frame-rate benchmark was run. The local preview on port 3000 was left running; test servers owned port 3100 and were stopped by Playwright.
 - No authentication, remote push, pull request, merge, or deployment was performed. Work is local on feat/immersive-connected-portfolio.
+
+## Readability refinement
+
+- Enlarged body copy to 16�18px and small labels to at least 12px, including mobile overrides. Increased navigation and action text and allowed hero actions to wrap.
+- Adjusted tablet header spacing and mobile perspective controls for the larger typography.
+- ESLint, TypeScript validation, production build, and all nine Microsoft Edge browser tests passed. Inspected the mobile introduction capture. Changes remain local; nothing pushed or deployed.
+
+## Assisted section scrolling
+
+- Added passive wheel-gesture assistance using native smooth scrolling at chapter edges. Small gestures advance or return one chapter; tall sections retain normal reading space. Touch and keyboard scrolling stay native. Assistance is disabled by the shared pause/reduced-motion setting.
+- Cached scene section references and reduced maximum canvas DPR from 1.5 to 1.25 to lower GPU pixel work. Existing single renderer and hidden-tab pause remain.
+- Production build and all 11 Edge browser tests passed, including new forward/reverse gesture, reduced-motion, and tall-section behavior coverage. No physical-device frame-rate guarantee or GPU benchmark is claimed.
+- The previous test server was stale on port 3100; identified and terminated that test-owned process before rerunning successfully. The user preview on port 3000 was not stopped.

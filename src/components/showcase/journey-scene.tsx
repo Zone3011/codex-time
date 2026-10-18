@@ -403,7 +403,7 @@ export default function JourneyScene(props: {
 }) {
   return (
     <Canvas
-      dpr={[1, 1.5]}
+      dpr={[1, 1.25]}
       camera={{ position: [0, 0.22, 8.7], fov: 40 }}
       frameloop={props.enabled ? "always" : "demand"}
       gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}

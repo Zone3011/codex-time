@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useExperience } from "./experience-context";
+import { SectionScroll } from "./section-scroll";
 gsap.registerPlugin(ScrollTrigger);
 export function PageMotion({ children }: { children: React.ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
@@ -49,6 +50,7 @@ export function PageMotion({ children }: { children: React.ReactNode }) {
   }, [enabled]);
   return (
     <div ref={root} className="page-motion">
+      <SectionScroll />
       {children}
       <div className="scroll-progress" aria-hidden="true" />
     </div>

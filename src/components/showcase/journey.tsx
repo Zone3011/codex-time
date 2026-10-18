@@ -34,12 +34,13 @@ export function Journey() {
   const { enabled, mode, rotation, active } = useExperience();
   const visible = usePageVisible();
   useEffect(() => {
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("main > section"),
+    );
     let frame = 0;
     const update = () => {
       frame = 0;
-      const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("main > section"),
-      );
+
       let progress = 0;
       const marker = window.innerHeight * 0.15;
       for (let i = 0; i < sections.length; i++) {
