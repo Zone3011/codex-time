@@ -35,3 +35,12 @@ Lint trusted source paths. Recheck npm audit during dependency updates and updat
 - ESLint, TypeScript, production build, and all seven browser tests passed. The opening test also checks the color-remix action.
 - Desktop and mobile screenshots reviewed; reduced-motion, keyboard controls, and overflow checks remain covered.
 - This revision remains local on feat/color-playground-redesign.
+
+## Reference-led opening prototype
+
+- Inspected Leo9 Studio, Igloo Inc., and Squared Media in headless Edge; waited past Squared's loader and captured a scrolled view. References informed the design; no reference assets or code were copied.
+- Scoped this iteration to the opening and navigation. Other chapters retain their prior design for now.
+- Created an original 3D N from 1,140 connected nodes, with scroll/pointer camera movement and an unfold/reassemble control. Added a translucent glass header and a sticky opening transition.
+- Lint, TypeScript, and production build passed. All seven browser tests passed, including the new scroll-driven opacity check. A focused follow-up verified floating navigation remains in the viewport during the camera journey.
+- Reviewed desktop, scrolled opening, and mobile screenshots. The renderer pauses offscreen/hidden and reduced motion uses a static scene with an unpinned layout.
+- No hardware phone performance benchmark, remote push, merge, or deployment was performed.

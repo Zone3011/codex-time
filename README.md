@@ -1,3 +1,7 @@
+# Current opening prototype
+
+The opening and glass header now explore Nirav’s supplied references: Leo9’s connected dots, Igloo’s 3D camera and particles, and Squared Media’s transitions and glass treatment. The prototype uses an original connected-particle N with a scroll-driven camera and an unfold/reassemble button. The other five sections retain their prior design while this direction is reviewed. No external website assets or source code were copied.
+
 # Nirav Patel — a little web wonder
 
 A personal Next.js portfolio built as six colorful, interactive chapters. Saturated cyan, orange, blue, yellow, and pink replace the earlier pastel design. Each chapter uses a library for a specific visible experience, connected by a persistent header and an optional section guide.
@@ -26,7 +30,7 @@ If a preview server is already running, stop it before switching between product
 
 | Chapter   | Library                      | Experience                                                                    |
 | --------- | ---------------------------- | ----------------------------------------------------------------------------- |
-| Hello     | GSAP                         | A typographic nine-tile color composition with a user-triggered remix         |
+| Hello     | GSAP                         | An original 3D connected-particle N, scroll camera, and GSAP introduction     |
 | Play      | Matter.js                    | Draggable, colliding shapes with shuffle and reverse-gravity buttons          |
 | Toolkit   | Motion                       | Shared-layout selection and animated detail panels for Nirav's technologies   |
 | Depth     | Three.js + React Three Fiber | A still, custom-shaded 3D knot with two finishes and a rotation slider        |
@@ -39,7 +43,7 @@ Field notes use a small square control instead of the earlier blob character; th
 
 - The header includes a global motion pause. System reduced-motion preferences disable automatic movement, animated transitions, and confetti.
 - Physics and the 3D scene load near their sections. Expensive render loops stop when the section is offscreen or the tab is hidden.
-- The color composition has no idle loop. Physics starts after a drag or button action; 3D has no automatic movement; story drawing runs only on request. Animation contexts, event listeners, engine loops, and observers are cleaned up.
+- The opening camera follows scroll and pointer movement; its renderer pauses offscreen, when the tab is hidden, or with reduced motion. Physics starts after a drag or button action; the separate Depth sculpture has no automatic movement; story drawing runs only on request. Animation contexts, event listeners, engine loops, and observers are cleaned up.
 - 3D pixel density is capped at 1.5. A static CSS sculpture is available while loading and when WebGL cannot render.
 - Physics dragging is contained to the frame; scroll outside it on touch devices. Shuffle and gravity controls provide alternatives to dragging.
 - Technology tabs support Up/Down, Home, and End keys. Mobile navigation supports Escape. The page includes a skip link and visible focus.
@@ -83,7 +87,7 @@ Repository: https://github.com/Zone3011/codex-time
 
 Existing live site: https://codex-time.vercel.app
 
-Work on feat/color-playground-redesign remains local until pushing is approved. The existing site does not change through a local commit.
+Work on feat/connected-particle-opening remains local until pushing is approved. The existing site does not change through a local commit.
 
 For future features, Codex reads AGENTS.md, uses a feature branch for substantial work, implements and validates locally, and prepares a reviewable commit and PR description. Obtain approval before authentication, pushing, opening remote PRs, merging to production, or deployment.
 

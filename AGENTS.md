@@ -53,3 +53,10 @@
 
 - Nirav rejected muted pastels, repeating serif-led section layouts, rotating flowers, and decorative idle animation. Prefer vivid colors and varied compositions.
 - Current motion is interaction-led: color remix, physics after a drag/button action, sculpture rotation, and requested line drawing. Do not restore automatic spinning or shader movement without a new request.
+
+## Latest reference-led opening
+
+- Nirav supplied https://leo9studio.com/ for clean connected dots, https://www.igloo.inc/ for 3D/camera/particles, and https://www.squared-media.nl/ for smooth transitions and glass surfaces.
+- The current scope is one opening prototype and its header, pending visual review. Keep the other chapters until the opening direction is accepted.
+- Scroll/pointer-driven 3D camera motion is authorized for this opening, superseding the earlier static-only direction there. Preserve pause, reduced motion, and WebGL fallbacks.
+- Create original geometry and effects; do not copy reference assets, text, branding, or code.

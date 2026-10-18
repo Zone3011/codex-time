@@ -39,39 +39,38 @@ export default function Home() {
       <Navigation />
       <main id="main">
         <section
-          className="hero section-pad"
+          className="hero connected-opening"
           id="home"
           aria-labelledby="hero-title"
         >
-          <Chapter number="01" engine="GSAP">
-            Open for exploration
-          </Chapter>
-          <div className="hero-layout">
-            <div className="hero-copy">
-              <p className="eyebrow">NIRAV PATEL / DEVELOPER</p>
-              <h1 id="hero-title">
-                <span>NIRAV</span>
-                <span>
-                  PATEL<span className="name-period">.</span>
-                </span>
-              </h1>
-              <p className="hero-description">
-                I’m Nirav. I work with web and mobile technologies.
-                <br />A personal site. A few experiments. Nothing set in stone.
-              </p>
-              <a className="pill-link" href="#play">
-                Get your hands on it <span aria-hidden="true">↘</span>
-              </a>
+          <div className="hero-panel">
+            <div className="hero-content">
+              <div className="hero-copy">
+                <p className="eyebrow">NIRAV PATEL / WEB & MOBILE DEVELOPER</p>
+                <h1 id="hero-title">
+                  <span>Nirav</span>
+                  <span>
+                    Patel<span className="name-period">.</span>
+                  </span>
+                </h1>
+                <p className="hero-description">
+                  I work with WordPress, PHP, Flutter, .NET, and Next.js. This
+                  is where the connections take shape.
+                </p>
+                <a className="pill-link" href="#play">
+                  Step inside <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+              <HeroArtwork />
+              <div className="hero-foot">
+                <span>CODE. CONNECTIONS. A DIFFERENT PERSPECTIVE.</span>
+                <span>Scroll to change your perspective ↓</span>
+              </div>
             </div>
-            <HeroArtwork />
           </div>
-          <div className="hero-foot">
-            <span>WORDPRESS / PHP / FLUTTER / .NET / NEXT.JS</span>
-            <span>
-              Scroll it. Click it. Mess with it.{" "}
-              <span aria-hidden="true">↓</span>
-            </span>
-          </div>
+          <span className="hero-transition-label">
+            01 / A connected opening
+          </span>
         </section>
         <section
           className="play-section section-pad"

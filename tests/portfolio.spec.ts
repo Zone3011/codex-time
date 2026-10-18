@@ -5,14 +5,31 @@ test("six chapters, real identity, and direct contact", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Nirav Patel/);
   await expect(page.locator("main > section")).toHaveCount(6);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("NIRAV");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Nirav");
   await expect(
     page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
   ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
-  await page.getByRole("button", { name: /Remix the colors/ }).click();
-  await expect(page.locator(".color-caption")).toContainText("02");
+  await page.getByRole("button", { name: /Explore the connections/ }).click();
+  await expect(
+    page.getByRole("button", { name: /Bring it together/ }),
+  ).toHaveAttribute("aria-pressed", "true");
   await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator(".hero-copy .pill-link")).toHaveCSS("opacity", "1");
   await page.screenshot({ path: "test-results/hero-desktop.png" });
+  await page.evaluate(() =>
+    window.scrollTo({ top: window.innerHeight * 0.45, behavior: "instant" }),
+  );
+  await expect
+    .poll(async () =>
+      Number(
+        await page
+          .locator(".hero-copy")
+          .evaluate((el) => getComputedStyle(el).opacity),
+      ),
+    )
+    .toBeLessThan(0.9);
+  await expect(page.locator(".site-header")).toBeInViewport();
+  await page.screenshot({ path: "test-results/opening-scroll.png" });
   expect(errors).toEqual([]);
 });
 test("physics controls and keyboard-accessible skill transitions", async ({

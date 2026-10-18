@@ -2,9 +2,9 @@ export const experiences = [
   {
     id: "home",
     label: "Hello",
-    engine: "GSAP",
+    engine: "Three.js + GSAP",
     color: "#ffcf00",
-    tip: "Nine tiles. No fixed palette. Remix the colors to make another composition; GSAP handles the brief color change.",
+    tip: "An original N built from connected dots. Scroll to travel around it, or unfold the network with the button. Three.js renders the scene; GSAP handles the introduction.",
   },
   {
     id: "play",
