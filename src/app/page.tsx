@@ -1,245 +1,225 @@
 import { Navigation } from "@/components/navigation";
-import { Motion } from "@/components/motion";
-import { profile, projects, skills } from "@/content/portfolio";
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
+import { ExperienceProvider } from "@/components/showcase/experience-context";
+import { Journey } from "@/components/showcase/journey";
+import { PageMotion } from "@/components/showcase/page-motion";
+import { Toolkit } from "@/components/showcase/toolkit";
+import { LabControls } from "@/components/showcase/lab-controls";
+import { ContactActions } from "@/components/showcase/contact";
+import { profile } from "@/content/portfolio";
+function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p className="eyebrow">
-      <span className="tiny-square" />
+      <span />
       {children}
     </p>
   );
 }
-
 export default function Home() {
   return (
-    <Motion>
+    <ExperienceProvider>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="shell" id="home">
-        <Navigation />
+      <Journey />
+      <Navigation />
+      <PageMotion>
         <main id="main">
-          <section className="hero" aria-labelledby="hero-title">
-            <div className="hero-top" data-intro>
-              <span className="eyebrow">Developer & creative thinker</span>
-              <span className="edition">PORTFOLIO / IN PROGRESS</span>
-            </div>
-            <h1 id="hero-title" data-intro>
-              Good ideas.
-              <br />
-              <span>Beautifully</span> built<span className="blue-dot">.</span>
-            </h1>
-            <div className="hero-bottom" data-intro>
-              <p>
-                I turn complex problems into clear,
-                <br className="desktop-break" /> considered digital experiences.
-                <br />
-                <span>Where engineering meets a good eye.</span>
-              </p>
-              <a className="round-link" href="#work">
-                <span>Explore the work</span>
-                <span className="circle-arrow" aria-hidden="true">
-                  ↓
-                </span>
-              </a>
-            </div>
-            <div className="hero-art" aria-hidden="true">
-              <div className="art-label">IDEA → INTERFACE</div>
-              <div className="code-sculpture">
-                <span>〈</span>
-                <i>✳</i>
-                <span>〉</span>
-              </div>
-              <div className="art-bottom">
-                <span>Built with intention.</span>
-                <span>Designed to feel right. ↗</span>
-              </div>
-            </div>
-          </section>
           <section
-            className="work section"
-            id="work"
-            aria-labelledby="work-title"
+            className="chapter intro-section"
+            id="home"
+            aria-labelledby="hero-title"
           >
-            <div className="section-heading">
-              <div>
-                <SectionLabel>Selected explorations</SectionLabel>
-                <h2 id="work-title">
-                  A few things
-                  <br />
-                  taking shape.
-                </h2>
+            <div className="intro-copy">
+              <div className="intro-reveal">
+                <Eyebrow>Developer / Web & mobile</Eyebrow>
               </div>
-              <p>
-                Ideas made tangible.
+              <h1 id="hero-title" className="intro-reveal">
+                Nirav
                 <br />
-                Illustrative concepts, ready for your real work.
+                Patel<span>.</span>
+              </h1>
+              <p className="intro-description intro-reveal">
+                A personal space for code,
+                <br />
+                curiosity, and what comes next.
               </p>
+              <div className="intro-actions intro-reveal">
+                <a className="button-primary" href="#world">
+                  Explore my world <span aria-hidden="true">↗</span>
+                </a>
+                <a className="quiet-link" href="#about">
+                  Meet the person <span aria-hidden="true">↓</span>
+                </a>
+              </div>
             </div>
-            <div className="projects">
-              {projects.map((project, index) => (
-                <article className="project" key={project.name}>
-                  <div
-                    className={"project-art " + project.style}
-                    aria-hidden="true"
-                  >
-                    <span className="project-art-top">
-                      {project.name}
-                      <span>
-                        CONCEPT / {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </span>
-                    <span className="project-glyph">{project.glyph}</span>
-                    <span className="project-note">{project.note}</span>
-                  </div>
-                  <div className="project-title">
-                    <h3>{project.name}</h3>
-                    <span className="pill">Concept</span>
-                  </div>
-                  <p className="project-category">{project.category}</p>
-                  <p>{project.description}</p>
-                  <ul className="tags" aria-label="Technologies">
-                    {project.stack.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
-                  <details>
-                    <summary>
-                      About this concept <span aria-hidden="true">+</span>
-                    </summary>
-                    <p>
-                      This is an illustrative portfolio placeholder, not a
-                      completed client project. Replace it with a real case
-                      study, your contribution, and verified outcomes before
-                      publishing.
-                    </p>
-                  </details>
-                </article>
-              ))}
+            <div className="intro-bottom">
+              <span className="chapter-stamp">PERSONAL PORTFOLIO / N—P</span>
+              <span className="scroll-note">
+                <i />
+                Scroll. There’s more beneath the surface.
+              </span>
+              <span className="small-coordinate" aria-hidden="true">
+                01 — 05
+              </span>
             </div>
+            <span className="scene-label" aria-hidden="true">
+              <i />A CONNECTION TAKING SHAPE
+            </span>
           </section>
           <section
-            className="about section"
+            className="chapter about-section"
             id="about"
             aria-labelledby="about-title"
           >
-            <div>
-              <SectionLabel>A little about me</SectionLabel>
-              <h2 id="about-title">
-                Curiosity is
-                <br />
-                part of the stack.
-              </h2>
-              <div className="about-signature" aria-hidden="true">
-                hello<span>↗</span>
+            <div className="about-layout">
+              <div className="about-space" aria-hidden="true">
+                <span className="scene-coordinate">
+                  A DIFFERENT
+                  <br />
+                  PERSPECTIVE.
+                </span>
+              </div>
+              <div className="about-copy">
+                <div data-reveal>
+                  <Eyebrow>A little about me</Eyebrow>
+                  <h2 id="about-title">
+                    Behind every
+                    <br />
+                    interface,
+                    <br />
+                    <span>a person.</span>
+                  </h2>
+                </div>
+                <div className="about-note glass" data-reveal>
+                  <div className="note-heading">
+                    <span className="live-dot" />
+                    Currently working. Still exploring.
+                  </div>
+                  <p>
+                    I’m Nirav, a developer working with web and mobile
+                    technologies. This is my own corner of the internet—a place
+                    to explore, build, and share more as I go.
+                  </p>
+                  <p>
+                    WordPress, PHP, Flutter, .NET, and Next.js are part of my
+                    toolkit. The rest of the story is still taking shape.
+                  </p>
+                  <div className="note-signature">
+                    <span>Nirav Patel</span>
+                    <span aria-hidden="true">↗</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="about-copy">
-              <p className="large-copy">
-                A space for the person
-                <br />
-                behind the pixels.
-              </p>
-              <p>
-                I’m {profile.name}. This portfolio is a starting point for
-                sharing what I build, how I think, and the details I care about.
-              </p>
-              <p>
-                Replace this introduction with your background, interests, and
-                approach to building software. Keep it personal, specific, and
-                true to you.
-              </p>
-              <a className="text-link" href="#contact">
-                Start a conversation <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </section>
-          <section className="skills section" aria-labelledby="skills-title">
-            <SectionLabel>Tools & approach</SectionLabel>
-            <h2 id="skills-title">The building blocks.</h2>
-            <p className="section-intro">
-              The technologies behind this site and areas to personalize with
-              your own expertise.
-            </p>
-            <div className="skill-grid">
-              {skills.map((skill) => (
-                <div key={skill.title}>
-                  <h3>{skill.title}</h3>
-                  <ul>
-                    {skill.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
           </section>
           <section
-            className="experience section"
-            id="experience"
-            aria-labelledby="experience-title"
+            className="chapter toolkit-section"
+            id="skills"
+            aria-labelledby="skills-title"
           >
-            <div>
-              <SectionLabel>The journey</SectionLabel>
-              <h2 id="experience-title">
-                Always
-                <br />a work in progress.
-              </h2>
+            <div className="section-heading" data-reveal>
+              <div>
+                <Eyebrow>Tools, thoughtfully chosen</Eyebrow>
+                <h2 id="skills-title">
+                  Different tools.
+                  <br />
+                  <span>Connected thinking.</span>
+                </h2>
+              </div>
+              <p>
+                Web, mobile, and what sits between.
+                <br />
+                Take a closer look at what I work with.
+              </p>
             </div>
-            <div className="timeline">
-              <article>
-                <span className="timeline-date">NEXT CHAPTER</span>
-                <h3>Your experience belongs here.</h3>
-                <p>
-                  Add your real roles, organizations, dates, and
-                  responsibilities. No invented titles. Just the work and what
-                  you learned.
-                </p>
-              </article>
-              <article>
-                <span className="timeline-date">RIGHT NOW</span>
-                <h3>Building this portfolio</h3>
-                <p>
-                  A Next.js foundation for telling your story, showing your
-                  projects, and making your next connection.
-                </p>
-              </article>
+            <div data-reveal>
+              <Toolkit />
+            </div>
+            <div className="section-foot">
+              <span>THE TOOLKIT</span>
+              <span>Choose a technology to explore ↗</span>
             </div>
           </section>
           <section
-            className="contact"
+            className="chapter lab-section"
+            id="world"
+            aria-labelledby="world-title"
+          >
+            <div className="lab-heading" data-reveal>
+              <Eyebrow>A space to experiment</Eyebrow>
+              <h2 id="world-title">
+                A little less ordinary.
+                <br />
+                <span>A little more possible.</span>
+              </h2>
+              <p>What happens when a browser becomes a place to explore?</p>
+            </div>
+            <div className="lab-stage" aria-hidden="true">
+              <span className="lab-cross cross-a">+</span>
+              <span className="lab-cross cross-b">+</span>
+              <span className="lab-caption">
+                LIVE GEOMETRY / REAL CONNECTIONS
+              </span>
+            </div>
+            <div className="lab-bottom">
+              <div className="lab-note" data-reveal>
+                <span className="experiment-index">EXPERIMENT / 001</span>
+                <h3>Connected matter.</h3>
+                <p>
+                  An original experiment in geometry, light, and motion.
+                  <br />
+                  Made for this portfolio. Yours to play with.
+                </p>
+              </div>
+              <LabControls />
+            </div>
+            <div className="project-note" data-reveal>
+              <span className="project-note-dot" />
+              <p>
+                My public work starts here. Real project stories will follow
+                when I have work I can share.
+              </p>
+            </div>
+          </section>
+          <section
+            className="chapter contact-section"
             id="contact"
             aria-labelledby="contact-title"
           >
-            <SectionLabel>Have something in mind?</SectionLabel>
-            <h2 id="contact-title">
-              Let’s make
-              <br />
-              <span>something matter.</span>
-            </h2>
-            <div className="contact-bottom">
-              <p>
-                A good conversation is a great place to start.
-                <br />
-                <span>Replace the example address before reaching out.</span>
-              </p>
-              <a href={"mailto:" + profile.email}>
-                {profile.email} <span aria-hidden="true">↗</span>
-              </a>
+            <div className="contact-copy">
+              <div data-reveal>
+                <Eyebrow>Every connection starts somewhere</Eyebrow>
+                <h2 id="contact-title">
+                  Your next idea.
+                  <br />
+                  <span>Our first hello.</span>
+                </h2>
+                <p>
+                  A question, an idea, or just a conversation?
+                  <br />
+                  My inbox is open.
+                </p>
+              </div>
+              <div data-reveal>
+                <ContactActions />
+              </div>
             </div>
+            <footer>
+              <a className="wordmark" href="#home" aria-label="Back to top">
+                np
+                <span className="brand-dot" />
+              </a>
+              <p>
+                © {new Date().getFullYear()} {profile.name}
+              </p>
+              <span>Built with curiosity. Made to be explored.</span>
+              <a href="#home">
+                Back to the surface <span aria-hidden="true">↑</span>
+              </a>
+            </footer>
           </section>
         </main>
-        <footer>
-          <a className="wordmark" href="#home" aria-label="Back to top">
-            yn<span>®</span>
-          </a>
-          <p>
-            © {new Date().getFullYear()} {profile.name}. Built with intention.
-          </p>
-          <a href="#home">Back to top ↑</a>
-        </footer>
-      </div>
-    </Motion>
+      </PageMotion>
+    </ExperienceProvider>
   );
 }

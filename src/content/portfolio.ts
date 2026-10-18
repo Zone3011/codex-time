@@ -1,52 +1,47 @@
-export const profile = { name: "Your Name", email: "hello@example.com" };
-export const projects = [
+export const profile = {
+  name: "Nirav Patel",
+  initials: "np",
+  email: "niravpatel1422004@gmail.com",
+};
+export const toolkit = [
   {
-    name: "Fieldnotes",
-    category: "Editorial platform",
-    description:
-      "A concept for a quieter corner of the internet. Long-form stories, thoughtful reading, and a little room to breathe.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    style: "fieldnotes",
-    glyph: "F",
-    note: "Stories worth staying for.",
+    name: "WordPress",
+    type: "Web publishing",
+    symbol: "W",
+    color: "#ffcf00",
+    text: "One of the tools I use for building on the web.",
+    code: "a place for your next idea",
   },
   {
-    name: "Forma",
-    category: "Design system",
-    description:
-      "An interface concept exploring a shared visual language, from the smallest control to the complete experience.",
-    stack: ["React", "CSS", "Accessibility"],
-    style: "forma",
-    glyph: "◒",
-    note: "Less friction. More flow.",
+    name: "PHP",
+    type: "Server-side development",
+    symbol: "php",
+    color: "#f33294",
+    text: "Part of my toolkit for the server side of the web.",
+    code: "behind the interface",
   },
   {
-    name: "Orbit",
-    category: "Developer tool",
-    description:
-      "A workspace concept for making complex information feel clear, approachable, and useful.",
-    stack: ["TypeScript", "Next.js", "UI design"],
-    style: "orbit",
-    glyph: "◎",
-    note: "Find your focus.",
-  },
-];
-export const skills = [
-  {
-    title: "Interface engineering",
-    items: ["React / Next.js", "TypeScript", "HTML & CSS", "Tailwind CSS"],
+    name: "Flutter",
+    type: "Mobile development",
+    symbol: "↗",
+    color: "#1bc9b2",
+    text: "The mobile side of my development toolkit.",
+    code: "from a screen to an experience",
   },
   {
-    title: "Thoughtful experiences",
-    items: [
-      "Responsive design",
-      "Accessibility",
-      "GSAP motion",
-      "Design systems",
-    ],
+    name: ".NET",
+    type: "Application development",
+    symbol: ".net",
+    color: "#ff7042",
+    text: "One of the platforms I work with for applications.",
+    code: "building beyond the browser",
   },
   {
-    title: "From idea to release",
-    items: ["Git & GitHub", "Code review", "Automated checks", "Vercel"],
+    name: "Next.js",
+    type: "Web development",
+    symbol: "N",
+    color: "#fffdf2",
+    text: "The framework this portfolio is built with.",
+    code: "this very corner of the internet",
   },
 ];
