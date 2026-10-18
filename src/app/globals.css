@@ -739,3 +739,37 @@ footer > a:last-child {
     transition: none !important;
   }
 }
+
+/* Personal portfolio content */
+.work-note {
+  max-width: 650px;
+  border-left: 3px solid var(--blue);
+  padding: 8px 0 8px 28px;
+}
+.work-note .large-copy {
+  font-size: 28px;
+  letter-spacing: -0.04em;
+  line-height: 1.3;
+  margin: 0 0 16px;
+}
+.work-note > p:not(.large-copy) {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.code-sculpture i {
+  letter-spacing: -0.09em;
+  padding-right: 0.09em;
+}
+.contact-bottom > a {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  .work-note {
+    padding-left: 20px;
+  }
+  .contact-bottom > a {
+    font-size: clamp(17px, 4.8vw, 28px);
+  }
+}

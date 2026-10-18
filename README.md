@@ -1,4 +1,4 @@
-# Codex Time — developer portfolio
+# Nirav Patel — personal portfolio
 
 A responsive editorial portfolio built with Next.js App Router, TypeScript, Tailwind CSS v4, and GSAP. Cobalt blue, oversized type, and original CSS artwork give it a visual identity without external image or font dependencies.
 
@@ -30,13 +30,15 @@ No environment variables, accounts, or credentials are required. .env.example do
 - .github/workflows/ci.yml: npm clean install, lint, TypeScript checks, production build.
 - AGENTS.md: durable conventions and approval boundaries for Codex.
 
-## Personalize before publishing
+## Portfolio content
 
-Replace Your Name and hello@example.com in src/content/portfolio.ts. Update page copy, initials in navigation/footer, title and description in src/app/layout.tsx, skill groups, and experience entries in src/app/page.tsx. The three project concepts are explicitly illustrative; add verified case studies and real repository or live URLs when available. The contact link opens the example email address; it is not a message delivery service. No professional history or project outcomes are claimed.
+This portfolio belongs to Nirav Patel. Identity and technology groups live in src/content/portfolio.ts; personal copy is in src/app/page.tsx. Contact uses niravpatel1422004@gmail.com. LinkedIn is intentionally omitted. No public project case studies, employer names, or employment dates have been supplied. The work section introduces this portfolio without claiming fictional projects.
+
+Update the site as Nirav supplies real projects and more about his work. Keep copy grounded in those details; AGENTS.md records these preferences.
 
 ## GitHub setup — approval required
 
-A local Git repository and initial commit are prepared. No remote is created or configured by this setup.
+The repository is connected to https://github.com/Zone3011/codex-time. The current site is hosted at https://codex-time.vercel.app. Changes in this feature branch remain local until a push is authorized. The steps below are retained as setup guidance.
 
 After approving authentication, remote creation, and pushing, create an empty GitHub repository and connect it:
 
@@ -66,6 +68,6 @@ Describe the feature and acceptance criteria. Codex reads AGENTS.md, creates a f
 
 ## Browser checks
 
-Run npm exec playwright install chromium once, then npm run test:e2e after a production build. On Windows with Microsoft Edge installed, set PLAYWRIGHT_CHANNEL=msedge instead of installing Chromium. The suite checks keyboard navigation, project disclosures, responsive overflow, and reduced motion.
+Run npm exec playwright install chromium once, then npm run test:e2e after a production build. On Windows with Microsoft Edge installed, set PLAYWRIGHT_CHANNEL=msedge instead of installing Chromium. The suite checks keyboard navigation, email contact links, responsive overflow, and reduced motion.
 
 See docs/validation.md for known development dependency advisories.

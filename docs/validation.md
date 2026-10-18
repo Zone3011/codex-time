@@ -13,6 +13,6 @@ Lint trusted source paths. Recheck npm audit during dependency updates and updat
 - Clean dependency installation completed with npm ci.
 - ESLint and TypeScript validation passed.
 - Next.js production build passed with static prerendering.
-- Four Playwright tests passed in installed Microsoft Edge, covering project disclosures, contact destination, keyboard menu behavior, reduced motion, and overflow at 320, 390, 768, and 1440 pixels.
+- Four Playwright tests passed in installed Microsoft Edge, covering contact destination, keyboard menu behavior, reduced motion, and overflow at 320, 390, 768, and 1440 pixels.
 - Production-only npm audit found zero vulnerabilities; full audit retains the five development-only findings above.
-- Desktop and mobile screenshots were reviewed locally. Remote GitHub CI and Vercel deployment remain unverified until connected with approval.
+- Desktop and mobile screenshots were reviewed locally. This records local checks; remote CI and production deployment must be reviewed separately for each release.

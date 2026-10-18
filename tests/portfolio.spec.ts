@@ -1,20 +1,12 @@
 import { test, expect } from "@playwright/test";
-test("desktop content, disclosure, and contact", async ({ page }) => {
+test("personal portfolio and working email contact", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await page.getByText("About this concept").first().click();
   await expect(
-    page
-      .getByText("This is an illustrative portfolio placeholder", {
-        exact: false,
-      })
-      .first(),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "hello@example.com" }),
-  ).toHaveAttribute("href", "mailto:hello@example.com");
+    page.getByRole("link", { name: "niravpatel1422004@gmail.com" }),
+  ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
   expect(errors).toEqual([]);
   await page.screenshot({ path: "test-results/desktop.png", fullPage: true });
 });

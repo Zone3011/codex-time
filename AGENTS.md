@@ -30,3 +30,11 @@
 - Ask before authentication, creating a remote repository, pushing code, or deploying.
 - Never force-push or merge to production without explicit approval.
 - CI passing is required before production approval. Vercel deploys the approved merge to main once connected.
+
+## Owner and content
+
+- This is Nirav Patel's personal portfolio. Public email: niravpatel1422004@gmail.com.
+- Confirmed technologies: WordPress, PHP, Flutter, .NET, and Next.js. Nirav is currently employed; no employer, dates, seniority, or detailed job responsibilities have been supplied.
+- No public projects are currently provided. Never restore fictional projects as portfolio work.
+- Do not add LinkedIn links or prompts; Nirav prefers email.
+- As Nirav shares new professional details and projects in future conversations, incorporate the supplied facts into the portfolio when relevant. Do not infer interests, goals, achievements, or experience.

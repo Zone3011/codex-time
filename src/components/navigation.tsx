@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
+import { profile } from "@/content/portfolio";
 export function Navigation() {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
-      <a className="wordmark" href="#home" aria-label="Portfolio home">
-        yn<span>®</span>
+      <a className="wordmark" href="#home" aria-label="Nirav Patel home">
+        {profile.initials}
+        <span>↗</span>
       </a>
       <button
         className="menu-toggle"
