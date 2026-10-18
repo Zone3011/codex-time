@@ -1,141 +1,139 @@
-import { test, expect } from "@playwright/test";
-test("six chapters, real identity, and direct contact", async ({ page }) => {
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
-  await expect(page).toHaveTitle(/Nirav Patel/);
-  await expect(page.locator("main > section")).toHaveCount(6);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Nirav");
-  await expect(
-    page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
-  ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
-  await page.getByRole("button", { name: /Explore the connections/ }).click();
-  await expect(
-    page.getByRole("button", { name: /Bring it together/ }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator(".hero-copy .pill-link")).toHaveCSS("opacity", "1");
-  await page.screenshot({ path: "test-results/hero-desktop.png" });
-  await page.evaluate(() =>
-    window.scrollTo({ top: window.innerHeight * 0.45, behavior: "instant" }),
+import { test, expect, type Page } from "@playwright/test";
+async function frameSection(page: Page, id: string) {
+  await page
+    .locator("#" + id)
+    .evaluate((el) =>
+      el.scrollIntoView({ block: "start", behavior: "instant" }),
+    );
+  await expect(page.locator(".experience")).toHaveAttribute("data-chapter", id);
+  await expect(page.locator(".experience")).toHaveCSS(
+    "background-color",
+    id === "skills" || id === "world"
+      ? "rgb(13, 26, 41)"
+      : "rgb(243, 246, 248)",
   );
-  await expect
-    .poll(async () =>
-      Number(
-        await page
-          .locator(".hero-copy")
-          .evaluate((el) => getComputedStyle(el).opacity),
-      ),
-    )
-    .toBeLessThan(0.9);
-  await expect(page.locator(".site-header")).toBeInViewport();
-  await page.screenshot({ path: "test-results/opening-scroll.png" });
-  expect(errors).toEqual([]);
-});
-test("physics controls and keyboard-accessible skill transitions", async ({
+  if (id === "about") {
+    await expect(page.locator(".about-note")).toHaveAttribute(
+      "data-reveal-state",
+      "complete",
+    );
+    await expect(page.locator(".about-note")).toHaveCSS("opacity", "1");
+  }
+}
+test("personal introduction and live scene render without runtime errors", async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/#play");
-  const shuffle = page.getByRole("button", { name: /Shuffle/ });
-  await expect(shuffle).toBeEnabled();
-  await shuffle.click();
-  const gravity = page.getByRole("button", { name: /Reverse gravity/ });
-  await gravity.click();
-  await expect(gravity).toHaveAttribute("aria-pressed", "true");
-  await page.locator("#play").screenshot({ path: "test-results/physics.png" });
-  await page.locator("#skills").scrollIntoViewIfNeeded();
+  page.on("console", (message) => {
+    if (
+      message.type() === "error" &&
+      message.text().includes("THREE.WebGLProgram")
+    )
+      errors.push(message.text());
+  });
+  await page.goto("/");
+  await expect(page).toHaveTitle(/Nirav Patel/);
+  await expect(page.locator("main > section")).toHaveCount(5);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Nirav");
+  await expect(page.locator(".intro-actions")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".journey-world canvas")).toHaveAttribute(
+    "data-rendered",
+    "true",
+  );
+  await expect(page.locator(".intro-copy h1")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".intro-actions")).toHaveCSS("opacity", "1");
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({ path: "test-results/intro-desktop.png" });
+  expect(errors).toEqual([]);
+});
+test("technology tabs support selection and arrow-key navigation", async ({
+  page,
+}) => {
+  await page.goto("/#skills");
   const php = page.getByRole("tab", { name: /PHP/ });
   await php.click();
+  await expect(php).toHaveAttribute("aria-selected", "true");
   await expect(page.getByRole("tabpanel")).toContainText("server side");
   await php.press("ArrowDown");
   await expect(page.getByRole("tab", { name: /Flutter/ })).toBeFocused();
   await expect(page.getByRole("tabpanel")).toContainText("mobile side");
-  await page.locator("#skills").screenshot({ path: "test-results/skills.png" });
-  expect(errors).toEqual([]);
+  await frameSection(page, "skills");
+  await expect(page.locator(".section-heading")).toHaveCSS("opacity", "1");
+  await page.screenshot({ path: "test-results/toolkit-desktop.png" });
 });
-test("optional guide changes context and can be dismissed and restored", async ({
-  page,
-}) => {
-  await page.goto("/");
-  const toggle = page.getByRole("button", { name: /Open section guide/ });
-  await expect(toggle).toHaveAttribute("aria-expanded", "false");
-  await toggle.click();
-  await expect(page.locator("#guide-description")).toContainText("GSAP");
-  await page.locator("#skills").scrollIntoViewIfNeeded();
-  await expect(page.locator("#guide-description")).toContainText("Motion");
-  await page.getByRole("button", { name: /Hide guide for now/ }).click();
-  await expect(page.locator("#guide-toggle")).toHaveCount(0);
-  await page.getByRole("button", { name: /Show guide/ }).click();
-  await expect(page.locator("#guide-toggle")).toBeVisible();
-});
-test("global motion pause and system reduced motion", async ({ page }) => {
-  await page.goto("/");
-  const pause = page.getByRole("button", { name: "Pause animations" });
-  await pause.click();
-  await expect(pause).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator(".experience")).toHaveClass(/motion-paused/);
-  await page.locator("#play").scrollIntoViewIfNeeded();
-  await expect(
-    page.getByRole("button", { name: /Reverse gravity/ }),
-  ).toBeDisabled();
-  await page.emulateMedia({ reducedMotion: "reduce" });
-
-  await expect(
-    page.getByRole("button", { name: "Reduced motion enabled" }),
-  ).toBeDisabled();
-  expect(
-    await page.evaluate(
-      () => getComputedStyle(document.documentElement).scrollBehavior,
-    ),
-  ).toBe("auto");
-  await page.locator("#contact").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: /One last little thing/ }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "Thanks for stopping by",
-  );
-});
-test("3D scene or graceful device fallback, with finish controls", async ({
+test("particle formations and perspective control respond", async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/#world");
-  await expect(page.locator(".world-stage")).toBeVisible();
   await expect(
-    page.locator(".world-stage canvas, .world-fallback"),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Jade", exact: true }).click();
-  await expect(
-    page.getByRole("button", { name: "Jade", exact: true }),
+    page.getByRole("button", { name: "Orbit", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
-  const rotation = page.getByRole("slider", { name: "Turn the sculpture" });
-  await rotation.fill("90");
-  await expect(rotation).toHaveValue("90");
-  await page.locator("#world").screenshot({ path: "test-results/world.png" });
+  await page.getByRole("button", { name: "Structure", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Structure", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Scatter", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Scatter", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  const slider = page.getByRole("slider", { name: "Change your perspective" });
+  await slider.fill("90");
+  await expect(slider).toHaveValue("90");
+  await frameSection(page, "world");
+  await expect(page.locator(".lab-heading")).toHaveCSS("opacity", "1");
+  await page.screenshot({ path: "test-results/lab-desktop.png" });
   expect(errors).toEqual([]);
 });
-test("mobile keyboard navigation, Escape, and responsive overflow", async ({
+test("floating navigation stays visible and follows the journey", async ({
   page,
 }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: /Explore my world/ }).click();
+  await expect(page).toHaveURL(/#world$/);
+  await expect(
+    page
+      .getByRole("navigation")
+      .getByRole("link", { name: "Explore", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await expect(page.locator(".site-header")).toBeInViewport();
+  const bounds = await page.locator(".site-header").boundingBox();
+  expect(bounds?.y).toBeGreaterThanOrEqual(0);
+  await page
+    .getByRole("navigation")
+    .getByRole("link", { name: "About", exact: true })
+    .click();
+  await expect(page.locator("#about")).toBeInViewport();
+  await frameSection(page, "about");
+  await expect(page.locator(".about-note")).toHaveAttribute(
+    "data-reveal-state",
+    "complete",
+  );
+  await page.screenshot({ path: "test-results/about-desktop.png" });
+});
+test("mobile menu, Escape, and narrow-screen layout work", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   const menu = page.getByRole("button", { name: /Menu|Close −/ });
   await menu.focus();
   await menu.press("Enter");
   await expect(menu).toHaveAttribute("aria-expanded", "true");
-  const story = page
+  const about = page
     .getByRole("navigation")
-    .getByRole("link", { name: "Story", exact: true });
-  await story.focus();
-  await story.press("Escape");
+    .getByRole("link", { name: "About", exact: true });
+  await about.focus();
+  await about.press("Escape");
   await expect(menu).toBeFocused();
-  await menu.click();
-  await story.click();
   await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await menu.click();
+  await about.click();
   await expect(page).toHaveURL(/#about$/);
-  await page.screenshot({ path: "test-results/mobile.png", fullPage: true });
+  await frameSection(page, "about");
+  await page.screenshot({ path: "test-results/about-mobile.png" });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.screenshot({ path: "test-results/intro-mobile.png" });
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     expect(
@@ -145,19 +143,80 @@ test("mobile keyboard navigation, Escape, and responsive overflow", async ({
     ).toBe(true);
   }
 });
-test("contact celebration is opt-in and copy provides feedback", async ({
+test("global pause and live reduced-motion preference retain controls", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const pause = page.getByRole("button", { name: "Pause animations" });
+  await pause.click();
+  await expect(pause).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".experience")).toHaveClass(/motion-paused/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(
+    page.getByRole("button", { name: "Reduced motion enabled" }),
+  ).toBeDisabled();
+  expect(
+    await page.evaluate(
+      () => getComputedStyle(document.documentElement).scrollBehavior,
+    ),
+  ).toBe("auto");
+  await page.locator("#world").scrollIntoViewIfNeeded();
+  await page.getByRole("button", { name: "Structure", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Structure", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+});
+test("email destination and clipboard feedback are correct", async ({
   page,
   context,
 }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/#contact");
+  await expect(
+    page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
+  ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
   await page.getByRole("button", { name: /Copy email/ }).click();
   await expect(page.getByRole("status")).toContainText("Email copied");
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
     "niravpatel1422004@gmail.com",
   );
-  await page.getByRole("button", { name: /One last little thing/ }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "Thanks for stopping by",
-  );
+  await page.screenshot({ path: "test-results/contact-desktop.png" });
+});
+test("WebGL failure falls back without losing the portfolio", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      value: function (
+        this: HTMLCanvasElement,
+        type: string,
+        ...rest: unknown[]
+      ) {
+        if (type.includes("webgl")) return null;
+        return Reflect.apply(original, this, [type, ...rest]);
+      },
+    });
+  });
+  await page.goto("/");
+  await expect(page.locator(".scene-fallback")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Nirav");
+  await expect(page.locator("main > section")).toHaveCount(5);
+  await page.locator("#contact").scrollIntoViewIfNeeded();
+  await expect(
+    page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
+  ).toBeVisible();
+});
+test("personal content and contact remain usable without JavaScript", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3100/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Nirav");
+  await expect(
+    page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
+  ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
+  await expect(page.getByRole("tabpanel")).toContainText("WordPress");
+  await context.close();
 });

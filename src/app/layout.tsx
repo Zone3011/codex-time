@@ -3,9 +3,9 @@ import "@fontsource-variable/space-grotesk";
 import "@fontsource-variable/manrope";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "Nirav Patel — Color outside the browser",
+  title: "Nirav Patel — Code, curiosity & connections",
   description:
-    "Nirav Patel’s interactive portfolio. Six experiments in motion, physics, and 3D. WordPress, PHP, Flutter, .NET, and Next.js.",
+    "The personal portfolio of Nirav Patel. Web and mobile development, an interactive 3D world, and a different perspective. WordPress, PHP, Flutter, .NET, and Next.js.",
 };
 export default function RootLayout({
   children,

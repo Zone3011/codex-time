@@ -11,7 +11,15 @@ const ExperienceContext = createContext({
   paused: false,
   reduced: false,
   active: "home",
+  mode: 1,
+  rotation: 20,
   toggle: () => {},
+  setMode: (value: number) => {
+    void value;
+  },
+  setRotation: (value: number) => {
+    void value;
+  },
 });
 const subscribeReduced = (listener: () => void) => {
   const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -27,6 +35,8 @@ export function ExperienceProvider({
 }) {
   const [paused, setPaused] = useState(false);
   const [active, setActive] = useState("home");
+  const [mode, setMode] = useState(1);
+  const [rotation, setRotation] = useState(20);
   const reduced = useSyncExternalStore(
     subscribeReduced,
     getReduced,
@@ -38,7 +48,7 @@ export function ExperienceProvider({
       frame = 0;
       let current = "home";
       document.querySelectorAll("main > section").forEach((section) => {
-        if (section.getBoundingClientRect().top <= window.innerHeight * 0.38)
+        if (section.getBoundingClientRect().top <= window.innerHeight * 0.48)
           current = section.id;
       });
       setActive(current);
@@ -62,10 +72,15 @@ export function ExperienceProvider({
         paused,
         reduced,
         active,
+        mode,
+        rotation,
         toggle: () => setPaused((value) => !value),
+        setMode,
+        setRotation,
       }}
     >
       <div
+        data-chapter={active}
         className={
           !paused && !reduced ? "experience" : "experience motion-paused"
         }

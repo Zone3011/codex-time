@@ -44,3 +44,16 @@ Lint trusted source paths. Recheck npm audit during dependency updates and updat
 - Lint, TypeScript, and production build passed. All seven browser tests passed, including the new scroll-driven opacity check. A focused follow-up verified floating navigation remains in the viewport during the camera journey.
 - Reviewed desktop, scrolled opening, and mobile screenshots. The renderer pauses offscreen/hidden and reduced motion uses a static scene with an unpinned layout.
 - No hardware phone performance benchmark, remote push, merge, or deployment was performed.
+
+## Complete immersive redesign
+
+- Rebuilt the full page as a coherent five-chapter experience: introduction, about, toolkit, interactive world, and contact. Removed the previous unrelated demo sections and guide.
+- One persistent Three.js/React Three Fiber scene connects the page. Original glass N geometry morphs into structured sphere/orbit formations with a procedurally generated studio environment, connected nodes, dust particles, and a scroll/pointer-driven camera.
+- Added a floating glass header, light/dark atmosphere, scoped GSAP/ScrollTrigger reveals, Motion technology tabs, and Structure/Orbit/Scatter plus perspective controls.
+- Removed unused Matter.js, Anime.js, canvas-confetti, and associated type dependencies.
+- ESLint, TypeScript validation, production build, and all nine browser tests passed in Microsoft Edge. A focused mobile follow-up passed after making visual captures wait for reveal completion.
+- Browser coverage includes a confirmed rendered WebGL frame, console/page error checks, tabs/arrow keys, formation controls, camera perspective input, floating/current navigation, mobile Escape/menu behavior, widths 320/390/768/1440, live reduced motion, clipboard feedback, forced WebGL failure, and JavaScript-disabled content.
+- Desktop and mobile captures were inspected. Refined formation pacing, geometry, glass refraction background, lab framing, and capture readiness.
+- Production-only npm audit reports zero vulnerabilities. The five existing development-only lint-chain advisories documented above remain.
+- No physical mobile device or broad GPU/frame-rate benchmark was run. The local preview on port 3000 was left running; test servers owned port 3100 and were stopped by Playwright.
+- No authentication, remote push, pull request, merge, or deployment was performed. Work is local on feat/immersive-connected-portfolio.

@@ -1,29 +1,30 @@
 "use client";
 import { useState } from "react";
 import { experiences } from "@/content/experiences";
-import { useExperience } from "@/components/showcase/experience-context";
+import { useExperience } from "./showcase/experience-context";
 export function Navigation() {
   const [open, setOpen] = useState(false);
-  const { paused, reduced, toggle, active } = useExperience();
+  const { active, paused, reduced, toggle } = useExperience();
   return (
     <header className="site-header">
       <a className="wordmark" href="#home" aria-label="Nirav Patel home">
-        np<span>✳</span>
+        np
+        <span className="brand-dot" />
       </a>
       <button
         className="menu-toggle"
-        aria-controls="main-navigation"
         aria-expanded={open}
+        aria-controls="main-navigation"
         onClick={() => setOpen(!open)}
       >
         {open ? "Close −" : "Menu +"}
       </button>
       <nav
-        className={open ? "navigation is-open" : "navigation"}
         id="main-navigation"
         aria-label="Main navigation"
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
+        className={open ? "navigation is-open" : "navigation"}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
             setOpen(false);
             document.querySelector<HTMLButtonElement>(".menu-toggle")?.focus();
           }
@@ -42,16 +43,19 @@ export function Navigation() {
       </nav>
       <button
         className="motion-toggle"
-        onClick={toggle}
+        aria-label={reduced ? "Reduced motion enabled" : "Pause animations"}
         aria-pressed={paused}
         disabled={reduced}
-        aria-label={reduced ? "Reduced motion enabled" : "Pause animations"}
+        onClick={toggle}
       >
         <span aria-hidden="true">{paused || reduced ? "Ⅱ" : "◌"}</span>
         <span>
           {reduced ? "Reduced motion" : paused ? "Motion off" : "Motion on"}
         </span>
       </button>
+      <a className="header-contact" href="#contact">
+        Let’s talk <span aria-hidden="true">↗</span>
+      </a>
     </header>
   );
 }
