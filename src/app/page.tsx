@@ -1,210 +1,252 @@
 import { Navigation } from "@/components/navigation";
-import { Motion } from "@/components/motion";
-import { profile, skills } from "@/content/portfolio";
+import { ExperienceProvider } from "@/components/showcase/experience-context";
+import { HeroArtwork } from "@/components/showcase/hero";
+import { PhysicsPlayground } from "@/components/showcase/physics";
+import { SkillsExplorer } from "@/components/showcase/skills";
+import { WorldExperience } from "@/components/showcase/world";
+import { StoryLine } from "@/components/showcase/story";
+import { ContactActions } from "@/components/showcase/contact";
+import { Companion } from "@/components/showcase/companion";
+import { profile } from "@/content/portfolio";
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function Chapter({
+  number,
+  children,
+  engine,
+}: {
+  number: string;
+  children: React.ReactNode;
+  engine: string;
+}) {
   return (
-    <p className="eyebrow">
-      <span className="tiny-square" />
-      {children}
-    </p>
+    <div className="chapter-label">
+      <span>
+        <i>{number}</i>
+        {children}
+      </span>
+      <span className="engine-tag">
+        {engine} <span aria-hidden="true">↗</span>
+      </span>
+    </div>
   );
 }
-
 export default function Home() {
   return (
-    <Motion>
+    <ExperienceProvider>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="shell" id="home">
-        <Navigation />
-        <main id="main">
-          <section className="hero" aria-labelledby="hero-title">
-            <div className="hero-top" data-intro>
-              <span className="eyebrow">Nirav Patel / Developer</span>
-              <span className="edition">MY CORNER OF THE WEB</span>
-            </div>
-            <h1 id="hero-title" data-intro>
-              Nirav
-              <br />
-              <span>Patel</span>
-              <span className="blue-dot">.</span>
-            </h1>
-            <div className="hero-bottom" data-intro>
-              <p>
-                I work with WordPress, PHP, Flutter,
-                <br className="desktop-break" /> .NET, and Next.js.
+      <Navigation />
+      <main id="main">
+        <section
+          className="hero section-pad"
+          id="home"
+          aria-labelledby="hero-title"
+        >
+          <Chapter number="01" engine="GSAP">
+            A small introduction
+          </Chapter>
+          <div className="hero-layout">
+            <div className="hero-copy">
+              <p className="eyebrow">NIRAV PATEL / DEVELOPER</p>
+              <h1 id="hero-title">
+                The web.
                 <br />
-                <span>This is where I’m putting my own work together.</span>
-              </p>
-              <a className="round-link" href="#about">
-                <span>A little about me</span>
-                <span className="circle-arrow" aria-hidden="true">
-                  ↓
+                With a little
+                <br />
+                <em>wonder.</em>
+                <span className="title-spark" aria-hidden="true">
+                  ✳
                 </span>
-              </a>
-            </div>
-            <div className="hero-art" aria-hidden="true">
-              <div className="art-label">NIRAV PATEL / WEB + MOBILE</div>
-              <div className="code-sculpture">
-                <span>〈</span>
-                <i>np</i>
-                <span>〉</span>
-              </div>
-              <div className="art-bottom">
-                <span>WordPress · PHP · Flutter</span>
-                <span>.NET · Next.js ↗</span>
-              </div>
-            </div>
-          </section>
-          <section
-            className="work section"
-            id="work"
-            aria-labelledby="work-title"
-          >
-            <div className="section-heading">
-              <div>
-                <SectionLabel>My work</SectionLabel>
-                <h2 id="work-title">
-                  A place for
-                  <br />
-                  what comes next.
-                </h2>
-              </div>
-              <p>No public projects to share yet.</p>
-            </div>
-            <div className="work-note">
-              <p className="large-copy">The first entry is this portfolio.</p>
-              <p>
-                I’m building this space a little at a time. As I have projects I
-                can share, I’ll add them here with the story behind the work.
-              </p>
-              <a className="text-link" href="#skills">
-                See the technologies I use <span aria-hidden="true">↓</span>
-              </a>
-            </div>
-          </section>
-          <section
-            className="about section"
-            id="about"
-            aria-labelledby="about-title"
-          >
-            <div>
-              <SectionLabel>About me</SectionLabel>
-              <h2 id="about-title">Hi, I’m Nirav.</h2>
-              <div className="about-signature" aria-hidden="true">
-                Nirav<span>↗</span>
-              </div>
-            </div>
-            <div className="about-copy">
-              <p className="large-copy">
-                Working. Building.
+              </h1>
+              <p className="hero-description">
+                Hi, I’m Nirav. I work with web and mobile technologies.
                 <br />
-                Making this space my own.
+                This is my space to make the browser a little less ordinary.
               </p>
-              <p>
-                I’m {profile.name}, a developer currently working and using
-                WordPress, PHP, Flutter, .NET, and Next.js.
-              </p>
-              <p>
-                This portfolio is growing alongside my work. I’ll keep adding
-                more about what I do and the projects I can share.
-              </p>
-              <a className="text-link" href="#contact">
-                Send me an email <span aria-hidden="true">↗</span>
+              <a className="pill-link" href="#play">
+                Come explore <span aria-hidden="true">↘</span>
               </a>
             </div>
-          </section>
-          <section
-            className="skills section"
-            id="skills"
-            aria-labelledby="skills-title"
-          >
-            <SectionLabel>My toolkit</SectionLabel>
-            <h2 id="skills-title">What I work with.</h2>
-            <p className="section-intro">
-              From WordPress and PHP to Flutter, .NET, and Next.js.
+            <HeroArtwork />
+          </div>
+          <div className="hero-foot">
+            <span>NOT JUST A PAGE. A PLACE TO PLAY.</span>
+            <span>
+              Six experiments. One curious browser.{" "}
+              <span aria-hidden="true">↓</span>
+            </span>
+          </div>
+        </section>
+        <section
+          className="play-section section-pad"
+          id="play"
+          aria-labelledby="play-title"
+        >
+          <Chapter number="02" engine="Matter.js">
+            A little less serious
+          </Chapter>
+          <div className="section-intro">
+            <h2 id="play-title">
+              Ideas need
+              <br />
+              <em>room to play.</em>
+            </h2>
+            <p>
+              A small experiment in gravity.
+              <br />
+              Give these shapes a nudge and see what happens.
             </p>
-            <div className="skill-grid">
-              {skills.map((skill) => (
-                <div key={skill.title}>
-                  <h3>{skill.title}</h3>
-                  <ul>
-                    {skill.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section
-            className="experience section"
-            id="experience"
-            aria-labelledby="experience-title"
-          >
+          </div>
+          <PhysicsPlayground />
+          <div className="section-caption">
+            <span>NOT A PROJECT. JUST A PLAYGROUND.</span>
+            <span>Drag inside the frame · Scroll outside it</span>
+          </div>
+        </section>
+        <section
+          className="skills-section section-pad"
+          id="skills"
+          aria-labelledby="skills-title"
+        >
+          <Chapter number="03" engine="Motion">
+            The tools behind the ideas
+          </Chapter>
+          <div className="section-intro">
+            <h2 id="skills-title">
+              Different tools.
+              <br />
+              <em>More possibilities.</em>
+            </h2>
+            <p>
+              These are the technologies I work with.
+              <br />
+              Pick one. Take a closer look.
+            </p>
+          </div>
+          <SkillsExplorer />
+        </section>
+        <section
+          className="world-section section-pad"
+          id="world"
+          aria-labelledby="world-title"
+        >
+          <Chapter number="04" engine="Three.js + React Three Fiber">
+            A change of dimension
+          </Chapter>
+          <div className="world-heading">
+            <p className="eyebrow">SOME THINGS NEED A LITTLE DEPTH.</p>
+            <h2 id="world-title">
+              Beyond
+              <br />
+              <em>the flat.</em>
+            </h2>
+            <p>
+              Light, geometry, and a living surface.
+              <br />
+              An experiment you can turn in your hands.
+            </p>
+          </div>
+          <WorldExperience />
+        </section>
+        <section
+          className="story-section section-pad"
+          id="about"
+          aria-labelledby="about-title"
+        >
+          <Chapter number="05" engine="Anime.js">
+            The person behind the play
+          </Chapter>
+          <div className="section-intro">
+            <h2 id="about-title">
+              Hi again.
+              <br />
+              <em>I’m Nirav.</em>
+            </h2>
+            <p>
+              A developer, currently working.
+              <br />
+              This space grows as I have more to share.
+            </p>
+          </div>
+          <div className="story-track">
+            <StoryLine />
+            <article>
+              <span className="story-node">↗</span>
+              <p className="eyebrow">WHERE I AM</p>
+              <h3>Working & building.</h3>
+              <p>
+                My toolkit spans WordPress, PHP, Flutter, .NET, and Next.js. Web
+                and mobile, with room to explore.
+              </p>
+            </article>
+            <article>
+              <span className="story-node">✳</span>
+              <p className="eyebrow">WHAT’S HERE</p>
+              <h3>A space of my own.</h3>
+              <p>
+                This portfolio is my first public entry here. These experiments
+                show what a website can feel like.
+              </p>
+            </article>
+            <article>
+              <span className="story-node">…</span>
+              <p className="eyebrow">WHAT’S NEXT</p>
+              <h3>An open chapter.</h3>
+              <p>
+                No public project case studies yet. I’ll add real work and the
+                stories behind it when I can share them.
+              </p>
+            </article>
+          </div>
+          <p className="story-signature">
+            A little more me, with every update. <span>Nirav</span>
+          </p>
+        </section>
+        <section
+          className="contact-section section-pad"
+          id="contact"
+          aria-labelledby="contact-title"
+        >
+          <Chapter number="06" engine="canvas-confetti">
+            The beginning of a conversation
+          </Chapter>
+          <div className="contact-layout">
             <div>
-              <SectionLabel>Where I am now</SectionLabel>
-              <h2 id="experience-title">
-                Work &<br />
-                what’s next.
+              <p className="eyebrow">YOU MADE IT. THANKS FOR EXPLORING.</p>
+              <h2 id="contact-title">
+                Good things
+                <br />
+                start with
+                <br />
+                <em>a hello.</em>
               </h2>
             </div>
-            <div className="timeline">
-              <article>
-                <span className="timeline-date">CURRENTLY</span>
-                <h3>Working as a developer</h3>
-                <p>
-                  My toolkit includes WordPress, PHP, Flutter, .NET, and
-                  Next.js.
-                </p>
-              </article>
-              <article>
-                <span className="timeline-date">IN PROGRESS</span>
-                <h3>My own portfolio</h3>
-                <p>
-                  Building a home for my work, starting with this Next.js site.
-                  More to come as I have things to share.
-                </p>
-              </article>
-            </div>
-          </section>
-          <section
-            className="contact"
-            id="contact"
-            aria-labelledby="contact-title"
-          >
-            <SectionLabel>Get in touch</SectionLabel>
-            <h2 id="contact-title">
-              Say hello.
-              <br />
-              <span>Let’s talk.</span>
-            </h2>
-            <div className="contact-bottom">
+            <div className="contact-right">
+              <div className="contact-flower" aria-hidden="true">
+                ✳
+              </div>
               <p>
-                Want to get in touch?
+                A question, an idea, or just a hello?
                 <br />
-                <span>Email is the best way to reach me.</span>
+                My inbox is open.
               </p>
-              <a href={"mailto:" + profile.email}>
-                {profile.email} <span aria-hidden="true">↗</span>
-              </a>
+              <ContactActions />
             </div>
-          </section>
-        </main>
-        <footer>
-          <a className="wordmark" href="#home" aria-label="Back to top">
-            {profile.initials}
-            <span>↗</span>
-          </a>
-          <p>
-            © {new Date().getFullYear()} {profile.name}. A little more me, with
-            every update.
-          </p>
-          <a href="#home">Back to top ↑</a>
-        </footer>
-      </div>
-    </Motion>
+          </div>
+          <footer>
+            <a className="wordmark" href="#home" aria-label="Back to top">
+              {profile.initials}
+              <span>✳</span>
+            </a>
+            <p>
+              © {new Date().getFullYear()} {profile.name}. Made to be explored.
+            </p>
+            <a href="#home">Back to the beginning ↑</a>
+          </footer>
+        </section>
+      </main>
+      <Companion />
+    </ExperienceProvider>
   );
 }

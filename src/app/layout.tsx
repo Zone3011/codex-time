@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { profile } from "@/content/portfolio";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/manrope";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: `${profile.name} — Developer`,
+  title: "Nirav Patel — A little web wonder",
   description:
-    "Nirav Patel’s personal portfolio. Working with WordPress, PHP, Flutter, .NET, and Next.js. A growing home for my work.",
+    "Nirav Patel’s interactive portfolio. Six experiments in motion, physics, and 3D. WordPress, PHP, Flutter, .NET, and Next.js.",
 };
 export default function RootLayout({
   children,

@@ -38,3 +38,13 @@
 - No public projects are currently provided. Never restore fictional projects as portfolio work.
 - Do not add LinkedIn links or prompts; Nirav prefers email.
 - As Nirav shares new professional details and projects in future conversations, incorporate the supplied facts into the portfolio when relevant. Do not infer interests, goals, achievements, or experience.
+
+## Interactive showcase
+
+- Six chapter IDs are home, play, skills, world, about, and contact. Keep navigation and src/content/experiences.ts synchronized with sections.
+- The companion is a local explanatory guide, not an AI chatbot. Keep it quiet, dismissible, and accessible on phones; never auto-open its panel.
+- Use the shared experience-context motion setting in every new effect. Pause costly loops when offscreen or the tab is hidden.
+- Keep shader/physics code isolated, lazy-load heavy experiments, cap pixel density, and preserve static fallbacks.
+- Physics, shader, and animation demos are experiments, not claimed client projects.
+- Use src/content/portfolio.ts for identity and toolkit data.
+- Playwright owns port 3100; do not stop a user's existing server on port 3000.
