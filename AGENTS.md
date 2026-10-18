@@ -48,3 +48,8 @@
 - Physics, shader, and animation demos are experiments, not claimed client projects.
 - Use src/content/portfolio.ts for identity and toolkit data.
 - Playwright owns port 3100; do not stop a user's existing server on port 3000.
+
+## Visual direction
+
+- Nirav rejected muted pastels, repeating serif-led section layouts, rotating flowers, and decorative idle animation. Prefer vivid colors and varied compositions.
+- Current motion is interaction-led: color remix, physics after a drag/button action, sculpture rotation, and requested line drawing. Do not restore automatic spinning or shader movement without a new request.

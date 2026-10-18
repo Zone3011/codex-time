@@ -5,10 +5,12 @@ test("six chapters, real identity, and direct contact", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Nirav Patel/);
   await expect(page.locator("main > section")).toHaveCount(6);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("wonder");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("NIRAV");
   await expect(
     page.getByRole("link", { name: /niravpatel1422004@gmail.com/ }),
   ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
+  await page.getByRole("button", { name: /Remix the colors/ }).click();
+  await expect(page.locator(".color-caption")).toContainText("02");
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: "test-results/hero-desktop.png" });
   expect(errors).toEqual([]);

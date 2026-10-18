@@ -41,12 +41,12 @@ export function PhysicsPlayground() {
       render.canvas.setAttribute("aria-hidden", "true");
       const scale = Math.min(w / 650, 1);
       const palette = [
-        "#7460c5",
-        "#fbbe9d",
-        "#f5f0df",
-        "#a4c9a8",
-        "#2c544b",
-        "#d5b7e5",
+        "#183df5",
+        "#ff4825",
+        "#ffcf00",
+        "#18bd9d",
+        "#111111",
+        "#f33294",
       ];
       const labels = ["curiosity", "PHP", "play", "Next.js", "Flutter", ".NET"];
       const bodies = labels.map((label, i) => {
@@ -125,15 +125,18 @@ export function PhysicsPlayground() {
       };
       M.Events.on(render, "afterRender", draw);
       const runner = M.Runner.create();
-      if (enabled && visible) {
+      let running = false;
+      const start = () => {
+        if (!enabled || !visible || running) return;
+        running = true;
         M.Runner.run(runner, engine);
         M.Render.run(render);
-      } else {
-        M.Engine.update(engine, 16);
-        M.Render.world(render);
-      }
+      };
+      M.Render.world(render);
+      render.canvas.addEventListener("pointerdown", start);
       controls.current = {
         shuffle: () => {
+          start();
           bodies.forEach((body, i) => {
             M.Body.setPosition(body, {
               x: element.clientWidth * (0.2 + (i % 3) * 0.3),
@@ -141,9 +144,10 @@ export function PhysicsPlayground() {
             });
             M.Body.setVelocity(body, { x: (Math.random() - 0.5) * 12, y: -5 });
           });
-          if (!enabled) M.Render.world(render);
+          if (!running) M.Render.world(render);
         },
         gravity: () => {
+          start();
           engine.gravity.y *= -1;
           gravityDirection.current = engine.gravity.y;
         },
@@ -170,6 +174,7 @@ export function PhysicsPlayground() {
       dispose = () => {
         controls.current = null;
         resize.disconnect();
+        render.canvas.removeEventListener("pointerdown", start);
         M.Runner.stop(runner);
         M.Render.stop(render);
         M.Events.off(render, "afterRender", draw);

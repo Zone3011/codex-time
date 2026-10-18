@@ -44,36 +44,31 @@ export default function Home() {
           aria-labelledby="hero-title"
         >
           <Chapter number="01" engine="GSAP">
-            A small introduction
+            Open for exploration
           </Chapter>
           <div className="hero-layout">
             <div className="hero-copy">
               <p className="eyebrow">NIRAV PATEL / DEVELOPER</p>
               <h1 id="hero-title">
-                The web.
-                <br />
-                With a little
-                <br />
-                <em>wonder.</em>
-                <span className="title-spark" aria-hidden="true">
-                  ✳
+                <span>NIRAV</span>
+                <span>
+                  PATEL<span className="name-period">.</span>
                 </span>
               </h1>
               <p className="hero-description">
-                Hi, I’m Nirav. I work with web and mobile technologies.
-                <br />
-                This is my space to make the browser a little less ordinary.
+                I’m Nirav. I work with web and mobile technologies.
+                <br />A personal site. A few experiments. Nothing set in stone.
               </p>
               <a className="pill-link" href="#play">
-                Come explore <span aria-hidden="true">↘</span>
+                Get your hands on it <span aria-hidden="true">↘</span>
               </a>
             </div>
             <HeroArtwork />
           </div>
           <div className="hero-foot">
-            <span>NOT JUST A PAGE. A PLACE TO PLAY.</span>
+            <span>WORDPRESS / PHP / FLUTTER / .NET / NEXT.JS</span>
             <span>
-              Six experiments. One curious browser.{" "}
+              Scroll it. Click it. Mess with it.{" "}
               <span aria-hidden="true">↓</span>
             </span>
           </div>
@@ -88,9 +83,9 @@ export default function Home() {
           </Chapter>
           <div className="section-intro">
             <h2 id="play-title">
-              Ideas need
+              PUSH. PULL.
               <br />
-              <em>room to play.</em>
+              <em>LET GO.</em>
             </h2>
             <p>
               A small experiment in gravity.
@@ -114,9 +109,9 @@ export default function Home() {
           </Chapter>
           <div className="section-intro">
             <h2 id="skills-title">
-              Different tools.
+              THE TOOLBOX.
               <br />
-              <em>More possibilities.</em>
+              <em>OPEN IT.</em>
             </h2>
             <p>
               These are the technologies I work with.
@@ -135,14 +130,14 @@ export default function Home() {
             A change of dimension
           </Chapter>
           <div className="world-heading">
-            <p className="eyebrow">SOME THINGS NEED A LITTLE DEPTH.</p>
+            <p className="eyebrow">TURN IT. CHANGE IT.</p>
             <h2 id="world-title">
-              Beyond
+              AN OBJECT.
               <br />
-              <em>the flat.</em>
+              <em>YOUR ANGLE.</em>
             </h2>
             <p>
-              Light, geometry, and a living surface.
+              Real geometry. Two very different finishes.
               <br />
               An experiment you can turn in your hands.
             </p>
@@ -159,9 +154,9 @@ export default function Home() {
           </Chapter>
           <div className="section-intro">
             <h2 id="about-title">
-              Hi again.
+              BEHIND
               <br />
-              <em>I’m Nirav.</em>
+              <em>THE SCREEN.</em>
             </h2>
             <p>
               A developer, currently working.
@@ -215,17 +210,14 @@ export default function Home() {
             <div>
               <p className="eyebrow">YOU MADE IT. THANKS FOR EXPLORING.</p>
               <h2 id="contact-title">
-                Good things
+                GOT AN IDEA?
                 <br />
-                start with
+                OR JUST
                 <br />
-                <em>a hello.</em>
+                <em>A HELLO?</em>
               </h2>
             </div>
             <div className="contact-right">
-              <div className="contact-flower" aria-hidden="true">
-                ✳
-              </div>
               <p>
                 A question, an idea, or just a hello?
                 <br />

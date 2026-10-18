@@ -24,14 +24,14 @@ export function ContactActions() {
       const { default: burst } = await import("canvas-confetti");
       confetti.current = burst;
       await burst({
-        particleCount: 70,
+        particleCount: 40,
         spread: 65,
         startVelocity: 24,
         origin: { x: 0.5, y: 0.7 },
-        colors: ["#6e54a3", "#264e42", "#edb89a", "#eef5db"],
+        colors: ["#183df5", "#ffcf00", "#1bc9dd", "#f33294"],
         disableForReducedMotion: true,
         gravity: 0.85,
-        ticks: 150,
+        ticks: 95,
       });
     } finally {
       setBusy(false);

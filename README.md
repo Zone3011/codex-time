@@ -1,6 +1,6 @@
 # Nirav Patel — a little web wonder
 
-A personal Next.js portfolio built as six interactive chapters. Each chapter uses a library for a specific visible experience, connected by a persistent header and an optional section guide.
+A personal Next.js portfolio built as six colorful, interactive chapters. Saturated cyan, orange, blue, yellow, and pink replace the earlier pastel design. Each chapter uses a library for a specific visible experience, connected by a persistent header and an optional section guide.
 
 ## Run locally
 
@@ -24,22 +24,22 @@ If a preview server is already running, stop it before switching between product
 
 ## The six chapters
 
-| Chapter   | Library                      | Experience                                                                                      |
-| --------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
-| Hello     | GSAP                         | A layered original SVG bloom with a staged entrance, slow rotation, and damped pointer response |
-| Play      | Matter.js                    | Draggable, colliding shapes with shuffle and reverse-gravity buttons                            |
-| Toolkit   | Motion                       | Shared-layout selection and animated detail panels for Nirav's technologies                     |
-| Depth     | Three.js + React Three Fiber | A custom-shaded, deforming 3D knot with two finishes and a rotation slider                      |
-| Story     | Anime.js                     | A scroll-drawn SVG line connecting the supplied personal details                                |
-| Say hello | canvas-confetti              | Direct email, clipboard feedback, and a celebration triggered only by request                   |
+| Chapter   | Library                      | Experience                                                                    |
+| --------- | ---------------------------- | ----------------------------------------------------------------------------- |
+| Hello     | GSAP                         | A typographic nine-tile color composition with a user-triggered remix         |
+| Play      | Matter.js                    | Draggable, colliding shapes with shuffle and reverse-gravity buttons          |
+| Toolkit   | Motion                       | Shared-layout selection and animated detail panels for Nirav's technologies   |
+| Depth     | Three.js + React Three Fiber | A still, custom-shaded 3D knot with two finishes and a rotation slider        |
+| Story     | Anime.js                     | A user-triggered SVG line drawing beside the supplied personal details        |
+| Say hello | canvas-confetti              | Direct email, clipboard feedback, and a celebration triggered only by request |
 
-The companion is a small CSS-rendered character, not an AI chat service. It offers a section-specific explanation only when opened. Hide and restore controls are available; it never opens itself, plays audio, or collects visitor messages. Its hidden state lasts for the current page session.
+Field notes use a small square control instead of the earlier blob character; this is not an AI chat service. It offers a section-specific explanation only when opened. Hide and restore controls are available; it never opens itself, plays audio, or collects visitor messages. Its hidden state lasts for the current page session.
 
 ## Motion, performance, and fallbacks
 
 - The header includes a global motion pause. System reduced-motion preferences disable automatic movement, animated transitions, and confetti.
 - Physics and the 3D scene load near their sections. Expensive render loops stop when the section is offscreen or the tab is hidden.
-- The SVG entrance pauses when offscreen. Animation contexts, event listeners, engine loops, and observers are cleaned up.
+- The color composition has no idle loop. Physics starts after a drag or button action; 3D has no automatic movement; story drawing runs only on request. Animation contexts, event listeners, engine loops, and observers are cleaned up.
 - 3D pixel density is capped at 1.5. A static CSS sculpture is available while loading and when WebGL cannot render.
 - Physics dragging is contained to the frame; scroll outside it on touch devices. Shuffle and gravity controls provide alternatives to dragging.
 - Technology tabs support Up/Down, Home, and End keys. Mobile navigation supports Escape. The page includes a skip link and visible focus.
@@ -83,7 +83,7 @@ Repository: https://github.com/Zone3011/codex-time
 
 Existing live site: https://codex-time.vercel.app
 
-Work on feat/interactive-showcase remains local until pushing is approved. The existing site does not change through a local commit.
+Work on feat/color-playground-redesign remains local until pushing is approved. The existing site does not change through a local commit.
 
 For future features, Codex reads AGENTS.md, uses a feature branch for substantial work, implements and validates locally, and prepares a reviewable commit and PR description. Obtain approval before authentication, pushing, opening remote PRs, merging to production, or deployment.
 

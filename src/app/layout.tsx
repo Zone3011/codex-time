@@ -3,7 +3,7 @@ import "@fontsource-variable/space-grotesk";
 import "@fontsource-variable/manrope";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "Nirav Patel — A little web wonder",
+  title: "Nirav Patel — Color outside the browser",
   description:
     "Nirav Patel’s interactive portfolio. Six experiments in motion, physics, and 3D. WordPress, PHP, Flutter, .NET, and Next.js.",
 };

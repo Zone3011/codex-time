@@ -46,7 +46,7 @@ export function SkillsExplorer() {
                 className="skill-highlight"
                 layoutId="skill-highlight"
                 transition={{
-                  duration: enabled ? 0.35 : 0,
+                  duration: enabled ? 0.16 : 0,
                   ease: [0.22, 1, 0.36, 1],
                 }}
               />
@@ -70,10 +70,10 @@ export function SkillsExplorer() {
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={skill.name}
-            initial={{ opacity: enabled ? 0 : 1, y: enabled ? 16 : 0 }}
+            initial={{ opacity: enabled ? 0 : 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: enabled ? 0 : 1, y: enabled ? -12 : 0 }}
-            transition={{ duration: enabled ? 0.22 : 0 }}
+            exit={{ opacity: enabled ? 0 : 1, y: 0 }}
+            transition={{ duration: enabled ? 0.12 : 0 }}
           >
             <span className="skill-panel-label">{skill.type}</span>
             <div className="skill-symbol" aria-hidden="true">

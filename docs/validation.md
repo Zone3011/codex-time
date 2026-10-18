@@ -26,3 +26,12 @@ Lint trusted source paths. Recheck npm audit during dependency updates and updat
 - Browser tests own port 3100. A pre-existing preview on port 3000 was left running.
 - No physical phone or broad GPU/browser performance benchmark was run. WebGL fallback and interaction checks do not guarantee a particular frame rate on all hardware.
 - Changes remain on a local feature branch. No push, merge, or deployment was performed.
+
+## Color and interaction revision
+
+- Replaced the pastel/serif direction with saturated cyan, orange, blue, yellow, and pink; oversized personal typography; a remixable tile composition; and different section proportions.
+- Removed the rotating flower, automatic sculpture motion, scroll-driven story drawing, and blob-face guide. Field notes remain available through a compact square control.
+- Physics starts only after dragging or using a control. The SVG story draws only when requested. Color remix is a brief, user-triggered GSAP transition.
+- ESLint, TypeScript, production build, and all seven browser tests passed. The opening test also checks the color-remix action.
+- Desktop and mobile screenshots reviewed; reduced-motion, keyboard controls, and overflow checks remain covered.
+- This revision remains local on feat/color-playground-redesign.

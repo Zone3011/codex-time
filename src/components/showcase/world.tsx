@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 import { Component, useRef, useState } from "react";
 import { useInView } from "motion/react";
-import { useExperience, usePageVisible } from "./experience-context";
+
 const Scene = dynamic(() => import("./world-scene"), {
   ssr: false,
   loading: () => (
@@ -33,9 +33,7 @@ class SceneBoundary extends Component<
 export function WorldExperience() {
   const host = useRef<HTMLDivElement>(null);
   const near = useInView(host, { margin: "250px" });
-  const inView = useInView(host);
-  const visible = usePageVisible();
-  const { enabled } = useExperience();
+
   const [rotation, setRotation] = useState(25);
   const [finish, setFinish] = useState(0);
   return (
@@ -44,15 +42,11 @@ export function WorldExperience() {
         ref={host}
         className="world-stage"
         role="img"
-        aria-label="An iridescent three-dimensional knot sculpture with a living surface"
+        aria-label="An iridescent three-dimensional knot sculpture with adjustable rotation"
       >
         {near ? (
           <SceneBoundary>
-            <Scene
-              enabled={enabled && inView && visible}
-              rotation={rotation}
-              finish={finish}
-            />
+            <Scene enabled={false} rotation={rotation} finish={finish} />
           </SceneBoundary>
         ) : (
           <div className="world-fallback">

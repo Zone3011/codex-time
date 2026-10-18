@@ -38,7 +38,7 @@ export function Companion() {
             transition={{ duration: enabled ? 0.2 : 0 }}
           >
             <div className="guide-heading">
-              <span>YOUR LITTLE GUIDE</span>
+              <span>FIELD NOTES</span>
               <button onClick={() => setOpen(false)} aria-label="Close guide">
                 ×
               </button>
@@ -67,12 +67,9 @@ export function Companion() {
         aria-controls="guide-description"
         onClick={() => setOpen(!open)}
       >
-        <span className="guide-blob" aria-hidden="true">
-          <i />
-          <i />
-        </span>
+        <span className="guide-blob" aria-hidden="true"></span>
         <span>
-          {open ? "Close guide" : "What’s happening?"}
+          {open ? "Close guide" : "Field notes"}
           <small>
             {chapter.label} / {chapter.engine}
           </small>
