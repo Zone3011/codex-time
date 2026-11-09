@@ -44,3 +44,11 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Preserved pause, Escape, live reduced motion, hidden-tab/resize cleanup, direct email fallback, contact dialog, and non-repeating refresh choices.
 - Engine syntax, lint, typecheck, and production build passed. Eleven Edge tests passed, including a phase-order behavior test that observes the name typing while all toolkit cards remain unrevealed, then verifies the toolkit starts after name completion.
 - Reviewed desktop/mobile finished states and a toolkit-build screenshot; refined panel spacing to avoid overlapping the footer. No physical-device or other-browser verification. No remote push or deployment.
+
+## Bright vector opening
+
+- Removed the right-hand skills panel at the owner's request. Added an original illustration built from seven separate inline SVG pieces: folded N, code window, platform, background, spark, orange sphere, and pink pointer. No external asset download or image-generation dependency.
+- Changed white/green/brass to white with vivid violet, pink and orange, retaining dark readable typography. Cursor colors coordinate with the illustration.
+- Preserved the actual supplied swarm engine, random non-repeating origins/orders, 2x speed, phased construction, and contact accessibility.
+- Engine syntax, lint, typecheck, and build passed. Eleven Edge behavior tests passed; the choreography test observes all seven illustration pieces hidden while the name types, then verifies illustration construction follows.
+- Reviewed desktop (1280x720), mobile (390x844), and vector-build screenshots. No physical-device or cross-browser verification. No push or deployment performed.

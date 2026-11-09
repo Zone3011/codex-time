@@ -40,7 +40,7 @@
   'use strict';
 
   var NAMES = ['Mira', 'Dev', 'Kai', 'Zoe', 'Arjun', 'Lena', 'Theo', 'Noor'];
-  var COLORS = ['#346356', '#94712e', '#77618f', '#335e74', '#835b4c', '#677546', '#496c70', '#775a71'];
+  var COLORS = ['#7650e8', '#d6469f', '#db852b', '#398ac6', '#9b59cb', '#e26866', '#478c9b', '#b47b38'];
   var SKIP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, TEMPLATE: 1, HEAD: 1, META: 1, LINK: 1, BR: 1, WBR: 1, OPTION: 1, OPTGROUP: 1, SOURCE: 1, TRACK: 1, AREA: 1, MAP: 1 };
   var MEDIA = { IMG: 1, SVG: 1, VIDEO: 1, CANVAS: 1, IFRAME: 1, INPUT: 1, TEXTAREA: 1, SELECT: 1 };
   var NS = 'http://www.w3.org/2000/svg';

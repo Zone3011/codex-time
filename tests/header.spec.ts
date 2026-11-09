@@ -189,7 +189,7 @@ test("successive refreshes choose different origins and build orders", async ({
   }
 });
 
-test("swarm builds the identity before assembling toolkit cards", async ({
+test("swarm builds the identity before assembling the vector illustration", async ({
   page,
 }) => {
   await page.goto("/");
@@ -200,9 +200,9 @@ test("swarm builds the identity before assembling toolkit cards", async ({
         document.querySelectorAll<HTMLElement>(".opening-title .sw-w span"),
       ).filter((el) => el.style.visibility === "visible").length >= 3,
   );
-  await expect(page.locator(".tool-tile.sw-hide-box")).toHaveCount(5);
+  await expect(page.locator(".art-piece svg.sw-hide-media")).toHaveCount(7);
   await expect(
-    page.locator(".tool-tile:not(.sw-hide-box)").first(),
+    page.locator(".art-piece svg:not(.sw-hide-media)").first(),
   ).toBeVisible({ timeout: 15000 });
   expect(
     await page
@@ -213,12 +213,11 @@ test("swarm builds the identity before assembling toolkit cards", async ({
         ),
       ),
   ).toBe(true);
-  await page.screenshot({ path: "test-results/swarm-toolkit-build.png" });
+  await page.screenshot({ path: "test-results/swarm-vector-build.png" });
   await page.keyboard.press("Escape");
   await clean(page);
-  for (const tool of ["WordPress", "PHP", "Flutter", ".NET", "Next.js"]) {
-    await expect(
-      page.locator(".tool-tile").filter({ hasText: tool }),
-    ).toBeVisible();
-  }
+  await expect(
+    page.getByRole("figure", { name: /Original illustration/ }),
+  ).toBeVisible();
+  await expect(page.locator(".art-ribbon svg")).toBeVisible();
 });
