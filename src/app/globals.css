@@ -483,3 +483,91 @@ main {
     font-size: 10px;
   }
 }
+.contact-dialog {
+  width: min(490px, calc(100% - 32px));
+  max-width: none;
+  border: 1px solid #dfe5f5;
+  border-radius: 22px;
+  padding: 42px 30px 28px;
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 30px 100px #19223720;
+}
+.contact-dialog::backdrop {
+  background: #19223750;
+  backdrop-filter: blur(5px);
+}
+.dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #677187;
+  font-size: 28px;
+  cursor: pointer;
+}
+.contact-eyebrow {
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 2px;
+  color: var(--blue);
+}
+.contact-dialog h2 {
+  margin: 16px 0 10px;
+  font-family: "Space Grotesk Variable", sans-serif;
+  font-size: 52px;
+  letter-spacing: -3px;
+  line-height: 1;
+}
+.contact-dialog h2 span {
+  color: #ff765e;
+}
+.contact-dialog p {
+  color: #677187;
+  font-size: 13px;
+}
+.email-address {
+  display: block;
+  margin-top: 22px;
+  color: var(--blue);
+  font-size: clamp(13px, 3.8vw, 18px);
+  overflow-wrap: anywhere;
+}
+.contact-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.email-launch,
+.copy-email {
+  border: 1px solid #dfe5f5;
+  padding: 12px 16px;
+  border-radius: 9px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.email-launch {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+.email-launch span {
+  margin-left: 14px;
+}
+.copy-email {
+  background: white;
+  color: var(--ink);
+}
+.contact-dialog .copy-status {
+  margin-top: 20px;
+  min-height: 32px;
+  font-size: 11px;
+}
+.contact-link {
+  min-height: 44px;
+  position: relative;
+  z-index: 4;
+}
+.contact-dialog { margin: auto; max-height: calc(100svh - 32px); overflow-y: auto; }

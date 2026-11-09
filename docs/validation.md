@@ -29,3 +29,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Pause, Escape, live reduced motion, resize, hidden tab, and unmount skip the intro and restore the content. Motion/replay controls are excluded from DOM wrapping.
 - Engine syntax, lint, typecheck, and build passed. Eight Edge tests passed against the actual engine; tests require running cursors, wrapped text, selection boxes, completion cleanup, replay, keyboard skip, live reduced motion, and no-JavaScript content. Reviewed a screenshot during text construction and desktop/mobile finished states.
 - Only swarm mode is integrated and verified; the supplied engine's other modes are not exercised. No physical-device or cross-browser verification. No push/deployment performed.
+
+## Contact and refresh fixes
+
+- Kept the contact trigger out of swarm DOM wrapping so it stays visible and clickable throughout the intro. Added a native modal dialog with the public email, email-app link, clipboard copying/feedback, Escape dismissal, and focus return. Without JavaScript the trigger still uses mailto.
+- Remember the previous origin/order in session storage and exclude both choices from the next refresh/replay. No new environment variables. With blocked storage, random choices remain available but repeats cannot be excluded across refreshes.
+- Lint, typecheck, and production build passed. Ten Edge tests passed, including real clipboard copying, contact during a running swarm, keyboard dismissal/focus restoration, and three consecutive non-repeating refreshes.
+- Desktop/mobile screenshots inspected; corrected default dialog positioning to center it. External email-app launch depends on the configured mail handler and cannot be verified by browser automation. No physical-device or other-browser verification.

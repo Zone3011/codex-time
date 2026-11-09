@@ -24,7 +24,12 @@ test("supplied swarm draws selections, types text, and cleans up", async ({
   await started(page);
   await expect(page.locator(".sw-w").first()).toBeAttached();
   await expect(page.locator(".sw-sel").first()).toBeVisible({ timeout: 10000 });
-  await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLElement>(".sw-w span")).filter(el => el.style.visibility === "visible").length >= 5);
+  await page.waitForFunction(
+    () =>
+      Array.from(document.querySelectorAll<HTMLElement>(".sw-w span")).filter(
+        (el) => el.style.visibility === "visible",
+      ).length >= 5,
+  );
   await page.screenshot({ path: "test-results/swarm-in-progress.png" });
   await clean(page);
   await expect(
@@ -128,4 +133,58 @@ test("opening fits a narrow phone after swarm cleanup", async ({ page }) => {
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+test("contact opens during swarm, copies email, and closes with keyboard", async ({
+  page,
+  context,
+}) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("/");
+  await started(page);
+  const link = page.getByRole("link", { name: /talk/ });
+  await link.click();
+  const dialog = page.getByRole("dialog", { name: /talk/ });
+  await expect(dialog).toBeVisible();
+  await page.screenshot({ path: "test-results/contact-desktop.png" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: "test-results/contact-mobile.png" });
+  await clean(page);
+  await expect(
+    dialog.getByRole("link", { name: "Open email app" }),
+  ).toHaveAttribute("href", "mailto:niravpatel1422004@gmail.com");
+  await dialog.getByRole("button", { name: "Copy email" }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Email copied.");
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    "niravpatel1422004@gmail.com",
+  );
+  await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await expect(link).toBeFocused();
+  await link.click();
+  await dialog.getByRole("button", { name: "Close contact" }).click();
+  await expect(dialog).not.toBeVisible();
+});
+
+test("successive refreshes choose different origins and build orders", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await started(page);
+  let previous = await page.evaluate(() => ({
+    saved: JSON.parse(sessionStorage.getItem("nirav-intro-plan")!),
+    actual: window.SwarmIntro?.lastPlan,
+  }));
+  for (let refresh = 0; refresh < 3; refresh++) {
+    await page.reload();
+    await started(page);
+    const current = await page.evaluate(() => ({
+      saved: JSON.parse(sessionStorage.getItem("nirav-intro-plan")!),
+      actual: window.SwarmIntro?.lastPlan,
+    }));
+    expect(current.saved.origin).not.toBe(previous.saved.origin);
+    expect(current.saved.order).not.toBe(previous.saved.order);
+    expect(current.actual?.start).not.toBe(previous.actual?.start);
+    previous = current;
+  }
 });

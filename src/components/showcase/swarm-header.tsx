@@ -19,7 +19,7 @@ type SwarmApi = {
   }) => Promise<void>;
   skip: () => void;
   running: boolean;
-  lastPlan: { originKind: string; kind: string } | null;
+  lastPlan: { start: string; order: string; strikes: string } | null;
 };
 declare global {
   interface Window {
@@ -27,8 +27,44 @@ declare global {
   }
 }
 
+// Remember only the last visual choices within this tab, so refreshes cannot repeat them.
+function nextIntroPlan() {
+  const origins = ["logo", "corner", "center", "edge", "piece"];
+  const orders = [
+    "down",
+    "up",
+    "left",
+    "right",
+    "out",
+    "in",
+    "spin",
+    "shuffle",
+  ];
+  let previous: { origin?: string; order?: string } = {};
+  try {
+    previous = JSON.parse(sessionStorage.getItem("nirav-intro-plan") || "{}");
+  } catch {
+    /* Storage is optional. */
+  }
+  const choose = (choices: string[], last?: string) => {
+    const available = choices.filter((value) => value !== last);
+    return available[Math.floor(Math.random() * available.length)];
+  };
+  const plan = {
+    origin: choose(origins, previous?.origin),
+    order: choose(orders, previous?.order),
+  };
+  try {
+    sessionStorage.setItem("nirav-intro-plan", JSON.stringify(plan));
+  } catch {
+    /* Randomness still works without storage. */
+  }
+  return plan;
+}
 export function SwarmHeader() {
   const header = useRef<HTMLElement>(null);
+  const contact = useRef<HTMLDialogElement>(null);
+  const [copyMessage, setCopyMessage] = useState("");
   const [paused, setPaused] = useState(false);
   const [engineReady, setEngineReady] = useState(false);
   const [replay, setReplay] = useState(0);
@@ -51,14 +87,15 @@ export function SwarmHeader() {
     preference.addEventListener("change", onPreference);
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("resize", onResize);
+    const plan = nextIntroPlan();
     // Use the supplied engine: cursors draw selection boxes and type the actual text.
     void engine
       .play({
         mode: "swarm",
         vibe: "classic",
         random: true,
-        origin: "auto",
-        order: "auto",
+        origin: plan.origin,
+        order: plan.order,
         cursors: 6,
         speed: 2,
         ui: false,
@@ -130,8 +167,15 @@ export function SwarmHeader() {
           </button>
           <a
             className="contact-link"
-            data-swarm-piece
+            data-swarm-ignore
             href="mailto:niravpatel1422004@gmail.com"
+            aria-haspopup="dialog"
+            onClick={(event) => {
+              event.preventDefault();
+              window.SwarmIntro?.skip();
+              setCopyMessage("");
+              contact.current?.showModal();
+            }}
           >
             Let’s talk <span aria-hidden="true">↗</span>
           </a>
@@ -220,6 +264,53 @@ export function SwarmHeader() {
           </span>
         </div>
       </section>
+      <dialog
+        ref={contact}
+        className="contact-dialog"
+        data-swarm-ignore
+        aria-labelledby="contact-title"
+      >
+        <button
+          className="dialog-close"
+          type="button"
+          aria-label="Close contact"
+          onClick={() => contact.current?.close()}
+        >
+          ×
+        </button>
+        <span className="contact-eyebrow">SAY HELLO</span>
+        <h2 id="contact-title">
+          Let’s talk<span>.</span>
+        </h2>
+        <p>Send me an email.</p>
+        <a className="email-address" href="mailto:niravpatel1422004@gmail.com">
+          niravpatel1422004@gmail.com
+        </a>
+        <div className="contact-options">
+          <a className="email-launch" href="mailto:niravpatel1422004@gmail.com">
+            Open email app <span aria-hidden="true">↗</span>
+          </a>
+          <button
+            className="copy-email"
+            type="button"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(
+                  "niravpatel1422004@gmail.com",
+                );
+                setCopyMessage("Email copied.");
+              } catch {
+                setCopyMessage("Select the email address above to copy it.");
+              }
+            }}
+          >
+            Copy email
+          </button>
+        </div>
+        <p className="copy-status" role="status">
+          {copyMessage || "You can copy the address if no email app is set up."}
+        </p>
+      </dialog>{" "}
     </header>
   );
 }
