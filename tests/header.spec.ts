@@ -200,36 +200,57 @@ test("whole-page ordering can start below navigation or at the top", async ({
   await page.goto("/");
   await started(page);
   for (const order of ["up", "down"]) {
-    await page.evaluate((direction) => {
-      window.SwarmIntro?.skip();
-      void window.SwarmIntro?.play({
-        mode: "swarm",
-        vibe: "classic",
-        random: true,
-        origin: "center",
-        order: direction,
-        cursors: 3,
-        choreography: false,
-        fixedCursors: true,
-        readableTyping: true,
-        speed: 3,
-        entrance: "fan",
-        exit: "scatter",
-        ui: false,
-        root: document.querySelector<HTMLElement>(".site-header")!,
-        logo: "[data-swarm-logo]",
+    // Capture the first live selection in-page. At 3x it can disappear between two protocol calls.
+    const selectionY = await page.evaluate((direction) => {
+      window.SwarmIntro!.skip();
+      return new Promise<number>((resolve, reject) => {
+        const root = document.querySelector("#sw-root")!;
+        const observer = new MutationObserver(() => {
+          for (const element of root.querySelectorAll<HTMLElement>(".sw-sel")) {
+            const box = element.getBoundingClientRect();
+            if (box.width > 0 && box.height > 0) {
+              observer.disconnect();
+              clearTimeout(timeout);
+              resolve(box.y);
+              return;
+            }
+          }
+        });
+        const timeout = setTimeout(() => {
+          observer.disconnect();
+          reject(new Error("No live swarm selection was drawn"));
+        }, 10000);
+        observer.observe(root, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ["style"],
+        });
+        void window.SwarmIntro!.play({
+          mode: "swarm",
+          vibe: "classic",
+          random: true,
+          origin: "center",
+          order: direction,
+          cursors: 3,
+          choreography: false,
+          fixedCursors: true,
+          readableTyping: true,
+          speed: 3,
+          entrance: "fan",
+          exit: "scatter",
+          ui: false,
+          root: document.querySelector<HTMLElement>(".site-header")!,
+          logo: "[data-swarm-logo]",
+        });
       });
     }, order);
-    await started(page);
-    await expect(page.locator(".sw-sel").first()).toBeVisible();
-    const selection = await page.locator(".sw-sel").first().boundingBox();
-    expect(selection).not.toBeNull();
     if (order === "up") {
-      expect(selection!.y).toBeGreaterThan(300);
+      expect(selectionY).toBeGreaterThan(300);
       await expect(page.locator(".header-inner")).toHaveClass(/sw-hide-box/);
       await page.screenshot({ path: "test-results/random-bottom-start.png" });
     } else {
-      expect(selection!.y).toBeLessThan(250);
+      expect(selectionY).toBeLessThan(250);
     }
     await page.keyboard.press("Escape");
     await clean(page);

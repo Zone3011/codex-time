@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
+import { useMotionPaused, setMotionPaused } from "./motion-settings";
 
 type SwarmApi = {
   play: (options: {
@@ -84,7 +85,7 @@ export function SwarmHeader() {
   const header = useRef<HTMLElement>(null);
   const contact = useRef<HTMLDialogElement>(null);
   const [copyMessage, setCopyMessage] = useState("");
-  const [paused, setPaused] = useState(false);
+  const paused = useMotionPaused();
   const [engineReady, setEngineReady] = useState(false);
   const [replay, setReplay] = useState(0);
 
@@ -184,7 +185,7 @@ export function SwarmHeader() {
             data-swarm-ignore
             onClick={() => {
               window.SwarmIntro?.skip();
-              setPaused(!paused);
+              setMotionPaused(!paused);
             }}
           >
             {paused ? "Resume motion" : "Pause motion"}
