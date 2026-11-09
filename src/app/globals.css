@@ -1186,3 +1186,315 @@ main {
   object-fit: contain;
   padding: 5px;
 }
+/* Each company now owns an experience page and a photo page. */
+.book-cover {
+  overflow: hidden;
+}
+.book-frame {
+  display: block;
+  perspective: 1800px;
+}
+.company-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.company-spread .company-memory {
+  min-height: 740px;
+  height: 100%;
+}
+.turn-leaf {
+  inset: 0 0 0 auto;
+  width: 50%;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  transform-origin: left center;
+  will-change: transform;
+  background: transparent;
+}
+.turn-previous {
+  inset: 0 auto 0 0;
+  transform-origin: right center;
+}
+.turn-single {
+  inset: 0;
+  width: 100%;
+}
+.turn-face,
+.turn-hold {
+  background-color: #fffdf7;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #86744d03,
+    #86744d03 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+.turn-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+.turn-face .company-memory,
+.turn-hold .company-memory {
+  height: 100%;
+}
+.turn-back {
+  transform: rotateY(180deg);
+}
+.turn-hold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 6;
+  overflow: hidden;
+  pointer-events: none;
+}
+.turn-hold-left {
+  left: 0;
+}
+.turn-hold-right {
+  right: 0;
+}
+.turn-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #493526, #80654466 40%, transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+.book-auto-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid #ded4e8;
+  border-radius: 30px;
+  background: #fcfaff;
+  color: #806294;
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.book-auto-toggle:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.book-auto-toggle > span {
+  font-size: 12px;
+}
+.gallery-heading {
+  padding: 3px 5px 0;
+  margin-bottom: 27px;
+}
+.gallery-heading h3 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: var(--company-ink);
+  margin: 0 0 10px;
+}
+.gallery-heading h3 em {
+  font-weight: 400;
+}
+.gallery-heading > p:last-child {
+  margin: 0;
+  color: #9b9085;
+  font-size: 9px;
+  line-height: 1.5;
+}
+.memory-gallery {
+  display: grid;
+  grid-template-columns: 1.06fr 1fr;
+  grid-template-rows: 170px 200px;
+  gap: 17px 13px;
+  padding: 5px 0;
+}
+.gallery-shot {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 7px 7px 0;
+  background: #fffefb;
+  border: 1px solid #e5ddd2;
+  box-shadow: 1px 3px 5px #48372014;
+}
+.gallery-shot-1 {
+  grid-row: 1 / 3;
+  transform: rotate(-3deg);
+}
+.gallery-shot-2 {
+  transform: rotate(4deg);
+}
+.gallery-shot-3 {
+  transform: rotate(-2deg);
+}
+.gallery-shot::before {
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 20px;
+  top: -10px;
+  transform: rotate(2deg);
+}
+.gallery-shot::after {
+  display: none;
+}
+.gallery-shot-2::before {
+  transform: rotate(-9deg);
+}
+.photo-window {
+  position: relative;
+  height: calc(100% - 29px);
+  overflow: hidden;
+  background: #eeeae4;
+}
+.photo-window > img {
+  object-fit: cover;
+}
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+}
+.photo-placeholder svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.photo-placeholder > span {
+  position: absolute;
+  bottom: 12px;
+  left: 5px;
+  right: 5px;
+  text-align: center;
+  font-size: 7px;
+  letter-spacing: 0.6px;
+  color: var(--company-ink);
+  opacity: 0.65;
+}
+.gallery-shot figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 29px;
+  gap: 5px;
+  color: #94877c;
+  font-family: Georgia, serif;
+  font-size: 10px;
+  font-style: italic;
+}
+.gallery-shot figcaption i {
+  font-family: "Manrope Variable", sans-serif;
+  font-size: 6px;
+  color: #b8ad9d;
+  font-style: normal;
+}
+.gallery-scribble {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 12px;
+  margin: 27px 2px 25px;
+  color: #a3907a;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+  transform: rotate(-2deg);
+}
+.gallery-scribble > span {
+  font-size: 22px;
+}
+.memory-hfiles .gallery-scribble {
+  color: #7896bb;
+}
+@media (max-width: 1100px) {
+  .memory-gallery {
+    grid-template-rows: 155px 185px;
+  }
+  .gallery-heading h3 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 760px) {
+  .company-spread {
+    grid-template-columns: 1fr;
+  }
+  .company-spread .company-memory {
+    min-height: 740px;
+  }
+  .book-controls {
+    flex-wrap: wrap;
+  }
+  .book-reading-note {
+    flex: 1 0 100%;
+    max-width: none;
+  }
+  .book-auto-toggle {
+    margin-right: auto;
+  }
+  .turn-leaf {
+    width: 100%;
+  }
+  .gallery-heading {
+    margin-bottom: 26px;
+  }
+  .gallery-heading h3 {
+    font-size: 26px;
+  }
+  .memory-gallery {
+    grid-template-rows: 145px 180px;
+    gap: 16px 11px;
+  }
+  .gallery-shot {
+    padding: 5px 5px 0;
+  }
+  .gallery-shot figcaption {
+    font-size: 9px;
+  }
+  .gallery-scribble {
+    font-size: 12px;
+  }
+}
+/* Keep the keyboard skip link truly clipped outside focus, including long-page captures. */
+.skip-link {
+  transform: none;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+}
+.skip-link:focus {
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 12px;
+}
+.book-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.book-toolbar .book-auto-toggle {
+  margin: 0 7px 8px 0;
+}
+@media (max-width: 360px) {
+  .book-toolbar {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .book-toolbar .book-auto-toggle {
+    margin-left: auto;
+  }
+}

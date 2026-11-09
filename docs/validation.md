@@ -77,3 +77,13 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - The attached ThreeUI export was treated as a reference rather than an instruction to replace the portfolio with a Singapore sketchbook. Both referenced source URLs failed through browser and direct retrieval; no ThreeUI code/assets were imported or claimed to be reproduced exactly.
 - Lint, typecheck and build passed. Eighteen Edge browser tests passed, including two-company desktop layout, mobile keyboard navigation/boundaries/rapid interruption, shared pause, live reduced motion, and no-JavaScript reading at 320px. Fixed a race in the existing 3x swarm regression test by capturing the first live selection inside a MutationObserver rather than between protocol calls.
 - Reviewed full desktop book and both mobile pages. No physical phone or other-browser verification performed. Header visual design preserved. Work is local on feat/company-memory-book; no push, merge or deployment.
+
+## Company photo pages and five-second auto-turn
+
+- Expanded to four pages: each company has an experience page and a facing Pinterest-style gallery with three taped photo placeholders. No workplace photos are invented. Per-photo src/alt/caption fields support later owner-provided images.
+- Preserved the paper, tape and company color treatment. Desktop reads company spreads; mobile reads four individual pages. Company tabs and previous/next controls work in both layouts.
+- Rebuilt the turn with a front face, destination back face, stationary facing-page layer, perspective and opacity lighting. Temporary overlays are inert, have no duplicate IDs, and clean up after completion, rapid interruption, layout changes, hidden tabs or reduced motion.
+- Automatic turns loop every 5 seconds while the book is at least 15% visible, the tab is visible, and motion is enabled. Hover/focus pauses reading; leaving restarts a full countdown. An explicit pause/resume control sits above the book. Global Pause motion and live reduced motion disable autoplay and movement.
+- Fixed skip-link offscreen clipping so long-page screenshots do not reveal its unfocused state; keyboard focus still reveals the link.
+- Lint, typecheck and build passed. Twenty-one Edge tests passed, including exact 4,999/5,000ms boundaries and looping with a frozen clock, pause/resume, reading-aware countdown reset, offscreen/reduced-motion behavior, all four mobile pages, rapid turn cleanup, and no-JavaScript access to four pages/six slots.
+- Reviewed both company spreads, mobile gallery, and a frozen mid-turn screenshot showing the destination on the back face. No physical-device or other-browser verification. No dependencies or environment variables added; no remote push/deployment.

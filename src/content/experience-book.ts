@@ -1,3 +1,5 @@
+export type MemoryPhoto = { caption: string; src?: `/${string}`; alt?: string };
+
 export type CompanyMemory = {
   id: string;
   company: string;
@@ -8,6 +10,7 @@ export type CompanyMemory = {
   draftSummary: string;
   summary?: string;
   logoSrc?: `/${string}`;
+  photos: MemoryPhoto[];
 };
 
 // Company names, roles and colors supplied by Nirav. Logos, dates and work details are pending.
@@ -19,6 +22,11 @@ export const companyMemories: CompanyMemory[] = [
     accent: "#24242b",
     secondary: "#e9e8e5",
     monogram: "sd.",
+    photos: [
+      { caption: "Photo 01" },
+      { caption: "Photo 02" },
+      { caption: "Photo 03" },
+    ],
     draftSummary:
       "A space for the first chapter: the work, the learning, and the details worth keeping.",
   },
@@ -29,6 +37,11 @@ export const companyMemories: CompanyMemory[] = [
     accent: "#1d5cba",
     secondary: "#f8d34d",
     monogram: "hf",
+    photos: [
+      { caption: "Photo 01" },
+      { caption: "Photo 02" },
+      { caption: "Photo 03" },
+    ],
     draftSummary:
       "A place to collect web projects, day-to-day work, and the ideas behind them.",
   },

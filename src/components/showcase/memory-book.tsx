@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -15,182 +16,318 @@ const subscribeCompact = (listener: () => void) => {
   return () => query.removeEventListener("change", listener);
 };
 const compactSnapshot = () => matchMedia("(max-width: 760px)").matches;
-const serverCompact = () => false;
+const serverFalse = () => false;
+const subscribeHydrated = () => () => {};
+const clientTrue = () => true;
+const subscribeVisible = (listener: () => void) => {
+  document.addEventListener("visibilitychange", listener);
+  return () => document.removeEventListener("visibilitychange", listener);
+};
+const visibleSnapshot = () => !document.hidden;
 
-export function MemoryBook({
-  pages,
-}: {
-  pages: { title: string; content: ReactNode }[];
-}) {
+type BookPage = { company: string; title: string; content: ReactNode };
+
+function copyPage(source: HTMLElement, className: string) {
+  const copy = source.cloneNode(true) as HTMLElement;
+  copy.className = className;
+  copy.setAttribute("aria-hidden", "true");
+  copy.inert = true;
+  copy.removeAttribute("id");
+  copy.removeAttribute("data-book-page");
+  copy.removeAttribute("hidden");
+  copy
+    .querySelectorAll("[id]")
+    .forEach((element) => element.removeAttribute("id"));
+  return copy;
+}
+
+export function MemoryBook({ pages }: { pages: BookPage[] }) {
   const [active, setActive] = useState(0);
+  const [autoEnabled, setAutoEnabled] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [inView, setInView] = useState(false);
   const compact = useSyncExternalStore(
     subscribeCompact,
     compactSnapshot,
-    serverCompact,
+    serverFalse,
+  );
+  const enhanced = useSyncExternalStore(
+    subscribeHydrated,
+    clientTrue,
+    serverFalse,
+  );
+  const visible = useSyncExternalStore(
+    subscribeVisible,
+    visibleSnapshot,
+    serverFalse,
   );
   const motion = useMotionEnabled();
   const frame = useRef<HTMLDivElement>(null);
-  const animation = useRef<Animation | null>(null);
-  const leaf = useRef<HTMLElement | null>(null);
+  const cover = useRef<HTMLDivElement>(null);
+  const animations = useRef<Animation[]>([]);
+  const overlays = useRef<HTMLElement[]>([]);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const start = compact ? active : Math.floor(active / 2) * 2;
+  const step = compact ? 1 : 2;
+  const chapter = Math.floor(start / 2);
+  const chapters = pages.filter((_, index) => index % 2 === 0);
 
-  function cancelTurn() {
-    animation.current?.cancel();
-    animation.current = null;
-    leaf.current?.remove();
-    leaf.current = null;
-  }
-  useEffect(() => {
-    const onVisibility = () => {
-      if (document.hidden) cancelTurn();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      cancelTurn();
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
+  const cancelTurn = useCallback(() => {
+    animations.current.forEach((animation) => animation.cancel());
+    animations.current = [];
+    overlays.current.forEach((overlay) => overlay.remove());
+    overlays.current = [];
   }, []);
-  useEffect(() => {
-    if (!motion || !compact) cancelTurn();
-  }, [motion, compact]);
 
-  function turn(next: number) {
-    if (next === active || next < 0 || next >= pages.length) return;
-    cancelTurn();
-    const source = frame.current?.querySelector<HTMLElement>(
-      `[data-book-page="${active}"]`,
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) =>
+        setInView(entry.isIntersecting && entry.intersectionRatio >= 0.15),
+      { threshold: 0.15 },
     );
-    if (motion && compact && !document.hidden && source && frame.current) {
-      const sheet = source.cloneNode(true) as HTMLElement;
-      sheet.className = "turn-leaf";
-      sheet.setAttribute("aria-hidden", "true");
-      sheet.inert = true;
-      sheet.removeAttribute("id");
-      sheet
-        .querySelectorAll("[id]")
-        .forEach((element) => element.removeAttribute("id"));
-      frame.current.append(sheet);
-      leaf.current = sheet;
-      const flip = sheet.animate(
-        [
-          { transform: "perspective(1400px) rotateY(0deg)", opacity: 1 },
-          {
-            transform: `perspective(1400px) rotateY(${next > active ? "-" : ""}88deg)`,
-            opacity: 0.8,
-            offset: 0.8,
-          },
-          {
-            transform: `perspective(1400px) rotateY(${next > active ? "-" : ""}135deg)`,
-            opacity: 0,
-          },
-        ],
-        {
-          duration: 460,
-          easing: "cubic-bezier(.22,.68,.2,1)",
-          fill: "forwards",
-        },
+    if (cover.current) observer.observe(cover.current);
+    return () => {
+      observer.disconnect();
+      cancelTurn();
+    };
+  }, [cancelTurn]);
+  useEffect(() => {
+    if (!motion || !visible) cancelTurn();
+  }, [motion, visible, cancelTurn]);
+  useEffect(() => () => cancelTurn(), [compact, cancelTurn]);
+
+  const turn = useCallback(
+    (requested: number) => {
+      const next = compact ? requested : Math.floor(requested / 2) * 2;
+      if (next === start || next < 0 || next >= pages.length) return;
+      cancelTurn();
+      const host = frame.current;
+      const forward = next > start;
+      const sourceIndex = compact ? start : start + (forward ? 1 : 0);
+      const backIndex = compact ? next : next + (forward ? 0 : 1);
+      const source = host?.querySelector<HTMLElement>(
+        `[data-book-page="${sourceIndex}"]`,
       );
-      animation.current = flip;
-      flip.onfinish = () => {
-        if (animation.current === flip) cancelTurn();
-      };
-    }
-    setActive(next);
-  }
+      const backSource = host?.querySelector<HTMLElement>(
+        `[data-book-page="${backIndex}"]`,
+      );
+      if (motion && visible && host && source && backSource) {
+        if (!compact) {
+          const stationary = host.querySelector<HTMLElement>(
+            `[data-book-page="${start + (forward ? 0 : 1)}"]`,
+          );
+          if (stationary) {
+            const hold = copyPage(
+              stationary,
+              `turn-hold ${forward ? "turn-hold-left" : "turn-hold-right"}`,
+            );
+            host.append(hold);
+            overlays.current.push(hold);
+          }
+        }
+        const sheet = document.createElement("div");
+        sheet.className = `turn-leaf ${compact ? "turn-single" : forward ? "turn-next" : "turn-previous"}`;
+        sheet.setAttribute("aria-hidden", "true");
+        sheet.inert = true;
+        sheet.append(
+          copyPage(source, "turn-face turn-front"),
+          copyPage(backSource, "turn-face turn-back"),
+        );
+        const shade = document.createElement("div");
+        shade.className = "turn-shade";
+        sheet.append(shade);
+        host.append(sheet);
+        overlays.current.push(sheet);
+        const duration = 820;
+        const flip = sheet.animate(
+          [
+            { transform: "rotateY(0deg)" },
+            { transform: `rotateY(${forward ? "-" : ""}82deg)`, offset: 0.46 },
+            { transform: `rotateY(${forward ? "-" : ""}180deg)` },
+          ],
+          { duration, easing: "cubic-bezier(.33,.05,.23,1)", fill: "forwards" },
+        );
+        const lighting = shade.animate(
+          [{ opacity: 0 }, { opacity: 0.26, offset: 0.5 }, { opacity: 0 }],
+          { duration, fill: "forwards" },
+        );
+        animations.current = [flip, lighting];
+        flip.onfinish = () => {
+          if (animations.current.includes(flip)) cancelTurn();
+        };
+      }
+      setActive(next);
+    },
+    [cancelTurn, compact, motion, pages.length, start, visible],
+  );
+
+  const autoRunning =
+    enhanced &&
+    autoEnabled &&
+    motion &&
+    visible &&
+    inView &&
+    !hovered &&
+    !focused;
+  useEffect(() => {
+    if (!autoRunning) return;
+    const timer = setTimeout(
+      () => turn(start + step >= pages.length ? 0 : start + step),
+      5000,
+    );
+    return () => clearTimeout(timer);
+  }, [autoRunning, start, step, pages.length, turn]);
 
   return (
-    <div className="memory-reader" data-compact={compact ? "true" : undefined}>
-      <div
-        className="book-bookmarks"
-        role="tablist"
-        aria-label="Company pages"
-        hidden={!compact}
-      >
-        {pages.map((page, index) => (
-          <button
-            key={page.title}
-            ref={(element) => {
-              tabs.current[index] = element;
-            }}
-            type="button"
-            role="tab"
-            id={`book-tab-${index}`}
-            aria-controls={`book-page-${index}`}
-            aria-selected={active === index}
-            tabIndex={active === index ? 0 : -1}
-            onClick={() => turn(index)}
-            onKeyDown={(event) => {
-              let next = active;
-              if (event.key === "ArrowRight")
-                next = (active + 1) % pages.length;
-              else if (event.key === "ArrowLeft")
-                next = (active - 1 + pages.length) % pages.length;
-              else if (event.key === "Home") next = 0;
-              else if (event.key === "End") next = pages.length - 1;
-              else return;
-              event.preventDefault();
-              turn(next);
-              tabs.current[next]?.focus();
-            }}
-          >
-            {page.title}
-          </button>
-        ))}
+    <div
+      className="memory-reader"
+      data-compact={compact ? "true" : undefined}
+      data-enhanced={enhanced ? "true" : undefined}
+      data-auto-running={autoRunning ? "true" : "false"}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocusCapture={(event) =>
+        setFocused(
+          !(event.target as HTMLElement).closest("[data-auto-control]"),
+        )
+      }
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setFocused(false);
+      }}
+    >
+      <div className="book-toolbar" hidden={!enhanced}>
+        <div
+          className="book-bookmarks"
+          role="tablist"
+          aria-label="Company pages"
+          hidden={!enhanced}
+        >
+          {chapters.map((page, index) => (
+            <button
+              key={page.company}
+              ref={(element) => {
+                tabs.current[index] = element;
+              }}
+              type="button"
+              role="tab"
+              id={`book-tab-${index}`}
+              aria-controls={`book-chapter-${index}`}
+              aria-selected={chapter === index}
+              tabIndex={chapter === index ? 0 : -1}
+              onClick={() => turn(index * 2)}
+              onKeyDown={(event) => {
+                let next = chapter;
+                if (event.key === "ArrowRight")
+                  next = (chapter + 1) % chapters.length;
+                else if (event.key === "ArrowLeft")
+                  next = (chapter - 1 + chapters.length) % chapters.length;
+                else if (event.key === "Home") next = 0;
+                else if (event.key === "End") next = chapters.length - 1;
+                else return;
+                event.preventDefault();
+                turn(next * 2);
+                tabs.current[next]?.focus();
+              }}
+            >
+              {page.company}
+            </button>
+          ))}
+        </div>
+        <button
+          className="book-auto-toggle"
+          type="button"
+          data-auto-control
+          disabled={!motion}
+          aria-pressed={!autoEnabled}
+          onClick={() => setAutoEnabled(!autoEnabled)}
+          aria-label={autoEnabled ? "Pause auto-turn" : "Resume auto-turn"}
+        >
+          <span aria-hidden="true">{autoEnabled && motion ? "Ⅱ" : "▷"}</span>
+          {!motion
+            ? "Motion paused"
+            : autoEnabled
+              ? hovered || focused
+                ? "Paused to read"
+                : "Auto · 5s"
+              : "Auto paused"}
+        </button>
       </div>
-      <div className="book-cover">
+      <div className="book-cover" ref={cover}>
         <div className="book-paper-stack">
           <div className="book-frame" ref={frame}>
-            {pages.map((page, index) => (
+            {chapters.map((page, companyIndex) => (
               <div
-                key={page.title}
-                id={`book-page-${index}`}
-                className={`paper-page ${index === 0 ? "paper-left" : "paper-right"}`}
-                data-book-page={index}
-                role={compact ? "tabpanel" : undefined}
-                aria-labelledby={compact ? `book-tab-${index}` : undefined}
-                hidden={compact && active !== index}
-                tabIndex={compact ? 0 : undefined}
+                key={page.company}
+                className="company-spread"
+                id={`book-chapter-${companyIndex}`}
+                role={enhanced ? "tabpanel" : undefined}
+                aria-labelledby={
+                  enhanced ? `book-tab-${companyIndex}` : undefined
+                }
+                hidden={enhanced && chapter !== companyIndex}
               >
-                {page.content}
+                {pages
+                  .slice(companyIndex * 2, companyIndex * 2 + 2)
+                  .map((bookPage, side) => {
+                    const index = companyIndex * 2 + side;
+                    return (
+                      <div
+                        key={bookPage.title}
+                        className={`paper-page ${side === 0 ? "paper-left" : "paper-right"}`}
+                        data-book-page={index}
+                        role="region"
+                        aria-label={`${bookPage.title}, page ${index + 1}`}
+                        hidden={enhanced && compact && active !== index}
+                      >
+                        {bookPage.content}
+                      </div>
+                    );
+                  })}
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="book-controls">
+      <div className="book-controls" hidden={!enhanced}>
         <span className="book-reading-note">
-          <span aria-hidden="true">↳</span> Two chapters. A few things kept.
+          <span aria-hidden="true">↳</span> Two companies. Four pages of
+          memories.
         </span>
-        <div className="book-pagination" hidden={!compact}>
+
+        <div className="book-pagination">
           <button
             type="button"
-            onClick={() => turn(active - 1)}
-            disabled={active === 0}
+            onClick={() => turn(start - step)}
+            disabled={start === 0}
             aria-label="Previous page"
           >
             ←
           </button>
           <span aria-hidden="true">
-            {String(active + 1).padStart(2, "0")}
+            {String(start + 1).padStart(2, "0")}
+            {!compact && ` — ${String(start + 2).padStart(2, "0")}`}
             <i> / {String(pages.length).padStart(2, "0")}</i>
           </span>
           <button
             type="button"
-            onClick={() => turn(active + 1)}
-            disabled={active === pages.length - 1}
+            onClick={() => turn(start + step)}
+            disabled={start + step >= pages.length}
             aria-label="Next page"
           >
             →
           </button>
         </div>
-        <span className="book-desktop-count" hidden={compact}>
-          01 <span>—</span> 02
-        </span>
       </div>
-      <p className="sr-only" role="status" aria-live="polite">
+      <p
+        className="sr-only"
+        role="status"
+        aria-live={autoRunning ? "off" : "polite"}
+      >
         {compact
-          ? `${pages[active].title}, page ${active + 1} of ${pages.length}.`
-          : "Open book: Sedani Digital and hfiles."}
+          ? `${pages[start].title}, page ${start + 1} of ${pages.length}.`
+          : `${pages[start].company}, pages ${start + 1} and ${start + 2} of ${pages.length}.`}
       </p>
     </div>
   );
