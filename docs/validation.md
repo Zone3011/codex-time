@@ -36,3 +36,11 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Remember the previous origin/order in session storage and exclude both choices from the next refresh/replay. No new environment variables. With blocked storage, random choices remain available but repeats cannot be excluded across refreshes.
 - Lint, typecheck, and production build passed. Ten Edge tests passed, including real clipboard copying, contact during a running swarm, keyboard dismissal/focus restoration, and three consecutive non-repeating refreshes.
 - Desktop/mobile screenshots inspected; corrected default dialog positioning to center it. External email-app launch depends on the configured mail handler and cannot be verified by browser automation. No physical-device or other-browser verification.
+
+## Swarm rhythm and palette
+
+- Replaced cobalt/coral with graphite, deep green, and muted brass on white. Replaced the large orbit illustration with five cards for the confirmed toolkit: WordPress, PHP, Flutter, .NET, Next.js.
+- Added opt-in engine choreography: navigation, name, toolkit, footer. Three cursors finish one group before beginning the next; random origin and random ordering within groups remain at speed 2. Headline character holds are longer so typing is visible. The toolkit supplies real boxes and labels for cursors to assemble rather than one large media reveal.
+- Preserved pause, Escape, live reduced motion, hidden-tab/resize cleanup, direct email fallback, contact dialog, and non-repeating refresh choices.
+- Engine syntax, lint, typecheck, and production build passed. Eleven Edge tests passed, including a phase-order behavior test that observes the name typing while all toolkit cards remain unrevealed, then verifies the toolkit starts after name completion.
+- Reviewed desktop/mobile finished states and a toolkit-build screenshot; refined panel spacing to avoid overlapping the footer. No physical-device or other-browser verification. No remote push or deployment.

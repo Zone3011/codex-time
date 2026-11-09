@@ -12,6 +12,7 @@ type SwarmApi = {
     origin: string;
     order: string;
     cursors: number;
+    choreography: boolean;
     speed: number;
     ui: boolean;
     root: HTMLElement;
@@ -96,7 +97,8 @@ export function SwarmHeader() {
         random: true,
         origin: plan.origin,
         order: plan.order,
-        cursors: 6,
+        cursors: 3,
+        choreography: true,
         speed: 2,
         ui: false,
         root: element,
@@ -121,7 +123,7 @@ export function SwarmHeader() {
         strategy="afterInteractive"
         onReady={() => setEngineReady(true)}
       />
-      <div className="header-inner">
+      <div className="header-inner" data-swarm-stage="0">
         <Link className="brand" href="/" aria-label="Nirav Patel home">
           <span className="brand-mark" data-swarm-logo aria-hidden="true">
             <svg viewBox="0 0 40 40" fill="none">
@@ -182,13 +184,14 @@ export function SwarmHeader() {
         </div>
       </div>
       <section className="opening" aria-labelledby="opening-title">
-        <div className="opening-kicker" data-swarm-piece>
+        <div className="opening-kicker" data-swarm-stage="1">
           <span className="tiny-cross">+</span> HELLO, I’M NIRAV{" "}
           <span className="kicker-line" />
         </div>
         <h1
           id="opening-title"
           className="opening-title"
+          data-swarm-stage="1"
           aria-label="Nirav Patel"
         >
           <span className="name-line" data-swarm-piece>
@@ -201,66 +204,66 @@ export function SwarmHeader() {
             </span>
           </span>
         </h1>
-        <div className="orbit-art" data-swarm-piece aria-hidden="true">
-          <svg viewBox="0 0 420 420" fill="none">
-            <ellipse
-              cx="210"
-              cy="210"
-              rx="189"
-              ry="95"
-              transform="rotate(-36 210 210)"
-              stroke="#ccd6ef"
-            />
-            <ellipse
-              cx="210"
-              cy="210"
-              rx="189"
-              ry="95"
-              transform="rotate(36 210 210)"
-              stroke="#ccd6ef"
-            />
-            <circle
-              cx="210"
-              cy="210"
-              r="155"
-              stroke="#e7ecf7"
-              strokeDasharray="3 8"
-            />
-            <path
-              d="M133 294V126L287 294V126"
-              stroke="#315af4"
-              strokeWidth="2"
-            />
-            <path
-              d="M145 294V151L275 294"
-              stroke="#315af4"
-              strokeOpacity=".25"
-              strokeWidth="18"
-            />
-            <g fill="#315af4">
-              <circle cx="133" cy="126" r="8" />
-              <circle cx="133" cy="294" r="8" />
-              <circle cx="287" cy="126" r="8" />
-              <circle cx="287" cy="294" r="8" />
-              <circle cx="210" cy="210" r="5" />
-            </g>
-            <circle cx="62" cy="131" r="10" fill="#ff765e" />
-            <circle cx="345" cy="282" r="6" fill="#43ad96" />
-            <path
-              d="M331 76h14m-7-7v14M75 307h14m-7-7v14"
-              stroke="#315af4"
-              strokeWidth="2"
-            />
-          </svg>
-          <span className="art-tag">a few dots. a different perspective.</span>
-        </div>
-        <div className="opening-footer">
+        <div
+          className="assembly-board"
+          data-swarm-stage="2"
+          aria-label="My toolkit"
+        >
+          <div className="board-heading">
+            <span className="board-dot" /> A FEW GOOD TOOLS{" "}
+            <span className="board-plus" aria-hidden="true">
+              +
+            </span>
+          </div>
+          <div className="tool-grid">
+            <div className="tool-tile tile-wordpress">
+              <span className="tool-symbol" aria-hidden="true">
+                W
+              </span>
+              <span>WordPress</span>
+              <i aria-hidden="true">↗</i>
+            </div>
+            <div className="tool-tile tile-php">
+              <span className="tool-symbol" aria-hidden="true">
+                &lt;?&gt;
+              </span>
+              <span>PHP</span>
+              <i aria-hidden="true">↗</i>
+            </div>
+            <div className="tool-tile tile-flutter">
+              <span className="tool-symbol" aria-hidden="true">
+                F
+              </span>
+              <span>Flutter</span>
+              <i aria-hidden="true">↗</i>
+            </div>
+            <div className="tool-tile tile-dotnet">
+              <span className="tool-symbol" aria-hidden="true">
+                .n
+              </span>
+              <span>.NET</span>
+              <i aria-hidden="true">↗</i>
+            </div>
+            <div className="tool-tile tile-next">
+              <span className="tool-symbol" aria-hidden="true">
+                N<span className="symbol-dot">.</span>
+              </span>
+              <span>Next.js</span>
+              <i aria-hidden="true">↗</i>
+            </div>
+          </div>
+          <div className="board-footnote">
+            <span>Different tools. Connected thinking.</span>
+            <span aria-hidden="true">↙</span>
+          </div>
+        </div>{" "}
+        <div className="opening-footer" data-swarm-stage="3">
           <span data-swarm-piece>
             Personal portfolio <span className="footer-slash">/</span> A work in
             motion
           </span>
           <span className="footer-note" aria-hidden="true">
-            A little order. A little swarm. <span>↗</span>
+            Built a little differently. <span>↗</span>
           </span>
         </div>
       </section>

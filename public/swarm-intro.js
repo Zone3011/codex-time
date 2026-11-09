@@ -1,6 +1,7 @@
 /*!
  * swarm-intro.js
- * Supplied by the portfolio owner. Integration change: native scrolling stays enabled.
+ * Supplied by the portfolio owner. Integration: native scrolling, coordinated colors,
+ * and opt-in choreography (stage groups, three-cursor crew, readable headline typing).
  * A small, dependency-free page-intro animation engine: multiplayer cursors, lightning, roots, webs and more
  * build your page on load. Original code written for this demo. It is not taken from the Swarm Rebuild extension.
  *
@@ -39,7 +40,7 @@
   'use strict';
 
   var NAMES = ['Mira', 'Dev', 'Kai', 'Zoe', 'Arjun', 'Lena', 'Theo', 'Noor'];
-  var COLORS = ['#f24e1e', '#a259ff', '#0aa56b', '#1ea7fd', '#ff5fa2', '#e08a00', '#00a99d', '#6c5ce7'];
+  var COLORS = ['#346356', '#94712e', '#77618f', '#335e74', '#835b4c', '#677546', '#496c70', '#775a71'];
   var SKIP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, TEMPLATE: 1, HEAD: 1, META: 1, LINK: 1, BR: 1, WBR: 1, OPTION: 1, OPTGROUP: 1, SOURCE: 1, TRACK: 1, AREA: 1, MAP: 1 };
   var MEDIA = { IMG: 1, SVG: 1, VIDEO: 1, CANVAS: 1, IFRAME: 1, INPUT: 1, TEXTAREA: 1, SELECT: 1 };
   var NS = 'http://www.w3.org/2000/svg';
@@ -477,7 +478,7 @@
     var tasks = [];
     var n = Math.max(1, Math.min(8, opts.cursors | 0));
     var PL = null;   // this run's plan: where it starts, which way it builds, and a few dice rolls
-    if (opts.random !== false) n = Math.max(2, Math.min(8, n + Math.round((Math.random() - 0.5) * 4)));
+    if (opts.random !== false && !opts.choreography) n = Math.max(2, Math.min(8, n + Math.round((Math.random() - 0.5) * 4)));
     var finishResolve;
     var finished = new Promise(function (res) { finishResolve = res; });
 
@@ -649,7 +650,7 @@
       var caret = mk('div', 'sw-caret');
       caret.style.background = c.color;
       rootEl.appendChild(caret);
-      var base = t.short ? 28 : 48;
+      var base = opts.choreography ? (t.el.closest('.opening-title') ? 180 : 80) : (t.short ? 28 : 48);
       placeCaret(caret, t.units[0], true);
       for (var i = 0; i < t.units.length; i++) {
         if (R.dead) break;
@@ -666,15 +667,17 @@
     // Cursors only look a few tasks ahead, so the page fills in from the top down.
     function pick(useParent) {
       var seen = 0, win = n + 4, i, t;
+      var stage = Infinity;
+      if (opts.choreography) tasks.forEach(function (q) { if (q.state !== 2) stage = Math.min(stage, q.stage); });
       for (i = 0; i < tasks.length; i++) {
         t = tasks[i];
-        if (t.state !== 0) continue;
+        if (t.state !== 0 || (opts.choreography && t.stage !== stage)) continue;
         if (seen++ >= win) break;
         if (!useParent || !t.parent || t.parent.state === 2) return t;
       }
       for (i = 0; i < tasks.length; i++) {   // safety net so nothing can stall
         t = tasks[i];
-        if (t.state === 0 && (!useParent || !t.parent || t.parent.state === 2)) return t;
+        if (t.state === 0 && (!opts.choreography || t.stage === stage) && (!useParent || !t.parent || t.parent.state === 2)) return t;
       }
       return null;
     }
@@ -2809,6 +2812,15 @@
       tasks = orderAndLink(scan(opts.root || document.body), opts.maxTasks);
       PL = makePlan();
       PL.sort(tasks, function (t) { return [t.rect.l + t.rect.w / 2, t.rect.t + t.rect.h / 2]; });
+      // Portfolio choreography: complete each visual group before handing off to the next.
+      // The random plan still orders tasks within each group.
+      if (opts.choreography) {
+        tasks.forEach(function (t) {
+          var group = t.el.closest('[data-swarm-stage]');
+          t.stage = group ? Number(group.getAttribute('data-swarm-stage')) : 0;
+        });
+        tasks.sort(function (a, b) { return a.stage - b.stage; });
+      }
       state.coff = PL.cofs;
       VEIN = VEIN.slice(PL.cofs).concat(VEIN.slice(0, PL.cofs));
       if (ui) ui.querySelector('[data-act="rand"]').title = 'Random: this run started from ' + PL.originKind + ' and built in ' + PL.kind + ' order';

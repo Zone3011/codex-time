@@ -188,3 +188,37 @@ test("successive refreshes choose different origins and build orders", async ({
     previous = current;
   }
 });
+
+test("swarm builds the identity before assembling toolkit cards", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await started(page);
+  await page.waitForFunction(
+    () =>
+      Array.from(
+        document.querySelectorAll<HTMLElement>(".opening-title .sw-w span"),
+      ).filter((el) => el.style.visibility === "visible").length >= 3,
+  );
+  await expect(page.locator(".tool-tile.sw-hide-box")).toHaveCount(5);
+  await expect(
+    page.locator(".tool-tile:not(.sw-hide-box)").first(),
+  ).toBeVisible({ timeout: 15000 });
+  expect(
+    await page
+      .locator(".opening-title .sw-w span")
+      .evaluateAll((elements) =>
+        elements.every(
+          (el) => (el as HTMLElement).style.visibility === "visible",
+        ),
+      ),
+  ).toBe(true);
+  await page.screenshot({ path: "test-results/swarm-toolkit-build.png" });
+  await page.keyboard.press("Escape");
+  await clean(page);
+  for (const tool of ["WordPress", "PHP", "Flutter", ".NET", "Next.js"]) {
+    await expect(
+      page.locator(".tool-tile").filter({ hasText: tool }),
+    ).toBeVisible();
+  }
+});
