@@ -142,3 +142,38 @@ test("project content works with JavaScript disabled at 320px", async ({
   ).toBe(true);
   await context.close();
 });
+
+test("web intro waits until the reader reaches the project cards", async ({
+  page,
+}) => {
+  await page.goto("/#experience");
+  await page.waitForFunction(() => window.SwarmIntro?.running === false);
+  await page.evaluate(() => {
+    const card = document.querySelector<HTMLElement>(".project-card")!;
+    const top = window.scrollY + card.getBoundingClientRect().top;
+    window.scrollTo(0, top - innerHeight + card.offsetHeight * 0.35);
+  });
+  await page.waitForTimeout(600);
+  await expect(page.locator(".project-grid")).toHaveAttribute(
+    "data-web-state",
+    "idle",
+  );
+  await expect(page.locator(".project-card").first()).not.toHaveAttribute(
+    "data-web-revealed",
+    "true",
+  );
+  await page.evaluate(() => {
+    const card = document.querySelector<HTMLElement>(".project-card")!;
+    window.scrollTo(
+      0,
+      window.scrollY + card.getBoundingClientRect().top - innerHeight * 0.3,
+    );
+  });
+  await webStarted(page);
+  await expect(page.locator(".project-grid")).toHaveAttribute(
+    "data-web-state",
+    "complete",
+    { timeout: 15000 },
+  );
+  await restored(page);
+});

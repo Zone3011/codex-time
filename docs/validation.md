@@ -96,3 +96,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Added activeRoot ownership and ready/end events to the shared engine. Projects wait for the header intro, use the same single engine/canvas, and cancel their own run on continued scroll, resize, focus, reduced motion or hidden tabs. Native scrolling remains available. Engine types are centralized in src/types/swarm.d.ts.
 - Engine syntax, lint, typecheck and build passed. Twenty-six Edge browser tests passed, including actual project web-mode canvas/cleanup, one-time reveal, native scroll cancellation, live reduced-motion restoration, mobile card encounters and 320px no-JavaScript content. Existing header and book behavior remained passing.
 - Reviewed desktop/mobile project snapshots and an in-flight thread-pull screenshot. No physical-device or additional-browser verification. No dependencies/environment variables added. Local feature branch feat/project-web-reveal; no push/deployment.
+
+## On-arrival web trigger and compact book
+
+- Tightened the project encounter trigger from 25% to 75% visibility, with the card center in the reading area and a fresh geometry check at run time. Pending events cannot launch the reveal while the reader is still above the section. Increased scroll-settling debounce to 180ms and ignore queued observer entries for already-revealed cards.
+- Reduced the book reader from a 1100px cap to 900px, pages from a 740px to 620px minimum, and tightened card, type, gallery and desk spacing. Paper, tape, company colors, four pages and automatic/manual turns are preserved.
+- Lint, typecheck and production build passed. Twenty-seven Edge tests passed; the new regression holds the cards at only 35% visibility and verifies no intro, then scrolls them into the reading area and verifies the real web-mode reveal runs and restores cleanly.
+- Reviewed compact desktop and mobile book screenshots. No physical-device or other-browser verification. No environment variables or dependency changes. The owner requested pushing the current project updates to the existing GitHub remote.

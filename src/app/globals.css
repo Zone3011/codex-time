@@ -1713,3 +1713,140 @@ main {
 .projects-intro h2 em {
   margin-left: 0.09em;
 }
+/* A more compact book, with the same paper, tape and company colors. */
+.book-desk {
+  max-width: 1060px;
+  margin-inline: auto;
+  padding: 64px 32px 26px;
+}
+.desk-scribble {
+  top: 18px;
+  font-size: 14px;
+}
+.memory-reader {
+  max-width: 900px;
+}
+.company-spread .company-memory {
+  min-height: 620px;
+  padding: 22px 27px 18px;
+}
+.paper-running-head {
+  padding-bottom: 14px;
+  margin-bottom: 8px;
+}
+.company-card {
+  min-height: 84px;
+  padding: 14px;
+  margin-bottom: 18px;
+  gap: 13px;
+}
+.company-mark {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  font-size: 29px;
+}
+.company-card h3 {
+  font-size: 20px;
+}
+.memory-hfiles .company-card h3 {
+  font-size: 28px;
+}
+.role-note {
+  min-height: 82px;
+  margin-bottom: 12px;
+}
+.role-note h4 {
+  font-size: 25px;
+}
+.role-underline {
+  margin-top: 9px;
+}
+.summary-scrap {
+  padding: 17px 18px 14px;
+  margin-bottom: 16px;
+}
+.summary-scrap p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.handwritten {
+  font-size: 11px;
+}
+.memory-bottom {
+  margin-bottom: 16px;
+}
+.mini-note p {
+  font-size: 12px;
+  line-height: 1.45;
+}
+.pencil-lines {
+  height: 9px;
+  margin-top: 8px;
+}
+.company-stamp {
+  flex-basis: 66px;
+  width: 66px;
+  height: 66px;
+}
+.company-stamp b {
+  font-size: 24px;
+}
+.paper-footer {
+  padding-top: 12px;
+}
+.gallery-heading {
+  margin-bottom: 20px;
+}
+.gallery-heading h3 {
+  font-size: 25px;
+}
+.memory-gallery {
+  grid-template-rows: 125px 145px;
+  gap: 14px 12px;
+}
+.gallery-scribble {
+  margin-top: 22px;
+  margin-bottom: 18px;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .book-desk {
+    padding: 58px 12px 22px;
+  }
+  .desk-scribble {
+    font-size: 13px;
+  }
+  .company-spread .company-memory {
+    min-height: 620px;
+    padding: 22px 20px 18px;
+  }
+  .company-card {
+    padding: 14px 12px;
+  }
+  .company-card h3 {
+    font-size: 21px;
+  }
+  .role-note h4 {
+    font-size: 25px;
+  }
+  .gallery-heading h3 {
+    font-size: 24px;
+  }
+  .memory-gallery {
+    grid-template-rows: 125px 145px;
+    gap: 14px 10px;
+  }
+}
+@media (max-width: 360px) {
+  .company-spread .company-memory {
+    padding-inline: 16px;
+  }
+  .company-card h3 {
+    font-size: 19px;
+  }
+  .company-card {
+    gap: 9px;
+  }
+}

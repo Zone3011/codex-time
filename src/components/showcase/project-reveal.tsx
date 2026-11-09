@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { useMotionEnabled } from "./motion-settings";
@@ -29,10 +29,22 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
       visible.delete(card);
       observer.unobserve(card);
     };
+    const hasArrived = (card: HTMLElement) => {
+      const box = card.getBoundingClientRect();
+      const shown = Math.max(
+        0,
+        Math.min(box.bottom, innerHeight) - Math.max(box.top, 0),
+      );
+      return (
+        box.height > 0 &&
+        shown / box.height >= 0.75 &&
+        box.top + box.height / 2 <= innerHeight * 0.78
+      );
+    };
     const schedule = () => {
       clearTimeout(timer);
       if (!disposed && visible.size && motion && !document.hidden)
-        timer = setTimeout(start, 140);
+        timer = setTimeout(start, 180);
     };
     const start = () => {
       const engine = window.SwarmIntro;
@@ -46,7 +58,10 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
       )
         return;
       const batch = cards.filter(
-        (card) => visible.has(card) && card.dataset.webRevealed !== "true",
+        (card) =>
+          visible.has(card) &&
+          card.dataset.webRevealed !== "true" &&
+          hasArrived(card),
       );
       if (!batch.length) return;
       // Only the visible, unplayed cards belong to this run. Card contents stay intact.
@@ -90,14 +105,18 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
       (entries) => {
         entries.forEach((entry) => {
           const card = entry.target as HTMLElement;
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          if (card.dataset.webRevealed === "true") {
+            visible.delete(card);
+            return;
+          }
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.75) {
             if (!motion) markSeen(card);
             else visible.add(card);
           } else visible.delete(card);
         });
         schedule();
       },
-      { threshold: [0, 0.25, 0.5] },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] },
     );
     cards.forEach((card) => {
       if (card.dataset.webRevealed !== "true") observer.observe(card);
