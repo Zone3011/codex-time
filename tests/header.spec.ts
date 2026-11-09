@@ -194,39 +194,47 @@ test("successive refreshes vary entrance, origin, order, and ending at 3x", asyn
   }
 });
 
-test("swarm builds the identity before assembling the vector illustration", async ({
+test("whole-page ordering can start below navigation or at the top", async ({
   page,
 }) => {
   await page.goto("/");
   await started(page);
-  await page.waitForFunction(
-    () =>
-      Array.from(
-        document.querySelectorAll<HTMLElement>(".opening-title .sw-w span"),
-      ).filter((el) => el.style.visibility === "visible").length >= 3,
-  );
-  await expect(page.locator(".art-piece svg.sw-hide-media")).toHaveCount(7);
-  await expect(
-    page.locator(".art-piece svg:not(.sw-hide-media)").first(),
-  ).toBeVisible({ timeout: 15000 });
-  expect(
-    await page
-      .locator(".opening-title .sw-w span")
-      .evaluateAll((elements) =>
-        elements.every(
-          (el) => (el as HTMLElement).style.visibility === "visible",
-        ),
-      ),
-  ).toBe(true);
-  await page.screenshot({ path: "test-results/swarm-vector-build.png" });
-  await page.keyboard.press("Escape");
-  await clean(page);
-  await expect(
-    page.getByRole("figure", { name: /Original illustration/ }),
-  ).toBeVisible();
-  await expect(page.locator(".art-ribbon svg")).toBeVisible();
+  for (const order of ["up", "down"]) {
+    await page.evaluate((direction) => {
+      window.SwarmIntro?.skip();
+      void window.SwarmIntro?.play({
+        mode: "swarm",
+        vibe: "classic",
+        random: true,
+        origin: "center",
+        order: direction,
+        cursors: 3,
+        choreography: false,
+        fixedCursors: true,
+        readableTyping: true,
+        speed: 3,
+        entrance: "fan",
+        exit: "scatter",
+        ui: false,
+        root: document.querySelector<HTMLElement>(".site-header")!,
+        logo: "[data-swarm-logo]",
+      });
+    }, order);
+    await started(page);
+    await expect(page.locator(".sw-sel").first()).toBeVisible();
+    const selection = await page.locator(".sw-sel").first().boundingBox();
+    expect(selection).not.toBeNull();
+    if (order === "up") {
+      expect(selection!.y).toBeGreaterThan(300);
+      await expect(page.locator(".header-inner")).toHaveClass(/sw-hide-box/);
+      await page.screenshot({ path: "test-results/random-bottom-start.png" });
+    } else {
+      expect(selection!.y).toBeLessThan(250);
+    }
+    await page.keyboard.press("Escape");
+    await clean(page);
+  }
 });
-
 for (const exit of ["scatter", "sweep", "spiral"]) {
   test(`${exit} ending sends cursors away and restores the header`, async ({
     page,
@@ -244,7 +252,9 @@ for (const exit of ["scatter", "sweep", "spiral"]) {
         origin: "center",
         order: "out",
         cursors: 3,
-        choreography: true,
+        choreography: false,
+        fixedCursors: true,
+        readableTyping: true,
         speed: 3,
         entrance: "fan",
         exit: ending,

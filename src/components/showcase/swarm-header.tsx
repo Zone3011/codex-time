@@ -13,6 +13,8 @@ type SwarmApi = {
     order: string;
     cursors: number;
     choreography: boolean;
+    fixedCursors: boolean;
+    readableTyping: boolean;
     entrance: string;
     exit: string;
     speed: number;
@@ -114,7 +116,9 @@ export function SwarmHeader() {
         origin: plan.origin,
         order: plan.order,
         cursors: 3,
-        choreography: true,
+        choreography: false,
+        fixedCursors: true,
+        readableTyping: true,
         speed: 3,
         entrance: plan.entrance,
         exit: plan.exit,
@@ -141,7 +145,7 @@ export function SwarmHeader() {
         strategy="afterInteractive"
         onReady={() => setEngineReady(true)}
       />
-      <div className="header-inner" data-swarm-stage="0">
+      <div className="header-inner">
         <Link className="brand" href="/" aria-label="Nirav Patel home">
           <span className="brand-mark" data-swarm-logo aria-hidden="true">
             <svg viewBox="0 0 40 40" fill="none">
@@ -202,14 +206,13 @@ export function SwarmHeader() {
         </div>
       </div>
       <section className="opening" aria-labelledby="opening-title">
-        <div className="opening-kicker" data-swarm-stage="1">
+        <div className="opening-kicker">
           <span className="tiny-cross">+</span> HELLO, I’M NIRAV{" "}
           <span className="kicker-line" />
         </div>
         <h1
           id="opening-title"
           className="opening-title"
-          data-swarm-stage="1"
           aria-label="Nirav Patel"
         >
           <span className="name-line" data-swarm-piece>
@@ -224,7 +227,6 @@ export function SwarmHeader() {
         </h1>
         <figure
           className="vector-scene"
-          data-swarm-stage="2"
           aria-label="Original illustration of a folded N with floating creative elements"
         >
           <div className="art-piece art-backdrop" aria-hidden="true">
@@ -440,7 +442,7 @@ export function SwarmHeader() {
             </svg>
           </div>
         </figure>{" "}
-        <div className="opening-footer" data-swarm-stage="3">
+        <div className="opening-footer">
           <span data-swarm-piece>
             Personal portfolio <span className="footer-slash">/</span> A work in
             motion

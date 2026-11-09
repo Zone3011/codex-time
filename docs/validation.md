@@ -60,3 +60,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Session storage excludes the last entrance and ending as well as the previous origin/order on every refresh and replay. Blocked storage still falls back to random choices. Exit diagnostics are removed during cleanup.
 - Engine syntax, lint, typecheck, and production build passed. Fourteen Edge tests passed, including three explicit exit-branch runs and consecutive refreshes verifying different entrance/exit choices and speed 3. Full-run tests completed in approximately 6-7 seconds.
 - Desktop/mobile snapshots and exit captures generated. No physical-device or additional-browser verification. No push or deployment performed.
+
+## Whole-opening random build order
+
+- Corrected the interpretation of random start: removed navigation/name/illustration/footer phase priority from the portfolio and removed its stage attributes. The supplied engine now applies each random directional/radial/shuffled ordering across the whole opening, respecting only parent-child reveal dependencies.
+- Kept three cursors, readable headline typing, and the shorter gathering time independent of phase ordering. 3x playback and varied entrance/exit choices remain enabled.
+- Engine syntax, lint, typecheck, and production build passed. Fourteen Edge tests passed. Replaced the old navigation-first phase test with a behavior test that observes a first selection in the lower page while navigation remains hidden, then observes a top-down run selecting the upper opening. The concurrent cursors can reach the upper intro before the navigation, which the test accounts for.
+- Reviewed a screenshot of the bottom-first build and completed desktop/mobile snapshots. No physical-device or additional-browser verification. No push or deployment performed.

@@ -478,7 +478,7 @@
     var tasks = [];
     var n = Math.max(1, Math.min(8, opts.cursors | 0));
     var PL = null;   // this run's plan: where it starts, which way it builds, and a few dice rolls
-    if (opts.random !== false && !opts.choreography) n = Math.max(2, Math.min(8, n + Math.round((Math.random() - 0.5) * 4)));
+    if (opts.random !== false && !opts.choreography && !opts.fixedCursors) n = Math.max(2, Math.min(8, n + Math.round((Math.random() - 0.5) * 4)));
     var finishResolve;
     var finished = new Promise(function (res) { finishResolve = res; });
 
@@ -653,7 +653,7 @@
       var caret = mk('div', 'sw-caret');
       caret.style.background = c.color;
       rootEl.appendChild(caret);
-      var base = opts.choreography ? (t.el.closest('.opening-title') ? 180 : 80) : (t.short ? 28 : 48);
+      var base = (opts.choreography || opts.readableTyping) ? (t.el.closest('.opening-title') ? 180 : 80) : (t.short ? 28 : 48);
       placeCaret(caret, t.units[0], true);
       for (var i = 0; i < t.units.length; i++) {
         if (R.dead) break;
@@ -2890,10 +2890,10 @@
             x = lp.x + Math.cos(c.angle) * 56;
             y = lp.y + Math.sin(c.angle) * 56 * 0.8;
           }
-          return moveTo(c, x, y, opts.choreography ? 600 : 800);
+          return moveTo(c, x, y, (opts.choreography || opts.readableTyping) ? 600 : 800);
         });
       }));
-      if (PL.entrance === 'orbit') await orbit(function () { return lp; }, opts.choreography ? 420 : 800);
+      if (PL.entrance === 'orbit') await orbit(function () { return lp; }, (opts.choreography || opts.readableTyping) ? 420 : 800);
       else await sleep(180);
       if (R.dead) return finished;
       if (opts.mode === 'wireframe') await wireframeRun();
