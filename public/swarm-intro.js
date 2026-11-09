@@ -550,7 +550,10 @@
       pl.span = rnd ? rand(1.0, 1.9) : 1.3;                       // how long the web volley takes to start
       pl.strike = rnd ? pickW([['sky', 4], ['sides', 2], ['mixed', 2]]) : 'sky';
       pl.farPoint = function (p) { return { x: clampX(W - p.x + rand(-80, 80)), y: clampY(H - p.y + rand(-60, 60)) }; };
-      state.lastPlan = { start: ok, order: kind, strikes: pl.strike };
+      pl.entrance = ['orbit', 'fan', 'rally'].indexOf(opts.entrance) >= 0 ? opts.entrance : 'orbit';
+      pl.exit = ['scatter', 'sweep', 'spiral'].indexOf(opts.exit) >= 0 ? opts.exit : null;
+      pl.exitSide = Math.floor(Math.random() * 4);
+      state.lastPlan = { start: ok, order: kind, strikes: pl.strike, entrance: pl.entrance, exit: pl.exit, speed: state.speed };
       return pl;
     }
 
@@ -2778,6 +2781,8 @@
     }
 
     function cleanup() {
+      delete rootEl.dataset.phase;
+      delete rootEl.dataset.exit;
       tasks.forEach(function (t) {
         if (t.type === 'rect') t.el.classList.remove('sw-hide-box');
         else if (t.type === 'media') t.el.classList.remove('sw-hide-media');
@@ -2872,27 +2877,66 @@
 
       var lp = PL.origin;
       await Promise.all(cursors.map(function (c, i) {
-        return sleep(i * 70).then(function () {
-          return moveTo(c, lp.x + Math.cos(c.angle) * 56, lp.y + Math.sin(c.angle) * 56 * 0.8, 800);
+        return sleep(i * 55).then(function () {
+          var x, y;
+          if (PL.entrance === 'rally') {
+            x = lp.x + (i - (cursors.length - 1) / 2) * 36;
+            y = lp.y + (i % 2 ? 16 : -16);
+          } else if (PL.entrance === 'fan') {
+            var angle = -Math.PI * 0.8 + i * Math.PI * 0.6;
+            x = lp.x + Math.cos(angle) * 88;
+            y = lp.y + Math.sin(angle) * 64;
+          } else {
+            x = lp.x + Math.cos(c.angle) * 56;
+            y = lp.y + Math.sin(c.angle) * 56 * 0.8;
+          }
+          return moveTo(c, x, y, opts.choreography ? 600 : 800);
         });
       }));
-      await orbit(function () { return lp; }, 800);
+      if (PL.entrance === 'orbit') await orbit(function () { return lp; }, opts.choreography ? 420 : 800);
+      else await sleep(180);
       if (R.dead) return finished;
-
       if (opts.mode === 'wireframe') await wireframeRun();
       else await runPhase(buildTask, true);
       if (R.dead) return finished;
 
-      await Promise.all(cursors.map(function (c, i) {
-        return sleep(i * 50).then(function () {
-          var m = state.mouse;
-          return moveTo(c, m.x + Math.cos(c.angle) * 56, m.y + Math.sin(c.angle) * 56 * 0.8, 600);
-        });
-      }));
-      await orbit(function () { return state.mouse; }, 900);
-      if (R.dead) return finished;
-      cursors.forEach(function (c) { c.el.style.opacity = '0'; });
-      await sleep(400);
+      if (PL.exit) {
+        rootEl.dataset.phase = 'exit';
+        rootEl.dataset.exit = PL.exit;
+        if (PL.exit === 'spiral') {
+          var finish = { x: rand(innerWidth * 0.25, innerWidth * 0.75), y: rand(innerHeight * 0.25, innerHeight * 0.75) };
+          await Promise.all(cursors.map(function (c) { return moveTo(c, finish.x + Math.cos(c.angle) * 56, finish.y + Math.sin(c.angle) * 45, 420); }));
+          await orbit(function () { return finish; }, 480);
+        }
+        if (R.dead) return finished;
+        await Promise.all(cursors.map(function (c, i) {
+          return sleep(i * 45).then(function () {
+            if (R.dead) return;
+            var side = PL.exit === 'sweep' ? PL.exitSide : (PL.exitSide + i) % 4;
+            var x = rand(innerWidth * 0.15, innerWidth * 0.85), y = rand(innerHeight * 0.15, innerHeight * 0.85);
+            if (side === 0) y = -80;
+            else if (side === 1) x = innerWidth + 110;
+            else if (side === 2) y = innerHeight + 80;
+            else x = -110;
+            return moveTo(c, x, y, 650);
+          });
+        }));
+        if (R.dead) return finished;
+        cursors.forEach(function (c) { c.el.style.opacity = '0'; });
+        await sleep(100);
+      } else {
+        // Preserve the supplied engine's original ending for other integrations.
+        await Promise.all(cursors.map(function (c, i) {
+          return sleep(i * 50).then(function () {
+            var m = state.mouse;
+            return moveTo(c, m.x + Math.cos(c.angle) * 56, m.y + Math.sin(c.angle) * 56 * 0.8, 600);
+          });
+        }));
+        await orbit(function () { return state.mouse; }, 900);
+        if (R.dead) return finished;
+        cursors.forEach(function (c) { c.el.style.opacity = '0'; });
+        await sleep(400);
+      }
       end(true);
     } catch (err) {
       end(false);

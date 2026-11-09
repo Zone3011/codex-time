@@ -52,3 +52,11 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Preserved the actual supplied swarm engine, random non-repeating origins/orders, 2x speed, phased construction, and contact accessibility.
 - Engine syntax, lint, typecheck, and build passed. Eleven Edge behavior tests passed; the choreography test observes all seven illustration pieces hidden while the name types, then verifies illustration construction follows.
 - Reviewed desktop (1280x720), mobile (390x844), and vector-build screenshots. No physical-device or cross-browser verification. No push or deployment performed.
+
+## Faster playback and varied entrance/ending
+
+- Increased portfolio playback from 2x to 3x and shortened the initial gathering pause. Retained readable headline typing and the staged vector assembly.
+- Added orbit/fan/rally entrances and scatter/sweep/spiral endings. Endings move cursors out through viewport edges instead of always orbiting the pointer and fading in place. Spiral regroups at a random location first; sweep uses a shared random edge; scatter assigns different edges.
+- Session storage excludes the last entrance and ending as well as the previous origin/order on every refresh and replay. Blocked storage still falls back to random choices. Exit diagnostics are removed during cleanup.
+- Engine syntax, lint, typecheck, and production build passed. Fourteen Edge tests passed, including three explicit exit-branch runs and consecutive refreshes verifying different entrance/exit choices and speed 3. Full-run tests completed in approximately 6-7 seconds.
+- Desktop/mobile snapshots and exit captures generated. No physical-device or additional-browser verification. No push or deployment performed.

@@ -166,7 +166,7 @@ test("contact opens during swarm, copies email, and closes with keyboard", async
   await expect(dialog).not.toBeVisible();
 });
 
-test("successive refreshes choose different origins and build orders", async ({
+test("successive refreshes vary entrance, origin, order, and ending at 3x", async ({
   page,
 }) => {
   await page.goto("/");
@@ -184,6 +184,11 @@ test("successive refreshes choose different origins and build orders", async ({
     }));
     expect(current.saved.origin).not.toBe(previous.saved.origin);
     expect(current.saved.order).not.toBe(previous.saved.order);
+    expect(current.saved.entrance).not.toBe(previous.saved.entrance);
+    expect(current.saved.exit).not.toBe(previous.saved.exit);
+    expect(current.actual?.entrance).toBe(current.saved.entrance);
+    expect(current.actual?.exit).toBe(current.saved.exit);
+    expect(current.actual?.speed).toBe(3);
     expect(current.actual?.start).not.toBe(previous.actual?.start);
     previous = current;
   }
@@ -221,3 +226,45 @@ test("swarm builds the identity before assembling the vector illustration", asyn
   ).toBeVisible();
   await expect(page.locator(".art-ribbon svg")).toBeVisible();
 });
+
+for (const exit of ["scatter", "sweep", "spiral"]) {
+  test(`${exit} ending sends cursors away and restores the header`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.goto("/");
+    await started(page);
+    await page.evaluate((ending) => {
+      window.SwarmIntro?.skip();
+      void window.SwarmIntro?.play({
+        mode: "swarm",
+        vibe: "classic",
+        random: true,
+        origin: "center",
+        order: "out",
+        cursors: 3,
+        choreography: true,
+        speed: 3,
+        entrance: "fan",
+        exit: ending,
+        ui: false,
+        root: document.querySelector<HTMLElement>(".site-header")!,
+        logo: "[data-swarm-logo]",
+      });
+    }, exit);
+    await started(page);
+    await page.waitForFunction(
+      () =>
+        document.querySelector<HTMLElement>("#sw-root")?.dataset.phase ===
+        "exit",
+    );
+    expect(await page.locator("#sw-root").getAttribute("data-exit")).toBe(exit);
+    await page.screenshot({ path: `test-results/exit-${exit}.png` });
+    await clean(page);
+    await expect(
+      page.getByRole("heading", { name: "Nirav Patel" }),
+    ).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+}

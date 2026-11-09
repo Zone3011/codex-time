@@ -13,6 +13,8 @@ type SwarmApi = {
     order: string;
     cursors: number;
     choreography: boolean;
+    entrance: string;
+    exit: string;
     speed: number;
     ui: boolean;
     root: HTMLElement;
@@ -20,7 +22,14 @@ type SwarmApi = {
   }) => Promise<void>;
   skip: () => void;
   running: boolean;
-  lastPlan: { start: string; order: string; strikes: string } | null;
+  lastPlan: {
+    start: string;
+    order: string;
+    strikes: string;
+    entrance: string;
+    exit: string;
+    speed: number;
+  } | null;
 };
 declare global {
   interface Window {
@@ -41,7 +50,12 @@ function nextIntroPlan() {
     "spin",
     "shuffle",
   ];
-  let previous: { origin?: string; order?: string } = {};
+  let previous: {
+    origin?: string;
+    order?: string;
+    entrance?: string;
+    exit?: string;
+  } = {};
   try {
     previous = JSON.parse(sessionStorage.getItem("nirav-intro-plan") || "{}");
   } catch {
@@ -54,6 +68,8 @@ function nextIntroPlan() {
   const plan = {
     origin: choose(origins, previous?.origin),
     order: choose(orders, previous?.order),
+    entrance: choose(["orbit", "fan", "rally"], previous?.entrance),
+    exit: choose(["scatter", "sweep", "spiral"], previous?.exit),
   };
   try {
     sessionStorage.setItem("nirav-intro-plan", JSON.stringify(plan));
@@ -99,7 +115,9 @@ export function SwarmHeader() {
         order: plan.order,
         cursors: 3,
         choreography: true,
-        speed: 2,
+        speed: 3,
+        entrance: plan.entrance,
+        exit: plan.exit,
         ui: false,
         root: element,
         logo: "[data-swarm-logo]",
