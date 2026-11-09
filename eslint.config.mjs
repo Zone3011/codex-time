@@ -5,6 +5,7 @@ export default defineConfig([
   ...nextVitals,
   ...nextTs,
   globalIgnores([
+    "public/swarm-intro.js", // Supplied standalone ES2017 engine; syntax and behavior checked separately.
     ".next/**",
     "out/**",
     "next-env.d.ts",

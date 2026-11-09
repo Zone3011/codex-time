@@ -21,3 +21,11 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Preserved the randomized 2x swarm, direct email, live reduced motion, pause, and Escape cleanup.
 - Lint, typecheck, and production build passed. Eight Edge browser tests passed, including keyboard focus/Escape and 320px phone overflow. Reviewed 1280px desktop and 390px mobile screenshots.
 - No physical-device or additional-browser verification. No push or deployment performed for this revision.
+
+## Supplied swarm engine integration
+
+- Replaced the simplified Web Animations entrance with the owner's supplied swarm-intro.js. Configured swarm/classic, random origin and order, speed 2, six base cursors, and no demo control bar.
+- Preserved the original cursor selections and actual character/word typing. Added Replay intro. Native scrolling stays enabled; source imports explicitly use UTF-8.
+- Pause, Escape, live reduced motion, resize, hidden tab, and unmount skip the intro and restore the content. Motion/replay controls are excluded from DOM wrapping.
+- Engine syntax, lint, typecheck, and build passed. Eight Edge tests passed against the actual engine; tests require running cursors, wrapped text, selection boxes, completion cleanup, replay, keyboard skip, live reduced motion, and no-JavaScript content. Reviewed a screenshot during text construction and desktop/mobile finished states.
+- Only swarm mode is integrated and verified; the supplied engine's other modes are not exercised. No physical-device or cross-browser verification. No push/deployment performed.
