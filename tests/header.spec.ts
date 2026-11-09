@@ -47,3 +47,18 @@ test("desktop and mobile screenshots", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: "test-results/header-mobile.png" });
 });
+
+test("Escape clears swarm and keyboard reaches email", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".swarm-layer")).toHaveCount(0);
+  await page.getByRole("link", { name: /Let’s talk/ }).focus();
+  await expect(page.getByRole("link", { name: /Let’s talk/ })).toBeFocused();
+});
+
+test("opening fits a narrow phone", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Nirav Patel" })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

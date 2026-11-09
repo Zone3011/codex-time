@@ -14,3 +14,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Reviewed desktop (1280x720) and mobile (390x844) end-state screenshots. No physical phone or cross-browser verification performed.
 - npm reported eight moderate dependency advisories; no forced dependency upgrades applied.
 - Feature branch push is authorized by the owner. Production merge/deployment is not part of this change.
+
+## Distinctive opening header
+
+- Replaced the small header-only layout with a full opening section, offset name typography, original SVG connected-dot N artwork, and a custom monogram.
+- Preserved the randomized 2x swarm, direct email, live reduced motion, pause, and Escape cleanup.
+- Lint, typecheck, and production build passed. Eight Edge browser tests passed, including keyboard focus/Escape and 320px phone overflow. Reviewed 1280px desktop and 390px mobile screenshots.
+- No physical-device or additional-browser verification. No push or deployment performed for this revision.
