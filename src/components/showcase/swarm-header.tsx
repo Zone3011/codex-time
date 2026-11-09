@@ -5,41 +5,6 @@ import Link from "next/link";
 import Script from "next/script";
 import { useMotionPaused, setMotionPaused } from "./motion-settings";
 
-type SwarmApi = {
-  play: (options: {
-    mode: string;
-    vibe: string;
-    random: boolean;
-    origin: string;
-    order: string;
-    cursors: number;
-    choreography: boolean;
-    fixedCursors: boolean;
-    readableTyping: boolean;
-    entrance: string;
-    exit: string;
-    speed: number;
-    ui: boolean;
-    root: HTMLElement;
-    logo: string;
-  }) => Promise<void>;
-  skip: () => void;
-  running: boolean;
-  lastPlan: {
-    start: string;
-    order: string;
-    strikes: string;
-    entrance: string;
-    exit: string;
-    speed: number;
-  } | null;
-};
-declare global {
-  interface Window {
-    SwarmIntro?: SwarmApi;
-  }
-}
-
 // Remember only the last visual choices within this tab, so refreshes cannot repeat them.
 function nextIntroPlan() {
   const origins = ["logo", "corner", "center", "edge", "piece"];

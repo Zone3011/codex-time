@@ -37,3 +37,13 @@ The accepted opening design is preserved. The new section is an original paper-a
 - Auto-turn advances every 5 seconds and loops. It runs only while the book is visible and motion is enabled, pauses on hover or focus, and resets the countdown after interaction. Use the top auto-turn button to pause/resume; global Pause motion and live reduced motion disable autoplay as well as movement.
 - Add photos under `public/company-photos/` and set each entry in the company `photos` array to include a root-relative `src`, descriptive `alt`, and `caption`. The three labeled placeholders per company are not presented as real workplace photos.
 - A shared motion store connects the existing Pause motion control to the book. Live reduced motion disables automatic turns; hiding the tab or changing layouts cleans up a pending turn. No continuous renderer, extra dependency, or environment variable was added.
+
+## Project collection
+
+Exactly three owner-supplied projects follow the book: **20 Ways to See the Same Thing** (a WordPress project with 20 themes), **Creaup** (a web scraper collecting data from other websites), and **Sterling** (a WordPress website). Other commercial WordPress work is mentioned below the cards. No unprovided client results, dates, URLs, or technology stacks are invented.
+
+Content lives in `src/content/projects.ts`. The three original SVG covers are explicitly illustrative; add `imageSrc` and `imageAlt` for real screenshots under `public/`, and `href` when a project URL is available.
+
+The supplied engine's `web` mode pulls whole cards into place with threads when the reader encounters them. Desktop reveals visible cards together; mobile reveals cards as they enter the viewport. A passive scroll listener waits for scrolling to settle, and further scrolling/resize/reduced motion/hidden tabs stops the effect and restores content. Each card runs once. Card contents are excluded from engine DOM wrapping. Server-rendered cards work without JavaScript or a successful engine load.
+
+The one shared engine exposes `activeRoot` and ready/end events so the project reveal waits for the header intro rather than interrupting it. There are no extra continuous render loops or dependencies. Engine API types live in `src/types/swarm.d.ts`. No environment variables are required.

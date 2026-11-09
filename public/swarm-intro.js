@@ -471,7 +471,7 @@
   }
 
   async function runIntro(opts) {
-    var R = { dead: false, skip: null };
+    var R = { dead: false, skip: null, host: opts.root || document.body };
     current = R;
     var rootEl = ensureRoot();
     var cursors = [];
@@ -2804,6 +2804,7 @@
       setUI(false);
       if (completed && typeof opts.onDone === 'function') { try { opts.onDone(); } catch (e) { /* ignore */ } }
       finishResolve();
+      global.dispatchEvent(new Event('swarm:intro-end'));
     }
     R.skip = function () { end(false); };
 
@@ -3032,6 +3033,7 @@
     skip: function () { if (current) current.skip(); },
     setSpeed: function (s) { state.speed = s; paintUI(); },
     get running() { return !!current; },
+    get activeRoot() { return current ? current.host : null; },
     get lastPlan() { return state.lastPlan || null; }
   };
 
@@ -3039,6 +3041,7 @@
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) current.skip(); });
 
   global.SwarmIntro = api;
+  global.dispatchEvent(new Event('swarm:intro-ready'));
 
   // <script src="swarm-intro.js" data-auto data-cursors="6" data-speed="1.5" data-ui="false">
   var me = document.currentScript;
