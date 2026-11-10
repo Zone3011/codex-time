@@ -133,3 +133,9 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Increased the scroll depth from 48 to 220 pixels per normalized viewport travel. The foreground note tilts with scroll while the orbit, spark and dot move at opposing depths; a large background hello adds a slow secondary layer. Reversing native scroll reverses all layers.
 - Extended the behavior test to verify more than 40px of relative movement between the foreground note and orbit over 200px of scroll. Reduced-motion cleanup, no-JavaScript mobile fallback and navigation remain passing.
 - Lint, typecheck, build and all 31 Edge tests passed. Reviewed an active-scroll frame and static desktop composition; no physical-device or other-browser verification.
+
+## Wait for the reader before middle-section animations
+
+- Projects now settle for 300ms at the screen center and run at 1.5x instead of 3x. Interrupted runs no longer mark cards complete, so returning to their level can show the intro again. Completed runs still play once.
+- Skills wait for their centers to enter the middle reading band and for 300ms of settled scroll. Swings last 1.1 seconds with 180ms stagger; leaving the band cancels unfinished swings and permits a retry. Geometry uses stable layout positions so the swing itself cannot retrigger visibility changes.
+- Lint, typecheck, production build and all 31 Edge tests passed. Extended regressions cover below-level skill inactivity, retry after interruption, completion without replay, and project retry after scroll cancellation. No physical-device or other-browser verification.

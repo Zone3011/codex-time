@@ -51,7 +51,7 @@ The one shared engine exposes `activeRoot` and ready/end events so the project r
 
 ## Keychain toolkit
 
-The skills section follows the projects, with six owner-confirmed skills in src/content/toolkit.ts. CSS metal rings and acrylic-style tags match the existing palette; the short paragraph sits on the right on desktop and above the tags on mobile. IntersectionObserver starts a one-time staggered WAAPI swing when each tag reaches 60% visibility. Shared pause/reduced motion, hidden-tab cancellation and unmount cleanup are supported. Server-rendered cards remain readable without JavaScript. No dependencies or environment variables added.
+The skills section follows the projects, with six owner-confirmed skills in src/content/toolkit.ts. CSS metal rings and acrylic-style tags match the existing palette; the short paragraph sits on the right on desktop and above the tags on mobile. Each tag waits until its center reaches the middle reading band and scrolling settles for 300ms before a staggered 1.1-second swing. Interrupted swings can retry; completed swings play once. Shared pause/reduced motion, hidden-tab cancellation and unmount cleanup are supported. Server-rendered cards remain readable without JavaScript. No dependencies or environment variables added.
 
 ## Closing and footer
 

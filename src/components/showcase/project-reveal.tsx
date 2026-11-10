@@ -16,12 +16,16 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
     const visible = new Set<HTMLElement>();
     let disposed = false;
     let running = false;
+    let interrupted = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let startedAtScroll = 0;
     host.dataset.webState = "idle";
 
     const stopOwnIntro = () => {
-      if (window.SwarmIntro?.activeRoot === host) window.SwarmIntro.skip();
+      if (window.SwarmIntro?.activeRoot === host) {
+        interrupted = true;
+        window.SwarmIntro.skip();
+      }
     };
     const markSeen = (card: HTMLElement) => {
       card.dataset.webRevealed = "true";
@@ -45,7 +49,7 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
     const schedule = () => {
       clearTimeout(timer);
       if (!disposed && visible.size && motion && !document.hidden)
-        timer = setTimeout(start, 180);
+        timer = setTimeout(start, 300);
     };
     const start = () => {
       const engine = window.SwarmIntro;
@@ -70,6 +74,7 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
         card.toggleAttribute("data-swarm-ignore", !batch.includes(card)),
       );
       running = true;
+      interrupted = false;
       startedAtScroll = window.scrollY;
       host.dataset.webState = "running";
       void engine
@@ -85,14 +90,14 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
           readableTyping: true,
           entrance: "fan",
           exit: "scatter",
-          speed: 3,
+          speed: 1.5,
           ui: false,
           root: host,
           logo: "[data-project-card]",
         })
         .then(() => {
           if (disposed) return;
-          batch.forEach(markSeen);
+          if (!interrupted) batch.forEach(markSeen);
           running = false;
           host.dataset.webState = cards.every(
             (card) => card.dataset.webRevealed === "true",

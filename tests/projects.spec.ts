@@ -97,6 +97,16 @@ test("native scrolling cancels a running web reveal without locking the page", a
   await page.evaluate(() => window.scrollBy(0, -120));
   await restored(page);
   expect(await page.evaluate(() => window.scrollY)).toBeLessThan(before);
+  await expect(page.locator(".project-card").first()).not.toHaveAttribute(
+    "data-web-revealed",
+    "true",
+  );
+  await webStarted(page);
+  await expect(page.locator(".project-grid")).toHaveAttribute(
+    "data-web-state",
+    "complete",
+    { timeout: 15000 },
+  );
 });
 
 test("mobile cards each reveal when encountered", async ({ page }) => {

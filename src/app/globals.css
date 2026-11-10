@@ -1893,6 +1893,7 @@ main {
   color: #777387;
 }
 .skills-keychains {
+  position: relative;
   grid-column: 1;
   grid-row: 1;
   list-style: none;

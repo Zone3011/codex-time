@@ -6,7 +6,16 @@ test("keychains arrive on scroll once and reduced motion clears a live swing", a
   await page.goto("/");
   const cards = page.locator(".skill-keychain");
   await expect(cards.first()).not.toHaveAttribute("data-arrived", "true");
-  await page.locator("#skills").scrollIntoViewIfNeeded();
+  await cards.first().evaluate((card) => {
+    const box = card.getBoundingClientRect();
+    window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight * 0.8);
+  });
+  await page.waitForTimeout(500);
+  await expect(cards.first()).not.toHaveAttribute("data-arrived", "true");
+  await cards.first().evaluate((card) => {
+    const box = card.getBoundingClientRect();
+    window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight / 2);
+  });
   await expect(cards.first()).toHaveAttribute("data-arrived", "true");
   await page.waitForFunction(
     () => document.querySelector(".skill-keychain")!.getAnimations().length > 0,
@@ -20,7 +29,18 @@ test("keychains arrive on scroll once and reduced motion clears a live swing", a
     )
     .toBe(0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.waitForTimeout(150);
+  await expect
+    .poll(() => cards.first().evaluate((node) => node.getAnimations().length))
+    .toBeGreaterThan(0);
+  await expect
+    .poll(() => cards.first().evaluate((node) => node.getAnimations().length))
+    .toBe(0);
+  await page.evaluate(() => window.scrollBy(0, -400));
+  await cards.first().evaluate((card) => {
+    const box = card.getBoundingClientRect();
+    window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight / 2);
+  });
+  await page.waitForTimeout(450);
   expect(
     await cards.first().evaluate((node) => node.getAnimations().length),
   ).toBe(0);
@@ -38,7 +58,14 @@ test("mobile toolkit stays readable with JavaScript disabled", async ({
   });
   const page = await context.newPage();
   await page.goto("/#skills");
-  for (const name of ["WordPress", "PHP", "Flutter", ".NET", "Next.js", "SEO"]) {
+  for (const name of [
+    "WordPress",
+    "PHP",
+    "Flutter",
+    ".NET",
+    "Next.js",
+    "SEO",
+  ]) {
     await expect(
       page.locator("#skills").getByRole("heading", { name, exact: true }),
     ).toBeVisible();
