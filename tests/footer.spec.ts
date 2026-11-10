@@ -15,7 +15,16 @@ test("closing parallax follows scroll and resets for reduced motion", async ({
   const before = await panel.evaluate((node) =>
     (node as HTMLElement).style.getPropertyValue("--closing-drift"),
   );
-  await page.evaluate(() => window.scrollBy(0, -100));
+  const relativeDepth = () =>
+    panel.evaluate((node) => {
+      const note = node.querySelector(".closing-note")!.getBoundingClientRect();
+      const ring = node
+        .querySelector(".closing-orbit-line")!
+        .getBoundingClientRect();
+      return note.top - ring.top;
+    });
+  const depthBefore = await relativeDepth();
+  await page.evaluate(() => window.scrollBy(0, -200));
   await expect
     .poll(() =>
       panel.evaluate((node) =>
@@ -23,6 +32,10 @@ test("closing parallax follows scroll and resets for reduced motion", async ({
       ),
     )
     .not.toBe(before);
+  await expect
+    .poll(async () => Math.abs((await relativeDepth()) - depthBefore))
+    .toBeGreaterThan(40);
+  await page.screenshot({ path: "test-results/closing-parallax-active.png" });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect
     .poll(() =>

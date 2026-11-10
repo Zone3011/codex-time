@@ -8,6 +8,9 @@ export function Closing() {
       aria-labelledby="closing-heading"
     >
       <ClosingParallax>
+        <span className="closing-background-word" aria-hidden="true">
+          hello.
+        </span>
         <div className="closing-orbit" aria-hidden="true">
           <span className="closing-orbit-line" />
           <span className="closing-spark">✳</span>

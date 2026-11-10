@@ -56,3 +56,5 @@ The skills section follows the projects, with six owner-confirmed skills in src/
 ## Closing and footer
 
 A compact hello panel follows the toolkit, with original CSS paper/orbit details. Scroll-driven decorative transforms use one scheduled frame per scroll update while visible; there is no continuous renderer. Shared motion settings, reduced motion, hidden tabs and cleanup are respected. The footer provides the public email and native back-to-top navigation. No dependencies or environment variables added.
+
+The closing panel uses separate scroll depths for its note, orbit ring, spark, dot and oversized background word. The foreground note also tilts with scroll; reversing scroll reverses the effect. Motion remains optional through the existing global controls.

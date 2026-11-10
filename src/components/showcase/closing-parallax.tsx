@@ -19,7 +19,8 @@ export function ClosingParallax({ children }: { children: ReactNode }) {
         -1,
         Math.min(1, (box.top + box.height / 2 - innerHeight / 2) / innerHeight),
       );
-      root.style.setProperty("--closing-drift", `${progress * 48}px`);
+      root.style.setProperty("--closing-drift", `${progress * 220}px`);
+      root.style.setProperty("--closing-tilt", `${progress * 18}deg`);
     };
     const schedule = () => {
       if (!frame && visible && !document.hidden)
@@ -46,6 +47,7 @@ export function ClosingParallax({ children }: { children: ReactNode }) {
       window.removeEventListener("resize", schedule);
       document.removeEventListener("visibilitychange", visibility);
       root.style.removeProperty("--closing-drift");
+      root.style.removeProperty("--closing-tilt");
     };
   }, [motion]);
   return (

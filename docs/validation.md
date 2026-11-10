@@ -127,3 +127,9 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Added a compact lavender hello panel with an original violet note, pink spark and orange dot, followed by direct email and native back-to-top links. Added the home anchor to the existing header.
 - Decorative parallax is scroll-driven and schedules frames only on updates while visible, honoring shared pause, live reduced motion and hidden tabs; observers/listeners/frames are cleaned up. Static contact content remains server-rendered.
 - Lint, typecheck, build and all 31 Edge browser tests passed. New tests verify scroll-driven movement, live reduced-motion reset, back-to-top behavior and 320px no-JavaScript email/layout. Reviewed desktop/mobile screenshots; no physical-device or other-browser verification. No dependencies or environment variables added.
+
+## Stronger layered closing parallax
+
+- Increased the scroll depth from 48 to 220 pixels per normalized viewport travel. The foreground note tilts with scroll while the orbit, spark and dot move at opposing depths; a large background hello adds a slow secondary layer. Reversing native scroll reverses all layers.
+- Extended the behavior test to verify more than 40px of relative movement between the foreground note and orbit over 200px of scroll. Reduced-motion cleanup, no-JavaScript mobile fallback and navigation remain passing.
+- Lint, typecheck, build and all 31 Edge tests passed. Reviewed an active-scroll frame and static desktop composition; no physical-device or other-browser verification.
