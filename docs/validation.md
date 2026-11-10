@@ -139,3 +139,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Projects now settle for 300ms at the screen center and run at 1.5x instead of 3x. Interrupted runs no longer mark cards complete, so returning to their level can show the intro again. Completed runs still play once.
 - Skills wait for their centers to enter the middle reading band and for 300ms of settled scroll. Swings last 1.1 seconds with 180ms stagger; leaving the band cancels unfinished swings and permits a retry. Geometry uses stable layout positions so the swing itself cannot retrigger visibility changes.
 - Lint, typecheck, production build and all 31 Edge tests passed. Extended regressions cover below-level skill inactivity, retry after interruption, completion without replay, and project retry after scroll cancellation. No physical-device or other-browser verification.
+
+## Four theme transition previews
+
+- Added a floating, keyboard-accessible Theme effects comparison control with Ink, Glitch, Ripple and diagonal Sweep. Each Preview dark/light action switches the actual page theme with native snapshot clip-path animation; buttons prevent overlapping transitions. Light mode remains the refresh default while the owner selects a variant.
+- Added dark surfaces/type treatment while retaining paper, company colors and acrylic card materials. Native View Transition fallback switches immediately when unsupported, globally paused or reduced-motion; active transitions clean up on motion changes, hidden tabs and unmount. No new dependencies or environment variables.
+- Lint, typecheck and production build passed. The full 36-test Edge suite passed; after refining the diagonal sweep and smoothing the ink edge, the production build and all five targeted theme tests passed again. Coverage checks actual snapshot animations in both directions for every style, cleanup, reduced-motion/no-API fallback, and 320px width.
+- Reviewed dark desktop, mobile, header and active transition screenshots. No physical-device or additional-browser verification. These are original CSS/WAAPI transition variants, not copied reference source or a WebGL fluid simulation.

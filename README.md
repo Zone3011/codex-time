@@ -58,3 +58,9 @@ The skills section follows the projects, with six owner-confirmed skills in src/
 A compact hello panel follows the toolkit, with original CSS paper/orbit details. Scroll-driven decorative transforms use one scheduled frame per scroll update while visible; there is no continuous renderer. Shared motion settings, reduced motion, hidden tabs and cleanup are respected. The footer provides the public email and native back-to-top navigation. No dependencies or environment variables added.
 
 The closing panel uses separate scroll depths for its note, orbit ring, spark, dot and oversized background word. The foreground note also tilts with scroll; reversing scroll reverses the effect. Motion remains optional through the existing global controls.
+
+## Theme transition comparison
+
+The floating Theme effects control offers four whole-page light/dark prototypes: Ink (irregular radial bloom), Glitch (staggered digital strips), Ripple (circular reveal from the preview button) and Sweep (diagonal wipe). Choose a style, then Preview dark/light; the choice stays available while browsing. This is a comparison control pending the owner's selection, not four simultaneous animations.
+
+Transitions use the native View Transition snapshots and WAAPI clip paths, with no new renderer or dependency. Reduced motion, global pause, hidden tabs and unsupported browsers skip movement and keep theme switching usable. The preview resets to light on refresh. Paper and acrylic materials retain their colors. Implementation reference: [MDN startViewTransition](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition).

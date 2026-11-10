@@ -3,6 +3,7 @@ import { ExperienceBook } from "@/components/showcase/experience-book";
 import { Projects } from "@/components/showcase/projects";
 import { Skills } from "@/components/showcase/skills";
 import { Closing, Footer } from "@/components/showcase/footer";
+import { ThemeLab } from "@/components/showcase/theme-lab";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Closing />
       </main>
       <Footer />
+      <ThemeLab />
     </>
   );
 }
