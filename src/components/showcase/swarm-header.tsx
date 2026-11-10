@@ -105,7 +105,12 @@ export function SwarmHeader() {
     };
   }, [engineReady, paused, replay]);
   return (
-    <header ref={header} className="site-header" aria-label="Main header">
+    <header
+      id="home"
+      ref={header}
+      className="site-header"
+      aria-label="Main header"
+    >
       <Script
         src="/swarm-intro.js"
         strategy="afterInteractive"

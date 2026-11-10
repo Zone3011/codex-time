@@ -52,3 +52,7 @@ The one shared engine exposes `activeRoot` and ready/end events so the project r
 ## Keychain toolkit
 
 The skills section follows the projects, with six owner-confirmed skills in src/content/toolkit.ts. CSS metal rings and acrylic-style tags match the existing palette; the short paragraph sits on the right on desktop and above the tags on mobile. IntersectionObserver starts a one-time staggered WAAPI swing when each tag reaches 60% visibility. Shared pause/reduced motion, hidden-tab cancellation and unmount cleanup are supported. Server-rendered cards remain readable without JavaScript. No dependencies or environment variables added.
+
+## Closing and footer
+
+A compact hello panel follows the toolkit, with original CSS paper/orbit details. Scroll-driven decorative transforms use one scheduled frame per scroll update while visible; there is no continuous renderer. Shared motion settings, reduced motion, hidden tabs and cleanup are respected. The footer provides the public email and native back-to-top navigation. No dependencies or environment variables added.

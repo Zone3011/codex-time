@@ -121,3 +121,9 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Removed five-card horizontal offsets that crowded the SEO card against Next.js. The six keychains now preserve equal column gaps; SEO uses mint for a distinct tag. Reviewed desktop and 320px mobile screenshots.
 - Project web intro requires at least 75% visibility and the card center within 8% of viewport height of the viewport center, checked again after scroll settles. Added a regression verifying a below-center card remains idle before centering starts the real animation.
 - Lint, typecheck, production build and all 29 Edge browser tests passed. No physical-device or additional-browser verification.
+
+## Closing parallax and footer
+
+- Added a compact lavender hello panel with an original violet note, pink spark and orange dot, followed by direct email and native back-to-top links. Added the home anchor to the existing header.
+- Decorative parallax is scroll-driven and schedules frames only on updates while visible, honoring shared pause, live reduced motion and hidden tabs; observers/listeners/frames are cleaned up. Static contact content remains server-rendered.
+- Lint, typecheck, build and all 31 Edge browser tests passed. New tests verify scroll-driven movement, live reduced-motion reset, back-to-top behavior and 320px no-JavaScript email/layout. Reviewed desktop/mobile screenshots; no physical-device or other-browser verification. No dependencies or environment variables added.
