@@ -18,8 +18,8 @@ export function Skills() {
             <br />I keep <em>close.</em>
           </h2>
           <p>
-            WordPress, PHP, Flutter, .NET and Next.js are part of my toolkit.
-            From websites to app interfaces, these are the tools I work with.
+            My toolkit includes WordPress, PHP, Flutter, .NET, Next.js and SEO.
+            I work with websites, app interfaces and search optimization.
           </p>
           <span className="skills-caption">
             Different tools. Connected by code.

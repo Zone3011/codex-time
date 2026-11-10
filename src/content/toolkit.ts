@@ -14,4 +14,5 @@ export const toolkit = [
     color: "orange",
   },
   { name: "Next.js", mark: "N↗", label: "Web interfaces", color: "ink" },
+  { name: "SEO", mark: "↗", label: "Search optimization", color: "blue" },
 ] as const;

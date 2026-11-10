@@ -38,7 +38,7 @@ test("mobile toolkit stays readable with JavaScript disabled", async ({
   });
   const page = await context.newPage();
   await page.goto("/#skills");
-  for (const name of ["WordPress", "PHP", "Flutter", ".NET", "Next.js"]) {
+  for (const name of ["WordPress", "PHP", "Flutter", ".NET", "Next.js", "SEO"]) {
     await expect(
       page.locator("#skills").getByRole("heading", { name, exact: true }),
     ).toBeVisible();

@@ -110,3 +110,8 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - One-time individual scroll arrivals use transform/opacity and stagger simultaneous entries. Motion honors the shared pause store and live reduced motion; hidden tabs and unmount cancel running animations. Static server content remains readable without JavaScript.
 - Lint, typecheck and production build passed; all 29 Edge browser tests passed, including new scroll arrival, one-time replay prevention, live reduced-motion cleanup and 320px no-JavaScript coverage.
 - Reviewed desktop and 320px mobile section screenshots. No physical-device or additional-browser verification. No dependencies or environment variables added.
+
+## SEO toolkit addition
+
+- Added owner-confirmed SEO as the sixth keychain card and updated the toolkit paragraph. The mobile final-card centering rule now applies only to odd card counts, preserving a two-column six-card layout.
+- Lint, typecheck and build passed. Both targeted Edge skills tests passed, including scroll motion cleanup and all six skills without JavaScript at 320px.
