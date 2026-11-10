@@ -38,7 +38,8 @@ export function ProjectReveal({ children }: { children: ReactNode }) {
       return (
         box.height > 0 &&
         shown / box.height >= 0.75 &&
-        box.top + box.height / 2 <= innerHeight * 0.78
+        Math.abs(box.top + box.height / 2 - innerHeight / 2) <=
+          innerHeight * 0.08
       );
     };
     const schedule = () => {

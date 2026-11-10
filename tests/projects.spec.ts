@@ -1,6 +1,13 @@
 import { test, expect } from "@playwright/test";
 
 async function webStarted(page: import("@playwright/test").Page) {
+  await page
+    .locator(".project-card")
+    .first()
+    .evaluate((card) => {
+      const box = card.getBoundingClientRect();
+      window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight / 2);
+    });
   await page.waitForFunction(
     () =>
       window.SwarmIntro?.activeRoot === document.querySelector(".project-grid"),
@@ -97,7 +104,10 @@ test("mobile cards each reveal when encountered", async ({ page }) => {
   await page.goto("/#projects");
   const cards = page.locator(".project-card");
   for (let index = 0; index < 3; index++) {
-    await cards.nth(index).scrollIntoViewIfNeeded();
+    await cards.nth(index).evaluate((card) => {
+      const box = card.getBoundingClientRect();
+      window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight / 2);
+    });
     await expect(cards.nth(index)).toHaveAttribute(
       "data-web-revealed",
       "true",
@@ -162,13 +172,17 @@ test("web intro waits until the reader reaches the project cards", async ({
     "data-web-revealed",
     "true",
   );
+  // Fully visible but below the center must still wait.
   await page.evaluate(() => {
     const card = document.querySelector<HTMLElement>(".project-card")!;
-    window.scrollTo(
-      0,
-      window.scrollY + card.getBoundingClientRect().top - innerHeight * 0.3,
-    );
+    const box = card.getBoundingClientRect();
+    window.scrollTo(0, scrollY + box.top + box.height / 2 - innerHeight * 0.7);
   });
+  await page.waitForTimeout(500);
+  await expect(page.locator(".project-grid")).toHaveAttribute(
+    "data-web-state",
+    "idle",
+  );
   await webStarted(page);
   await expect(page.locator(".project-grid")).toHaveAttribute(
     "data-web-state",

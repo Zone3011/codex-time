@@ -115,3 +115,9 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 
 - Added owner-confirmed SEO as the sixth keychain card and updated the toolkit paragraph. The mobile final-card centering rule now applies only to odd card counts, preserving a two-column six-card layout.
 - Lint, typecheck and build passed. Both targeted Edge skills tests passed, including scroll motion cleanup and all six skills without JavaScript at 320px.
+
+## Six-card spacing and centered project arrival
+
+- Removed five-card horizontal offsets that crowded the SEO card against Next.js. The six keychains now preserve equal column gaps; SEO uses mint for a distinct tag. Reviewed desktop and 320px mobile screenshots.
+- Project web intro requires at least 75% visibility and the card center within 8% of viewport height of the viewport center, checked again after scroll settles. Added a regression verifying a below-center card remains idle before centering starts the real animation.
+- Lint, typecheck, production build and all 29 Edge browser tests passed. No physical-device or additional-browser verification.
