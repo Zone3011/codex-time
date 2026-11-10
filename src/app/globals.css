@@ -1850,3 +1850,230 @@ main {
     gap: 9px;
   }
 }
+
+/* Toolkit: acrylic tags, individual split rings, restrained scroll arrivals. */
+.skills-section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 110px 56px 140px;
+  border-top: 1px solid var(--line);
+}
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.skills-copy {
+  grid-column: 2;
+  grid-row: 1;
+}
+.skills-copy h2 {
+  font-family: "Space Grotesk Variable", sans-serif;
+  font-size: clamp(38px, 4.2vw, 62px);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -3px;
+  margin: 24px 0;
+}
+.skills-copy h2 em {
+  color: var(--blue);
+  font-style: normal;
+}
+.skills-copy > p:not(.section-eyebrow) {
+  max-width: 360px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #777387;
+}
+.skills-caption {
+  display: block;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #777387;
+}
+.skills-keychains {
+  grid-column: 1;
+  grid-row: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 18px;
+}
+.skill-keychain {
+  position: relative;
+  transform-origin: 50% 18px;
+  min-width: 0;
+}
+.skill-keychain:nth-child(2) {
+  margin-top: 32px;
+}
+.skill-keychain:nth-child(4) {
+  margin-left: 24px;
+  margin-right: -24px;
+}
+.skill-keychain:nth-child(5) {
+  margin-left: 24px;
+  margin-right: -24px;
+  margin-top: 24px;
+}
+.skill-hardware {
+  height: 68px;
+  position: relative;
+  z-index: 2;
+}
+.skill-ring {
+  width: 47px;
+  height: 47px;
+  border: 5px solid #d6d8e1;
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50% - 23.5px);
+  top: 0;
+  box-shadow:
+    inset 1px 1px 2px #737589,
+    1px 2px 2px #818398;
+  background: transparent;
+}
+.skill-ring::after {
+  content: "";
+  position: absolute;
+  inset: -2px 0 1px -2px;
+  border: 1px solid white;
+  border-radius: inherit;
+}
+.skill-link {
+  position: absolute;
+  height: 33px;
+  width: 11px;
+  left: calc(50% - 5.5px);
+  top: 36px;
+  border: 3px solid #c1c4cf;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px #74788c;
+}
+.skill-tag {
+  position: relative;
+  border-radius: 22px 22px 16px 16px;
+  min-height: 207px;
+  padding: 36px 18px 30px;
+  border: 1px solid #ffffff80;
+  background: var(--tag);
+  color: var(--tag-ink);
+  box-shadow:
+    inset 0 0 0 4px #ffffff28,
+    0 9px 0 -4px var(--tag-edge),
+    0 17px 25px -18px #26204180;
+}
+.skill-eyelet {
+  position: absolute;
+  top: -9px;
+  left: calc(50% - 9px);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid var(--tag-edge);
+}
+.skill-mark {
+  display: block;
+  font-family: "Space Grotesk Variable", sans-serif;
+  font-size: 39px;
+  font-weight: 600;
+  letter-spacing: -3px;
+  line-height: 1.2;
+}
+.skill-tag h3 {
+  font-size: 17px;
+  letter-spacing: -0.5px;
+  margin: 15px 0 4px;
+  font-weight: 700;
+}
+.skill-label {
+  font-size: 10px;
+  opacity: 0.8;
+}
+.skill-tag-edge {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  opacity: 0.6;
+  border-top: 1px solid currentColor;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+.skill-violet {
+  --tag: #7653ed;
+  --tag-ink: #fff;
+  --tag-edge: #5132b4;
+}
+.skill-blue {
+  --tag: #c0e2ff;
+  --tag-ink: #244b80;
+  --tag-edge: #8eb7df;
+}
+.skill-pink {
+  --tag: #f8acd8;
+  --tag-ink: #782955;
+  --tag-edge: #cc78a9;
+}
+.skill-orange {
+  --tag: #ffc68a;
+  --tag-ink: #773a16;
+  --tag-edge: #dca368;
+}
+.skill-ink {
+  --tag: #29283f;
+  --tag-ink: #fff;
+  --tag-edge: #141321;
+}
+@media (max-width: 1000px) {
+  .skills-layout {
+    gap: 36px;
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .skills-section {
+    padding: 80px 32px 100px;
+  }
+  .skill-tag {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .skills-section {
+    padding: 64px 24px 90px;
+  }
+  .skills-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+    align-items: stretch;
+  }
+  .skills-copy h2 {
+    letter-spacing: -2px;
+  }
+  .skills-keychains {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 440px;
+    width: 100%;
+    margin: auto;
+  }
+  .skill-keychain:nth-child(n) {
+    margin: 0;
+  }
+  .skill-keychain:nth-child(even) {
+    margin-top: 32px;
+  }
+  .skill-keychain:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 12px);
+    justify-self: center;
+  }
+  .skill-tag {
+    padding-left: 18px;
+  }
+}

@@ -103,3 +103,10 @@ Use Node.js >=22.13. No environment variables are required. Browser tests use po
 - Reduced the book reader from a 1100px cap to 900px, pages from a 740px to 620px minimum, and tightened card, type, gallery and desk spacing. Paper, tape, company colors, four pages and automatic/manual turns are preserved.
 - Lint, typecheck and production build passed. Twenty-seven Edge tests passed; the new regression holds the cards at only 35% visibility and verifies no intro, then scrolls them into the reading area and verifies the real web-mode reveal runs and restores cleanly.
 - Reviewed compact desktop and mobile book screenshots. No physical-device or other-browser verification. No environment variables or dependency changes. The owner requested pushing the current project updates to the existing GitHub remote.
+
+## Keychain skills section
+
+- Added WordPress, PHP, Flutter, .NET and Next.js cards after the project collection, with original CSS split rings, links and acrylic tags. No proficiency claims or unprovided experience added.
+- One-time individual scroll arrivals use transform/opacity and stagger simultaneous entries. Motion honors the shared pause store and live reduced motion; hidden tabs and unmount cancel running animations. Static server content remains readable without JavaScript.
+- Lint, typecheck and production build passed; all 29 Edge browser tests passed, including new scroll arrival, one-time replay prevention, live reduced-motion cleanup and 320px no-JavaScript coverage.
+- Reviewed desktop and 320px mobile section screenshots. No physical-device or additional-browser verification. No dependencies or environment variables added.
