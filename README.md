@@ -59,8 +59,10 @@ A compact hello panel follows the toolkit, with original CSS paper/orbit details
 
 The closing panel uses separate scroll depths for its note, orbit ring, spark, dot and oversized background word. The foreground note also tilts with scroll; reversing scroll reverses the effect. Motion remains optional through the existing global controls.
 
-## Theme transition comparison
+## Ink theme toggle
 
-The floating Theme effects control offers four whole-page light/dark prototypes: Ink (irregular radial bloom), Glitch (staggered digital strips), Ripple (circular reveal from the preview button) and Sweep (diagonal wipe). Choose a style, then Preview dark/light; the choice stays available while browsing. This is a comparison control pending the owner's selection, not four simultaneous animations.
+The selected Ink transition is available from the floating Dark mode / Light mode button. A 2.3-second native View Transition uses 17 interpolated SVG paths with smooth curved edges and five satellite ink droplets that merge into the spread. The comparison menu has been removed. Light remains the refresh default.
 
-Transitions use the native View Transition snapshots and WAAPI clip paths, with no new renderer or dependency. Reduced motion, global pause, hidden tabs and unsupported browsers skip movement and keep theme switching usable. The preview resets to light on refresh. Paper and acrylic materials retain their colors. Implementation reference: [MDN startViewTransition](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition).
+Header, book desk/pages/notes/gallery/controls, project cards, toolkit, closing panel, contact dialog and footer have coordinated light/dark colors. Company branding, photos and acrylic tag colors retain their identities. The footer reserves space for the toggle, including small screens and safe-area insets.
+
+Reduced motion, global pause, hidden tabs, resize and unsupported browsers skip or interrupt movement safely. No new dependency, renderer or environment variable. Implementation reference: [MDN startViewTransition](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition).
